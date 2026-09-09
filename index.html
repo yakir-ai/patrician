@@ -89,7 +89,13 @@ section.alt{background:var(--ink-2)}
 #thesis,#structure,#faq{overflow:hidden;position:relative}#faq .wrap{position:relative;z-index:1}.faq-media video,.faq-media img{filter:saturate(.6) brightness(.45)}.faq-media:after{background:linear-gradient(180deg,rgba(10,10,12,.95) 0%,rgba(10,10,12,.5) 30%,rgba(10,10,12,.55) 70%,rgba(10,10,12,.97) 100%),linear-gradient(90deg,rgba(10,10,12,.55),rgba(10,10,12,.2) 50%,rgba(10,10,12,.55))}
 .faq-grid{display:grid;gap:40px}@media(min-width:1000px){.faq-grid{grid-template-columns:1fr 1.4fr;gap:80px;align-items:start}.faq-head{position:sticky;top:110px}}
 .faq{max-width:none;counter-reset:q}.faq details{border-top:1px solid rgba(242,236,223,.14);padding:24px 0}.faq details:last-child{border-bottom:1px solid rgba(242,236,223,.14)}.faq summary{font-family:var(--serif);font-size:clamp(22px,2.3vw,30px);cursor:pointer;list-style:none;display:grid;grid-template-columns:44px 1fr auto;gap:16px;align-items:baseline;transition:color .3s}.faq summary:before{counter-increment:q;content:counter(q,decimal-leading-zero);font-family:var(--sans);font-size:11px;letter-spacing:.24em;color:var(--gold)}.faq summary:hover{color:var(--gold)}.faq summary::-webkit-details-marker{display:none}.faq summary:after{content:"+";color:var(--gold);font-family:var(--sans);font-weight:300;font-size:22px}.faq details[open] summary:after{content:"–"}.faq details p{color:var(--bone);margin:14px 0 0 60px;max-width:64ch;line-height:1.75;font-size:15px}#structure .wrap{position:relative;z-index:1}.str-media video,.str-media img{filter:saturate(.4) brightness(.6) contrast(1.1)}#report{overflow:hidden;position:relative}#report .wrap{position:relative;z-index:1}.rep-media video,.rep-media img{filter:saturate(.85) brightness(.5) contrast(1.08)}.rep-media:after{background:linear-gradient(90deg,rgba(10,10,12,.96) 0%,rgba(10,10,12,.86) 42%,rgba(10,10,12,.35) 100%),linear-gradient(180deg,rgba(10,10,12,.9),rgba(10,10,12,.2) 25%,rgba(10,10,12,.2) 70%,rgba(10,10,12,.96))}
-.str-media:after{background:linear-gradient(180deg,rgba(10,10,12,.9) 0%,rgba(10,10,12,.35) 30%,rgba(10,10,12,.45) 70%,rgba(10,10,12,.95) 100%),linear-gradient(90deg,rgba(10,10,12,.6),rgba(10,10,12,.15) 55%,rgba(10,10,12,.55))}.thesis-media{position:absolute;inset:0;z-index:0;background:#0b0c10}.thesis-media video,.thesis-media img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;filter:saturate(.7) brightness(.55) contrast(1.05)}.thesis-media video{opacity:0;transition:opacity 1.4s}.thesis-media video.on{opacity:1}.thesis-media:after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(10,10,12,.92) 0%,rgba(10,10,12,.72) 45%,rgba(10,10,12,.5) 100%),linear-gradient(180deg,rgba(10,10,12,.85),rgba(10,10,12,.15) 30%,rgba(10,10,12,.15) 70%,rgba(10,10,12,.9))}#thesis .wrap{position:relative;z-index:1}
+.str-media:after{background:linear-gradient(180deg,rgba(10,10,12,.9) 0%,rgba(10,10,12,.35) 30%,rgba(10,10,12,.45) 70%,rgba(10,10,12,.95) 100%),linear-gradient(90deg,rgba(10,10,12,.6),rgba(10,10,12,.15) 55%,rgba(10,10,12,.55))}.thesis-media{position:absolute;inset:0;z-index:0;background:#0b0c10}.thesis-media video,.thesis-media img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;filter:saturate(.7) brightness(.55) contrast(1.05)}.thesis-media video{opacity:0;transition:opacity 1.4s}.thesis-media video.on{opacity:1}.thesis-media:after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(10,10,12,.92) 0%,rgba(10,10,12,.72) 45%,rgba(10,10,12,.5) 100%),linear-gradient(180deg,rgba(10,10,12,.85),rgba(10,10,12,.15) 30%,rgba(10,10,12,.15) 70%,rgba(10,10,12,.9))}.gl{text-decoration:underline dotted rgba(196,164,104,.55);text-underline-offset:3px;text-decoration-thickness:1px;cursor:help;position:relative;font-style:inherit}.tip{position:relative;cursor:help}
+.gl:after,.tip:after{content:attr(data-tip);position:absolute;left:0;bottom:calc(100% + 8px);width:max-content;max-width:min(280px,70vw);background:#111114;color:var(--bone);border:1px solid rgba(196,164,104,.45);padding:9px 12px;font-family:var(--sans);font-size:12px;font-weight:400;font-style:normal;letter-spacing:.01em;line-height:1.5;text-transform:none;white-space:normal;text-align:left;z-index:60;box-shadow:0 12px 30px rgba(0,0,0,.5);opacity:0;transform:translateY(4px);pointer-events:none;transition:opacity .18s,transform .18s}
+.gl:before,.tip:before{content:"";position:absolute;left:12px;bottom:calc(100% + 3px);border:5px solid transparent;border-top-color:rgba(196,164,104,.45);opacity:0;transition:opacity .18s;pointer-events:none}
+.gl:hover:after,.gl:focus:after,.gl.open:after,.gl:hover:before,.gl:focus:before,.gl.open:before,.tip:hover:after,.tip:focus:after,.tip.open:after,.tip:hover:before,.tip:focus:before,.tip.open:before{opacity:1;transform:none}.doors,.cb,.hud,.th-ui{overflow:visible}
+.gl.r:after,.tip.r:after{left:auto;right:0}.gl.r:before,.tip.r:before{left:auto;right:12px}
+.cb .gl:after,.hud .gl:after{max-width:min(240px,60vw)}
+#thesis .wrap{position:relative;z-index:1}
 .pk-media img{object-position:68% 45%;filter:saturate(.8) brightness(.5) contrast(1.08);animation:pkdrift 48s ease-in-out infinite alternate;transform-origin:70% 40%}@keyframes pkdrift{from{transform:scale(1.04)}to{transform:scale(1.14)}}@media(prefers-reduced-motion:reduce){.pk-media img{animation:none}}
 .pk-media:after{background:linear-gradient(90deg,rgba(10,10,12,.96) 0%,rgba(10,10,12,.82) 40%,rgba(10,10,12,.3) 100%),linear-gradient(180deg,rgba(10,10,12,.85),rgba(10,10,12,.15) 25%,rgba(10,10,12,.15) 75%,rgba(10,10,12,.92))}.thesis{display:grid;gap:44px}@media(min-width:900px){.thesis{grid-template-columns:5fr 7fr;gap:80px}}
 .thesis p.big{font-family:var(--serif);font-size:clamp(26px,3.2vw,44px);line-height:1.25;font-weight:300}
@@ -242,7 +248,7 @@ footer{padding:64px clamp(20px,6vw,96px) 32px;border-top:1px solid var(--line);b
 <section class="globe-sec" id="globe-sec">
   <div class="globe-bg"><img class="base" src="https://images.pexels.com/videos/6850514/above-clouds-aerial-shot-clouds-clouds-form-6850514.jpeg?auto=compress&cs=tinysrgb&w=1600" alt=""><video id="globeVid" class="bgvid" muted loop playsinline preload="none" data-src="https://videos.pexels.com/video-files/6850514/6850514-hd_1920_1080_30fps.mp4"></video><img id="gbgA" alt=""><img id="gbgB" alt=""></div>
   <div class="wrap globe-grid">
-    <div class="rv"><div class="globe-box"><canvas id="globe" aria-label="Interactive globe"></canvas><div class="globe-hint">Drag to rotate · tap a city to fly there</div><div class="hud" id="hud" aria-live="polite"><div class="hud-top"><small id="hudRank"></small><b id="hudCity"></b><span id="hudCountry"></span></div><div class="hud-stats"><div><i>Effective tax</i><b id="hudEff" data-v="0">0%</b></div><div><i>Kept over 10 years</i><b id="hudKept" data-v="0">$0</b></div><div><i>Flight from home</i><b id="hudFly"></b></div><div><i>Net HNWI inflow 2025</i><b id="hudFlow" data-v="0"></b></div></div><div class="doors" id="hudDoors"></div><div class="hud-foot"><span id="hudNote"></span><a href="#life" class="hud-cta">A Tuesday here →</a></div></div></div></div>
+    <div class="rv"><div class="globe-box"><canvas id="globe" aria-label="Interactive globe"></canvas><div class="globe-hint">Drag to rotate · tap a city to fly there</div><div class="hud" id="hud" aria-live="polite"><div class="hud-top"><small id="hudRank"></small><b id="hudCity"></b><span id="hudCountry"></span></div><div class="hud-stats"><div><i>Effective tax</i><b id="hudEff" data-v="0">0%</b></div><div><i>Kept over 10 years</i><b id="hudKept" data-v="0">$0</b></div><div><i>Flight from home</i><b id="hudFly"></b></div><div><i>Net millionaire inflow 2025</i><b id="hudFlow" data-v="0"></b></div></div><div class="doors" id="hudDoors"></div><div class="hud-foot"><span id="hudNote"></span><a href="#life" class="hud-cta">A Tuesday here →</a></div></div></div></div>
     <div>
       <div class="eyebrow rv">01 · The map</div>
       <h2 class="rv d1" style="margin-top:20px">The world, reduced to the <em>places that matter</em>.</h2>
@@ -304,7 +310,7 @@ footer{padding:64px clamp(20px,6vw,96px) 32px;border-top:1px solid var(--line);b
           <div class="traj-head"><h5>Net worth trajectory, your top 3</h5><div class="legend" id="legend"></div></div>
           <canvas id="traj"></canvas>
         </div>
-        <p class="fine"><b>Model note.</b> Tax figures use a simplified marginal model with indicative 2026 headline brackets, ignore social contributions, most deductions, wealth taxes, and treaties, and are not advice. Special regimes are flagged, not applied. US citizens carry US federal tax as a floor wherever they live. Flight times are estimated from great circle distance. Net worth trajectory assumes 5% annual return on retained capital and spending scaled to local cost. Net HNWI inflow figures are country level, from the Henley Private Wealth Migration Report 2025, which projected 142,000 millionaire relocations in 2025 and 165,000 in 2026. Every number is a starting point for a conversation with counsel, which is what the Private Dossier arranges.</p>
+        <p class="fine"><b>Model note.</b> Tax figures use a simplified marginal model with indicative 2026 headline brackets, ignore social contributions, most deductions, wealth taxes, and treaties, and are not advice. Special regimes are flagged, not applied. US citizens carry US federal tax as a floor wherever they live. Flight times are estimated from great circle distance. Net worth trajectory assumes 5% annual return on retained capital and spending scaled to local cost. Net millionaire inflow figures (HNWI, high net worth individuals) are country level, from the Henley Private Wealth Migration Report 2025, which projected 142,000 millionaire relocations in 2025 and 165,000 in 2026. Every number is a starting point for a conversation with counsel, which is what the Private Dossier arranges.</p>
       </div>
     </div>
   </div>
@@ -468,7 +474,7 @@ function setLife(id,user){
   const j=J.find(x=>x.id===id);S.pick=id;const r=last.find(x=>x.j.id===id);const rank=last.indexOf(r)+1;
   $('#lifeCity').textContent=j.city;$('#lifeCap').textContent=`${j.city} · ${j.country} · ${lt(j.tz)} local`;$('#lifeVerdict').textContent=rank===1?'Your top ranked address':`Ranked #${rank} for you`;
   $('#lifeLede').textContent=j.lede;$('#tl').innerHTML=j.day.map(d=>`<div><time>${d[0]}</time><p><b>${d[1]}</b>${d[2]}</p></div>`).join('');
-  $('#basket').innerHTML=`<div>Supercar street index<b>#${j.streetRank} <small>of ${J.length}</small></b></div><div>Effective tax<b>${Math.round(r.eff*100)}%</b></div><div>Sun hours / yr<b>${j.sun.toLocaleString()}</b></div><div>${FLOW[j.cc]!=null?`Net HNWI inflow 2025<b>${FLOW[j.cc]>0?'+':''}${FLOW[j.cc].toLocaleString()}</b>`:`Flight from home<b>${r.fly?r.fly+'h':'Home'}</b>`}</div>`;
+  $('#basket').innerHTML=`<div>Supercar street index<b>#${j.streetRank} <small>of ${J.length}</small></b></div><div>Effective tax<b>${Math.round(r.eff*100)}%</b></div><div>Sun hours / yr<b>${j.sun.toLocaleString()}</b></div><div>${FLOW[j.cc]!=null?`Net millionaire inflow 2025<b>${FLOW[j.cc]>0?'+':''}${FLOW[j.cc].toLocaleString()}</b>`:`Flight from home<b>${r.fly?r.fly+'h':'Home'}</b>`}</div>`;
   const img=$('#lifeImg'),v=$('#lifeVid');
   const pl=document.querySelector('#film .plain');if(pl)pl.remove();if(j.vid){img.src=j.vid.poster;img.style.display='';v.src=j.vid.src;v.style.display='';v.play().catch(()=>{})}else{v.pause();v.removeAttribute('src');v.style.display='none';if(j.img){img.style.display='';img.src=j.img}else{img.style.display='none';const d=document.createElement('div');d.className='plain';d.innerHTML=`<span>${j.city[0]}</span>`;$('#film').prepend(d)}}
   const near=[...J].filter(x=>x.id!==id&&x.vid).map(x=>({x,d:hav([j.lat,j.lon],[x.lat,x.lon])+(x.cc&&x.cc===j.cc?0:1500)})).sort((a,b)=>a.d-b.d).slice(0,8).map(o=>o.x);MOS=near.map(x=>({u:x.vid.poster,v:x.vid.src,c:x.city,id:x.id}));
@@ -508,7 +514,7 @@ $('#rail').innerHTML=J.map((j,i)=>`<div class="card" data-id="${j.id}">
   ${j.vid?`<video muted loop playsinline preload="none" poster="${j.vid.poster}" data-src="${j.vid.src}"></video>`:j.img?`<img src="${j.img}" loading="lazy" alt="" onerror="this.style.opacity=0">`:`<div class="plain"><span>${j.city[0]}</span></div>`}
   <div class="idx">${String(i+1).padStart(2,'0')}</div><div class="clk" data-tz="${j.tz}">${lt(j.tz)}<small>local</small></div>
   <div class="cb"><small>${j.flag} ${j.country}</small><div class="doors">${doorsHTML(j)}${climHTML(j)}</div><h3>${j.city}</h3><p>${j.lede}</p>
-    <div class="stat"><div>Cost index<b>${j.cost}</b></div><div>Safety<b>${j.safe}/10</b></div><div>${FLOW[j.cc]!=null?`Net HNWI inflow 2025<b>${FLOW[j.cc]>0?'+':''}${FLOW[j.cc].toLocaleString()} <span class="ar">${(trend(j.cc)||{}).arrow||''}</span></b>`:`Beauty<b>${j.beauty}/10</b>`}</div></div></div></div>`).join('');
+    <div class="stat"><div>Cost index<b>${j.cost}</b></div><div>Safety<b>${j.safe}/10</b></div><div>${FLOW[j.cc]!=null?`Net millionaire inflow 2025<b>${FLOW[j.cc]>0?'+':''}${FLOW[j.cc].toLocaleString()} <span class="ar">${(trend(j.cc)||{}).arrow||''}</span></b>`:`Beauty<b>${j.beauty}/10</b>`}</div></div></div></div>`).join('');
 const ATLAS=J.map(j=>({id:j.id,u:j.vid?j.vid.poster:j.img,c:j.city}));
 function tickClocks(){$$('.clk[data-tz]').forEach(el=>{el.firstChild.nodeValue=lt(el.dataset.tz)});$$('#tick b[data-tz]').forEach(b=>{b.textContent=lt(b.dataset.tz)});const jj=J.find(x=>x.id===S.pick);if(jj){const c=$('#lifeCap');if(c)c.textContent=`${jj.city} · ${jj.country} · ${lt(jj.tz)} local`}}setInterval(tickClocks,20000);
 $$('.card').forEach(c=>c.addEventListener('click',()=>{$$('.card').forEach(x=>x.classList.remove('open'));c.classList.add('open');setLife(c.dataset.id,true);DECK=ATLAS;openTheatre(ATLAS.findIndex(a=>a.id===c.dataset.id),c.querySelector('video,img')||c)}));
@@ -651,6 +657,80 @@ addEventListener('scroll',()=>{$('#nav').classList.toggle('solid',scrollY>80)},{
 (()=>{const p=$('#thesisText');p.innerHTML=p.textContent.split(' ').map(w=>`<span class="w">${w}</span>`).join(' ');const ws=$$('#thesisText .w');addEventListener('scroll',()=>{const r=p.getBoundingClientRect();const prog=Math.min(1,Math.max(0,(innerHeight*.85-r.top)/(r.height+innerHeight*.3)));const n=Math.floor(prog*ws.length);ws.forEach((w,i)=>w.classList.toggle('on',i<n))},{passive:true})})();
 (()=>{const c=$('#cur');if(!matchMedia('(hover:hover)').matches)return;let x=0,y=0,rx=0,ry=0;document.addEventListener('mousemove',e=>{x=e.clientX;y=e.clientY;c.querySelector('.dot').style.transform=`translate(${x}px,${y}px) translate(-50%,-50%)`});(function l(){rx+=(x-rx)*.18;ry+=(y-ry)*.18;c.querySelector('.ring').style.transform=`translate(${rx}px,${ry}px) translate(-50%,-50%)`;requestAnimationFrame(l)})();document.addEventListener('mouseover',e=>c.classList.toggle('hot',!!e.target.closest('a,button,.row,.card,input,select,canvas')))})();
 (()=>{const v=$('#heroVid');v.addEventListener('playing',()=>{v.style.opacity=1});v.play().catch(()=>{})})();
+
+/* ---------- GLOSSARY: plain language tooltips on jargon, applied to every render ---------- */
+const GLOSS=[
+['HNWI','High net worth individual: someone with at least US$1M in investable assets. Henley counts them as millionaires.'],
+['Net millionaire inflow','Millionaires who moved into the country minus those who left, Henley & Partners estimate for the year. Country level, not city level.'],
+['Millionaire migration','How the net flow of millionaires changed between the 2024 and 2025 Henley reports.'],
+['Effective tax','What you actually pay as a share of your income once brackets and any special regime are applied. Not the headline top rate.'],
+['Kept over 10 years','Income left after tax, added up over 10 years at your current income.'],
+['Cost index','Cost of living relative to Zurich at 100.'],
+['Supercar street index','Our 1 to 5 read of how often you see a Ferrari or a Lamborghini on the street, ranked across the board.'],
+['Doors that open','The residence routes that exist for someone arriving with money.'],
+['Capital friendly','Low tax and a government that competes for capital rather than taxing it.'],
+['Golden visa','A residence permit granted in return for an investment, usually property or a fund.'],
+['Citizenship by investment','A passport granted for a contribution or investment, with little or no residence required.'],
+['Founder & talent','Visas for founders, investors, and senior hires. Usually fast, tied to a business plan or a job offer.'],
+['Lump sum residence','Residence granted because you elected a lump sum or flat tax regime rather than because of a job.'],
+['Remote work visa','A permit to live in the country while working for employers abroad, usually for 1 year.'],
+['flat tax','A fixed yearly sum on all your foreign income instead of the normal rates. Italy charges €200K a year, Greece €100K.'],
+['lump sum taxation','The Swiss forfait: tax based on your living costs rather than your income or wealth. Only for foreigners who do not work in Switzerland.'],
+['lump sum','The Swiss forfait: tax based on your living costs rather than your income or wealth. Only for foreigners who do not work in Switzerland.'],
+['non dom','Resident but not domiciled: you live there but your permanent home is elsewhere, so foreign income can escape local tax under some regimes.'],
+['non-dom','Resident but not domiciled: you live there but your permanent home is elsewhere, so foreign income can escape local tax under some regimes.'],
+['wealth tax','An annual tax on what you own rather than what you earn, usually a fraction of a percent of net assets above a threshold.'],
+['exit tax','Tax on gains you have not sold yet, charged when you give up tax residence, as if you sold everything the day you left.'],
+['tax residence','The country that gets to tax your worldwide income, usually where you spend 183 or more days or keep your center of life.'],
+['tax treaty','An agreement between two countries that decides which one taxes what, and prevents double tax.'],
+['treaty nationals','Citizens of a country that has an investor treaty with the US. Most of Europe, Israel, Canada, Japan, and Australia qualify.'],
+['holding','A company whose only job is to own other companies or assets, used to control where profits land and how they are taxed.'],
+['family office','A private firm that manages one family\'s wealth, investments, tax, and affairs.'],
+['trust','A legal arrangement where a trustee holds assets for the people you name. Used for succession, privacy, and sometimes tax.'],
+['elective residence','Italy\'s visa for people who can live on passive income without working in Italy.'],
+['Talent Passport','France\'s multi year residence permit for founders, investors, and senior hires.'],
+['impatriate','France\'s inbound regime: part of your salary is exempt for up to 8 years if you were hired from abroad.'],
+['Beckham','Spain\'s inbound regime, named after the footballer: a flat 24% on Spanish income and nothing on most foreign income for 6 years.'],
+['EB-5','US green card through investment, from about US$800K into a project that creates jobs.'],
+['E-2','US investor visa for citizens of treaty countries who buy or start a US business. Renewable, does not lead to a green card by itself.'],
+['O-1','US visa for people with extraordinary ability in their field.'],
+['L-1','US visa for managers and specialists transferred from a company\'s office abroad.'],
+['Act 60','Puerto Rico\'s incentive code: 4% corporate tax and 0% on capital gains for new residents who qualify.'],
+['homestead','Florida\'s protection for your primary home: a cap on property tax increases and protection from most creditors.'],
+['Delaware','The US state most companies incorporate in for its courts and corporate law, not for tax.'],
+['LLC','US limited liability company, the standard flexible entity for holding or operating.'],
+['remittance','Taxed only on the foreign income you actually bring into the country.'],
+['domicile','Your permanent legal home, which can differ from where you live. In the UK it drives inheritance tax.'],
+['solidarity surcharge','Germany\'s 5.5% levy on top of income tax.'],
+['solidarity','An extra levy on top of income tax (Germany\'s 5.5% surcharge) or a temporary wealth tax (Spain\'s large fortunes tax).'],
+['notaire','The state appointed notary who executes property deeds in France.'],
+['notaio','The state appointed notary who executes property deeds in Italy.'],
+['geometra','The Italian surveyor who handles permits and building paperwork.'],
+['commercialista','The Italian accountant who files your taxes and elections.'],
+['Sovrintendenza','Italy\'s heritage authority, which must approve changes to protected buildings.'],
+['Welcome Stamp','Barbados\'s 12 month visa for remote workers.'],
+['ONE Pass','Singapore\'s 5 year work pass for high earners and top talent.'],
+['NHR','Portugal\'s old non habitual resident regime, closed to new applicants in 2024.'],
+['IFICI','Portugal\'s replacement for NHR: a 20% flat rate for qualifying scientific, tech, and startup roles.'],
+['EEA','The EU plus Norway, Iceland, and Liechtenstein. Free movement applies.'],
+['GmbH','A German or Swiss limited liability company.'],
+['AG','A Swiss stock corporation (Aktiengesellschaft).'],
+['IKE','A Greek private company, the standard entity for a small business.'],
+['IBC','International business company: an offshore company used for holding assets.'],
+['VAT','Value added tax, the sales tax on goods and services.'],
+['PR','Permanent residence: the right to live there indefinitely without citizenship.'],
+['CBI','Citizenship by investment: a passport granted for a contribution or investment.']
+];
+const GL_CI=new Set(['flat tax','lump sum taxation','lump sum','non dom','non-dom','wealth tax','exit tax','tax residence','tax treaty','treaty nationals','holding','family office','trust','elective residence','impatriate','homestead','remittance','domicile','solidarity surcharge','solidarity','notaire','notaio','geometra','commercialista']);
+const GL_MAP=new Map(GLOSS.map(([k,v])=>[k.toLowerCase(),v]));
+const GL_RE=new RegExp('(?<![\\w-])('+GLOSS.map(g=>g[0]).sort((a,b)=>b.length-a.length).map(t=>t.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')).join('|')+')(?![\\w-])','g');
+let glossifying=false;
+function glossify(root){if(!root||glossifying)return;glossifying=true;try{(root.matches&&root.matches('.door,.clim')?[root]:[...root.querySelectorAll('.door,.clim')]).forEach(el=>{if(el.dataset.tip)return;const t=GL_MAP.get(el.textContent.trim().toLowerCase());if(t){el.dataset.tip=t;el.classList.add('tip');el.tabIndex=0}});const w=document.createTreeWalker(root,NodeFilter.SHOW_TEXT,{acceptNode:n=>{const p=n.parentElement;if(!p||!n.nodeValue.trim())return NodeFilter.FILTER_REJECT;if(p.closest('abbr,script,style,input,textarea,select,option,button,.ticker,.clk,.mark,h1,h2,.idx,#tick,.brand,nav,.pins,.door,.clim,.tip'))return NodeFilter.FILTER_REJECT;return NodeFilter.FILTER_ACCEPT}});const nodes=[];while(w.nextNode())nodes.push(w.currentNode);
+  nodes.forEach(n=>{const seen=new Set();const txt=n.nodeValue;let last=0,frag=null;txt.replace(GL_RE,(m,term,off)=>{const key=term.toLowerCase();const cs=!GL_CI.has(key);if(cs&&!GL_MAP.has(key))return m;if(cs&&GLOSS.every(g=>g[0]!==term))return m;if(seen.has(key))return m;seen.add(key);if(!frag)frag=document.createDocumentFragment();frag.appendChild(document.createTextNode(txt.slice(last,off)));const a=document.createElement('abbr');a.className='gl';a.tabIndex=0;a.dataset.tip=GL_MAP.get(key);a.textContent=term;frag.appendChild(a);last=off+m.length;return m});if(frag){frag.appendChild(document.createTextNode(txt.slice(last)));n.parentNode.replaceChild(frag,n)}})}finally{glossifying=false}}
+document.addEventListener('click',e=>{const a=e.target.closest('.gl,.tip');document.querySelectorAll('.gl.open,.tip.open').forEach(x=>{if(x!==a)x.classList.remove('open')});if(a){a.classList.toggle('open');e.stopPropagation()}});
+document.addEventListener('mouseover',e=>{const a=e.target.closest('.gl,.tip');if(!a)return;const r=a.getBoundingClientRect();a.classList.toggle('r',r.left>innerWidth*.6)});
+new MutationObserver(ms=>{if(glossifying)return;const roots=new Set();ms.forEach(m=>m.addedNodes.forEach(n=>{if(n.nodeType===1)roots.add(n)}));roots.forEach(r=>glossify(r))}).observe(document.body,{childList:true,subtree:true});
+glossify(document.body);
 </script>
 </body>
 </html>
