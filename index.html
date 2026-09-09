@@ -160,11 +160,12 @@ input[type=range]::-moz-range-thumb{width:18px;height:18px;border-radius:50%;bac
 .pp-val .mb span{position:absolute;right:0;top:-20px;font-family:var(--serif);font-size:16px}
 /* STRUCTURE */
 .str-grid{display:grid;gap:36px}@media(min-width:1000px){.str-grid{grid-template-columns:360px 1fr;gap:60px}}
-.arche{display:grid;gap:10px}.arche button{text-align:left;border:1px solid var(--line);padding:18px 20px;transition:all .3s}.arche button b{display:block;font-family:var(--serif);font-weight:400;font-size:23px;margin-bottom:4px}.arche button span{font-size:12px;color:var(--mute)}.arche button.on{border-color:var(--gold);background:rgba(196,164,104,.06)}
+.arche{display:grid;gap:10px;align-content:start;position:sticky;top:96px}.arche button{text-align:left;border:1px solid var(--line);padding:18px 20px;transition:all .3s}.arche button b{display:block;font-family:var(--serif);font-weight:400;font-size:23px;margin-bottom:4px}.arche button span{font-size:12px;color:var(--mute)}.arche button.on{border-color:var(--gold);background:rgba(196,164,104,.06)}
 .diagram{border:1px solid var(--line);position:relative;min-height:420px;overflow:hidden;background:radial-gradient(ellipse at 50% 0%,rgba(196,164,104,.07),transparent 60%)}.diagram svg{width:100%;height:100%;display:block}
 .node{fill:var(--ink);stroke:var(--gold);stroke-width:1}.ntxt{font-family:var(--serif);font-size:18px;fill:var(--ivory)}.nsub{font-family:var(--sans);font-size:9px;letter-spacing:.2em;fill:var(--mute);text-transform:uppercase}
 .edge{stroke:var(--gold);stroke-width:1;fill:none;stroke-dasharray:6 6;animation:dash 8s linear infinite;opacity:.8}@keyframes dash{to{stroke-dashoffset:-240}}.etxt{font-family:var(--sans);font-size:9px;letter-spacing:.18em;fill:var(--bone);text-transform:uppercase}
-.str-notes{display:grid;gap:14px;margin-top:22px}.str-notes div{border-left:1px solid var(--gold);padding:4px 0 4px 18px;font-size:14px;color:var(--bone);line-height:1.6}.str-notes div b{display:block;font-family:var(--serif);font-size:19px;font-weight:400;color:var(--ivory);margin-bottom:2px}
+.str-notes{display:grid;gap:14px;margin-top:22px}.str-notes div{border-left:1px solid var(--gold);padding:4px 0 4px 18px;font-size:14px;color:var(--bone);line-height:1.6}.str-notes div b{display:block;font-family:var(--serif);font-size:19px;font-weight:400;color:var(--ivory);margin-bottom:2px}.str-notes div.trap{border-left-color:#cb003b}.str-notes div.dos{border-left-color:rgba(196,164,104,.35);color:var(--mute)}.str-notes div.dos a{color:var(--gold);margin-left:6px}
+.overlays{display:grid;gap:14px;margin-top:44px}@media(min-width:900px){.overlays{grid-template-columns:1fr 1fr;gap:24px}}.ov{border:1px solid var(--line);padding:22px 24px;background:rgba(10,10,12,.55)}.ov b{display:block;font-family:var(--serif);font-weight:400;font-size:22px;color:var(--ivory);margin-bottom:8px}.ov p{font-size:14px;line-height:1.65;color:var(--bone)}
 /* LIFE */
 .life-grid{display:grid;gap:36px}@media(min-width:1000px){.life-grid{grid-template-columns:1fr 1fr;gap:60px;align-items:start}}
 .film{position:relative;aspect-ratio:4/5;overflow:hidden;border:1px solid var(--line);background:var(--ink-3)}
@@ -349,6 +350,7 @@ footer{padding:64px clamp(20px,6vw,96px) 32px;border-top:1px solid var(--line);b
       </div>
       <div class="rv d1"><div class="diagram" id="diagram"></div><div class="str-notes" id="strNotes"></div><div class="sketch" id="sketch"></div></div>
     </div>
+    <div class="overlays rv" id="overlays"></div>
   </div>
 </section>
 
@@ -443,7 +445,7 @@ footer{padding:64px clamp(20px,6vw,96px) 32px;border-top:1px solid var(--line);b
 </div>
 <div class="cookie" id="cookie" role="dialog" aria-label="Cookie notice"><p>This site sets no advertising trackers. One preference is stored on your device to remember this choice, and media loads from Pexels and fonts from Google, who see your IP address. <a href="legal.html#cookies">Details</a>.</p><div class="acts"><button id="ckEss">Essentials only</button><button class="ok" id="ckOk">Accept</button></div></div>
 <script src="land.js?v=1"></script>
-<script src="patrician.js?v=20"></script>
+<script src="patrician.js?v=21"></script>
 <script>
 const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)];
 
@@ -552,7 +554,7 @@ function sketch(){const a=($('#arche button.on')||{}).dataset?.a||'exec';const j
 function drawArch(a){const A=ARCH[a];const N={};A.nodes.forEach(n=>N[n[0]]=n);let s=`<svg viewBox="0 0 800 460" preserveAspectRatio="xMidYMid meet">`;
   A.edges.forEach(e=>{const a1=N[e[0]],b1=N[e[1]];const mx=(a1[3]+b1[3])/2,my=(a1[4]+b1[4])/2;s+=`<path class="edge" d="M${a1[3]} ${a1[4]} C ${a1[3]} ${my}, ${b1[3]} ${my}, ${b1[3]} ${b1[4]}"/>`;if(e[2])s+=`<text class="etxt" x="${mx}" y="${my-6}" text-anchor="middle">${e[2]}</text>`});
   A.nodes.forEach(n=>{const w=Math.min(300,Math.max(n[1].length*10+60,n[2].length*7.4+36));s+=`<g><rect class="node" x="${n[3]-w/2}" y="${n[4]-30}" width="${w}" height="60" rx="1"/><text class="ntxt" x="${n[3]}" y="${n[4]-2}" text-anchor="middle">${n[1]}</text><text class="nsub" x="${n[3]}" y="${n[4]+16}" text-anchor="middle">${n[2]}</text></g>`});
-  $('#diagram').innerHTML=s+'</svg>';$('#strNotes').innerHTML=A.notes.map(n=>`<div><b>${n[0]}</b>${n[1]}</div>`).join('')}
+  $('#diagram').innerHTML=s+'</svg>';const P=A.pattern;$('#strNotes').innerHTML=P?`<div><b>The goal</b>${P.goal}</div><div><b>The structure</b>${P.structure}</div><div class="trap"><b>The trap</b>${P.trap}</div><div class="dos"><b>Settled in the Dossier</b>${P.dossier} <a href="#report">Request it →</a></div>`:A.notes.map(n=>`<div><b>${n[0]}</b>${n[1]}</div>`).join('');if(!$('#overlays').innerHTML)$('#overlays').innerHTML=OVERLAYS.map(o=>`<div class="ov"><b>${o.t}</b><p>${o.p}</p></div>`).join('')}
 $$('#arche button').forEach(b=>b.addEventListener('click',()=>{$$('#arche button').forEach(x=>x.classList.remove('on'));b.classList.add('on');drawArch(b.dataset.a);sketch()}));drawArch('exec');
 
 /* ---------- TRAJECTORY ---------- */
