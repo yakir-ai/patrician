@@ -8,6 +8,8 @@ const PXP=path=>`https://images.pexels.com/photos/${path}?auto=compress&cs=tinys
 const UN=id=>`https://images.unsplash.com/${id}?auto=format&fit=crop&w=1600&q=80`;
 const PV=(id,file,poster)=>({src:`https://videos.pexels.com/video-files/${id}/${file}`,poster:`https://images.pexels.com/videos/${id}/${poster}.jpeg?auto=compress&cs=tinysrgb&w=1200`});
 const FX={MXN:0.054,THB:0.03,IDR:0.000062,KRW:0.00072,CHF:1.18,EUR:1.10,ILS:0.27,XCD:0.37,KYD:1.20,BMD:1,BSD:1,BBD:0.5,NZD:0.6,MUR:0.022,XPF:0.0092,AED:0.272,GBP:1.30,SGD:0.75,HKD:0.128,JPY:0.0067,NOK:0.092,CAD:0.73,AUD:0.65,USD:1};
+/* Henley 2026 Wealth Mobility Competitiveness Score, 0 to 100, country level, from the Global Wealth Mobility Framework */
+const MOB={ae:85.3,sg:79.5,nz:75.8,ky:74.3,cy:73.5,nl:72.8,pt:72.5,it:72.3,bm:72.0,uy:71.8,pa:71.5,hk:71.2,ch:70.8,gr:70.5,cr:70.2,mc:70.0,de:69.7,no:69.0,uk:68.3,kr:66.2,fr:65.7,us:62.3};
 const FLOW={ae:9800,us:7500,it:3600,ch:3000,sa:2400,sg:1600,pt:1400,gr:1200,ca:1000,au:1000,uk:-16500,cn:-7800,in:-3500,kr:-2400,ru:-1500,fr:-800,es:-500,de:-400,no:-150}
 /* Henley 2024 net millionaire migration, country level, for the trend arrow */
 const FLOW24={ae:6700,us:3800,sg:3500,ca:3200,au:2500,it:2200,ch:1500,gr:1200,pt:800,jp:400,cn:-15200,uk:-9500,in:-4300,kr:-1200,ru:-1000,br:-800,za:-600}
