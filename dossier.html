@@ -3,6 +3,8 @@
 <html lang="en">
 <head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://static.cloudflareinsights.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: blob: https://images.pexels.com https://images.unsplash.com https://patek-res.cloudinary.com https://*.google-analytics.com https://*.googletagmanager.com; media-src 'self' blob: https://videos.pexels.com https://images.pexels.com https://patek-res.cloudinary.com; connect-src 'self' https://*.google-analytics.com https://*.analytics.google.com https://*.googletagmanager.com https://cloudflareinsights.com; frame-src 'none'; object-src 'none'; base-uri 'self'; form-action 'self' mailto:; upgrade-insecure-requests">
+<meta name="referrer" content="strict-origin-when-cross-origin">
 <title>Private Dossier · Patrician.ch</title>
 <meta name="description" content="Your top 3 jurisdictions modeled on your own numbers, with the visa path and the structure questions. Delivered in 72 hours.">
 <meta name="robots" content="noindex,noai,noimageai">
@@ -66,15 +68,19 @@ ol,ul{padding-left:18px;margin-bottom:8px}li{margin-bottom:4px}
 /* ---------- read the state ---------- */
 const Q=new URLSearchParams(location.search);
 const SAMPLE=Q.get('sample')==='1';
-const S={inc:+(Q.get('inc')||(SAMPLE?1500000:500000)),exit:+(Q.get('exit')||(SAMPLE?20000000:0)),pp:new Set((Q.get('pp')||(SAMPLE?'eu':'eu')).split(',').filter(Boolean)),hh:Q.get('hh')||(SAMPLE?'couple':'kids'),home:+(Q.get('home')||(SAMPLE?3:0)),w:{tax:8,safe:7,school:7,sun:5,prox:5,beauty:7,cost:3,visa:6}};
-if(Q.get('w'))Q.get('w').split(',').forEach(kv=>{const[k,v]=kv.split(':');if(k in S.w)S.w[k]=+v});
+/* every value from the URL is validated before use: whitelists for the keyed fields, clamps for the numbers. Nothing from the query reaches the DOM unchecked. */
+const num=(v,lo,hi,dflt)=>{const n=Number(v);return Number.isFinite(n)?Math.min(hi,Math.max(lo,n)):dflt};
+const PPK=['eu','uk','us','ch','ae','ca','au','sg','jp','il','other'];
+const ppIn=(Q.get('pp')||(SAMPLE?'eu':'eu')).split(',').filter(k=>PPK.includes(k));
+const S={inc:num(Q.get('inc'),150000,1e7,SAMPLE?1500000:500000),exit:num(Q.get('exit'),0,1e8,SAMPLE?20000000:0),pp:new Set(ppIn.length?ppIn:['eu']),hh:['solo','couple','kids'].includes(Q.get('hh'))?Q.get('hh'):(SAMPLE?'couple':'kids'),home:num(Q.get('home'),0,HOMES.length-1,SAMPLE?3:0)|0,w:{tax:8,safe:7,school:7,sun:5,prox:5,beauty:7,cost:3,visa:6}};
+if(Q.get('w'))Q.get('w').split(',').forEach(kv=>{const[k,v]=kv.split(':');if(k in S.w)S.w[k]=num(v,0,10,S.w[k])});
 if(SAMPLE&&!Q.get('w'))S.w={tax:8,safe:8,school:2,sun:4,prox:7,beauty:8,cost:3,visa:8};
-const NAME=Q.get('name')||(SAMPLE?'A founder, EU passport, based in London':'');
-const TIER=Q.get('tier')||'The Dossier';
+const NAME=(Q.get('name')||(SAMPLE?'A founder, EU passport, based in London':'')).replace(/[<>]/g,'').slice(0,80);
+const TIERS=['The Dossier','The Architecture','The Move'];const TIER=TIERS.includes(Q.get('tier'))?Q.get('tier'):'The Dossier';
 const REF='PAT-'+new Date().toISOString().slice(2,10).replace(/-/g,'')+'-'+Math.abs([...(NAME+S.inc+S.exit)].reduce((a,c)=>a*31+c.charCodeAt(0)|0,7)).toString(36).slice(0,4).toUpperCase();
 const today=new Date();const DATE=today.toLocaleDateString('en-GB',{day:'numeric',month:'long',year:'numeric'});
 const rows=computeRows(S);
-const pick=Q.get('city');let ord=[...rows];if(pick&&rows.find(r=>r.j.id===pick)){const l=rows.find(r=>r.j.id===pick);ord=[l,...rows.filter(r=>r!==l)]}
+const pick=(Q.get('city')||'').replace(/[^a-z]/g,'');let ord=[...rows];if(pick&&rows.find(r=>r.j.id===pick)){const l=rows.find(r=>r.j.id===pick);ord=[l,...rows.filter(r=>r!==l)]}
 const T3=ord.slice(0,3);const L=T3[0];const home=HOMES[S.home];
 const HOMEC={'New York':'the United States','Los Angeles':'the United States','Toronto':'Canada','London':'the United Kingdom','Paris':'France','Zurich':'Switzerland','Tel Aviv':'Israel','Dubai':'the UAE','Mumbai':'India','Singapore':'Singapore','Hong Kong':'Hong Kong','Sydney':'Australia'};
 const homeC=HOMEC[home[0]]||home[0];
