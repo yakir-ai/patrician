@@ -43,7 +43,7 @@ ol,ul{padding-left:18px;margin-bottom:8px}li{margin-bottom:4px}
 .warn{background:#fff7e6;border:1px solid #e6c78a;padding:12px 14px;font-size:9.5pt;margin:12px 0}
 .seq{width:100%;border-collapse:collapse;margin:8px 0 16px}.seq td{border-top:1px solid var(--rule);padding:9px 8px 9px 0;font-size:9.5pt;vertical-align:top}.seq td b{display:block;font-family:var(--serif);font-weight:500;font-size:11pt}.seq td span{display:block;color:#5a5348;font-size:9pt;margin-top:2px}.seq td.fill{width:150px;text-align:right;font-size:8.5pt;letter-spacing:.12em;text-transform:uppercase;color:#8b7440;white-space:nowrap}
 @media print{html,body{background:#fff;font-size:9.1pt;line-height:1.42}p.lede{font-size:12pt}.kpis b{font-size:17pt}h2{font-size:22pt}.toolbar{display:none}@page{size:A4;margin:13mm 15mm 12mm}.page{margin:0;box-shadow:none;width:auto;padding:0;page-break-before:always}.page:first-child{page-break-before:auto}.page:last-child{page-break-after:avoid}#doc{overflow:hidden}.sig{margin-top:24px}.cover{min-height:260mm;padding:14mm;background:var(--ink)!important;-webkit-print-color-adjust:exact;print-color-adjust:exact}}
-@media(max-width:860px){.page{width:100%;padding:18px;min-height:auto}.kpis{grid-template-columns:1fr 1fr}.two{grid-template-columns:1fr}h1{font-size:32pt}.cover h1{font-size:38pt}}
+@media(max-width:860px){.page{width:100%;padding:18px;min-height:auto;overflow-x:hidden}.kpis{grid-template-columns:1fr 1fr}.two{grid-template-columns:1fr}h1{font-size:32pt}.cover h1{font-size:38pt}.toolbar{flex-wrap:wrap;gap:10px 12px;padding:12px 16px}.toolbar .brand{font-size:12px;letter-spacing:.26em}.toolbar #tbTitle{order:3;flex-basis:100%;font-size:9px;letter-spacing:.18em;color:#8a8373}.toolbar>span:last-child{display:flex;gap:8px;margin-left:auto}.toolbar a,.toolbar button{padding:8px 10px;font-size:9px;letter-spacing:.14em;white-space:nowrap}.tight{font-size:7.5pt;display:block;overflow-x:auto;-webkit-overflow-scrolling:touch}}
 .brand{display:inline-flex;align-items:center;gap:10px}.brand .tld{color:var(--gold);font-size:.78em;letter-spacing:.22em;margin-left:-.2em}.brand .mark{width:26px;height:26px;flex:none}
 </style>
 <link rel="icon" href="/favicon.svg?v=4" type="image/svg+xml"><link rel="icon" href="/favicon.ico?v=4" sizes="32x32"><link rel="apple-touch-icon" href="/apple-touch-icon.png?v=4"><link rel="manifest" href="/site.webmanifest"><meta name="theme-color" content="#0a0a0c">
@@ -74,13 +74,13 @@ const PPK=['eu','uk','us','ch','ae','ca','au','sg','jp','il','other'];
 const ppIn=(Q.get('pp')||(SAMPLE?'eu':'eu')).split(',').filter(k=>PPK.includes(k));
 const S={inc:num(Q.get('inc'),150000,1e7,SAMPLE?1500000:500000),exit:num(Q.get('exit'),0,1e8,SAMPLE?20000000:0),pp:new Set(ppIn.length?ppIn:['eu']),hh:['solo','couple','kids'].includes(Q.get('hh'))?Q.get('hh'):(SAMPLE?'couple':'kids'),home:num(Q.get('home'),0,HOMES.length-1,SAMPLE?3:0)|0,w:{tax:8,safe:7,school:7,sun:5,prox:5,beauty:7,cost:3,visa:6}};
 if(Q.get('w'))Q.get('w').split(',').forEach(kv=>{const[k,v]=kv.split(':');if(k in S.w)S.w[k]=num(v,0,10,S.w[k])});
-if(SAMPLE&&!Q.get('w'))S.w={tax:8,safe:8,school:2,sun:4,prox:7,beauty:8,cost:3,visa:8};
+if(SAMPLE&&!Q.get('w'))S.w={tax:8,safe:9,school:0,sun:5,prox:8,beauty:9,cost:0,visa:6};
 const NAME=(Q.get('name')||(SAMPLE?'A founder, EU passport, based in London':'')).replace(/[<>]/g,'').slice(0,80);
 const TIERS=['The Dossier','The Architecture','The Move'];const TIER=TIERS.includes(Q.get('tier'))?Q.get('tier'):'The Dossier';
 const REF='PAT-'+new Date().toISOString().slice(2,10).replace(/-/g,'')+'-'+Math.abs([...(NAME+S.inc+S.exit)].reduce((a,c)=>a*31+c.charCodeAt(0)|0,7)).toString(36).slice(0,4).toUpperCase();
 const today=new Date();const DATE=today.toLocaleDateString('en-GB',{day:'numeric',month:'long',year:'numeric'});
 const rows=computeRows(S);
-const pick=(Q.get('city')||'').replace(/[^a-z]/g,'');let ord=[...rows];if(pick&&rows.find(r=>r.j.id===pick)){const l=rows.find(r=>r.j.id===pick);ord=[l,...rows.filter(r=>r!==l)]}
+const pick=(Q.get('city')||(SAMPLE?'mco':'')).replace(/[^a-z]/g,'');let ord=[...rows];if(pick&&rows.find(r=>r.j.id===pick)){const l=rows.find(r=>r.j.id===pick);ord=[l,...rows.filter(r=>r!==l)]}
 const T3=ord.slice(0,3);const L=T3[0];const home=HOMES[S.home];
 const HOMEC={'New York':'the United States','Los Angeles':'the United States','Toronto':'Canada','London':'the United Kingdom','Paris':'France','Zurich':'Switzerland','Tel Aviv':'Israel','Dubai':'the UAE','Mumbai':'India','Singapore':'Singapore','Hong Kong':'Hong Kong','Sydney':'Australia'};
 const homeC=HOMEC[home[0]]||home[0];
