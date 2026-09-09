@@ -80,7 +80,7 @@ section.alt{background:var(--ink-2);isolation:isolate}section.alt:before,section
 .hud-stats{display:grid;grid-template-columns:1fr 1fr;gap:10px 14px;margin-top:12px}.hud-stats i{font-style:normal;display:block;font-size:9px;letter-spacing:.2em;text-transform:uppercase;color:var(--mute)}.hud-stats b{font-family:var(--serif);font-weight:300;font-size:22px;line-height:1.1}
 .hud-foot{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-top:12px;border-top:1px solid var(--line);padding-top:10px;font-size:11px;color:var(--bone)}.hud-cta{color:var(--gold);letter-spacing:.2em;text-transform:uppercase;font-size:10px;white-space:nowrap}
 .globe-box.has .globe-hint{opacity:0}.globe-hint{transition:opacity .4s}
-.globe-grid{display:grid;gap:30px}@media(min-width:1000px){.globe-grid{grid-template-columns:1fr 1.1fr;align-items:center;gap:60px}}
+.globe-grid{display:grid;gap:30px}@media(max-width:899px){.globe-grid{gap:54px}.globe-hint{margin-top:16px}}@media(min-width:1000px){.globe-grid{grid-template-columns:1fr 1.1fr;align-items:center;gap:60px}}
 .globe-box{position:relative;aspect-ratio:1;max-width:680px;margin:0 auto;width:100%}
 #globe{width:100%;height:100%;display:block;touch-action:pan-y}
 .globe-hint{position:absolute;left:0;right:0;bottom:-6px;text-align:center;font-size:10px;letter-spacing:.26em;text-transform:uppercase;color:var(--mute)}
@@ -669,7 +669,7 @@ const G=(()=>{const cv=$('#globe'),ctx=cv.getContext('2d');let W,H,R,R0,dpr=1,ya
   function renderRaster(){const d=rimg.data,n=RS*RS;const cy_=Math.cos(yaw),sy_=Math.sin(yaw),cp_=Math.cos(pitch),sp_=Math.sin(pitch);const kx=TW/(2*Math.PI),ky=TH/Math.PI;
     for(let i=0;i<n;i++){const o=i*4;if(!MASK[i]){d[o+3]=0;continue}const X=NX[i],Y=NY[i],Z=NZ[i];const z1=-Y*sp_+Z*cp_;const y=Y*cp_+Z*sp_;const x=X*cy_-z1*sy_;const z=X*sy_+z1*cy_;const lat=Math.asin(y>1?1:y<-1?-1:y),lon=Math.atan2(-z,x);let u=((lon+Math.PI)*kx)|0,v=((Math.PI/2-lat)*ky)|0;if(u>=TW)u=TW-1;if(v>=TH)v=TH-1;if(v<0)v=0;const t=(v*TW+u)*4,sh=SH[i],sp=SP[i];d[o]=TD[t]*sh+sp;d[o+1]=TD[t+1]*sh+sp;d[o+2]=TD[t+2]*sh+sp*.9;d[o+3]=255}
     rctx.putImageData(rimg,0,0)}const cityV=J.map(j=>({j,v:v3(j.lat,j.lon)}));
-  function size(){dpr=Math.min(2,devicePixelRatio||1);const s=cv.clientWidth;W=cv.width=s*dpr;H=cv.height=s*dpr;R0=s*.44*dpr;R=R0*zoom;buildRaster()}size();addEventListener('resize',size);
+  let sizeKey='';function size(){const d=Math.min(2,devicePixelRatio||1);const s=cv.clientWidth;const k=s+'x'+d;if(k===sizeKey||!s)return;sizeKey=k;dpr=d;W=cv.width=s*dpr;H=cv.height=s*dpr;R0=s*.44*dpr;R=R0*zoom;buildRaster();lastRaster=0}size();addEventListener('resize',size);
   function slerp(a,b,t){const d=Math.acos(Math.max(-1,Math.min(1,a[0]*b[0]+a[1]*b[1]+a[2]*b[2])));if(d<1e-6)return a;const s1=Math.sin((1-t)*d)/Math.sin(d),s2=Math.sin(t*d)/Math.sin(d);return[a[0]*s1+b[0]*s2,a[1]*s1+b[1]*s2,a[2]*s1+b[2]*s2]};
   let pins=[];
   const labels=[];const put=(txt,x,y,font,color,ls,pin)=>{ctx.font=font;if('letterSpacing' in ctx)ctx.letterSpacing=ls||'0px';const w=ctx.measureText(txt).width,h=parseFloat((font.match(/([\d.]+)px/)||[0,12])[1])*1.15;const box=[x-2*dpr,y-h,x+w+2*dpr,y+h*.35];if(labels.some(b=>!(box[2]<b[0]||box[0]>b[2]||box[3]<b[1]||box[1]>b[3])))return false;labels.push(box);if(pin)pin.lb=box;ctx.fillStyle='rgba(8,8,11,.62)';ctx.fillRect(box[0]-3*dpr,box[1]+h*.12,box[2]-box[0]+6*dpr,h*1.02);ctx.fillStyle=color;ctx.textAlign='left';ctx.fillText(txt,x,y);return true};
