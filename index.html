@@ -277,13 +277,14 @@ footer{padding:64px clamp(20px,6vw,96px) 32px;border-top:1px solid var(--line);b
 <section id="engine">
   <div class="wrap">
     <div class="engine-head">
-      <div><div class="eyebrow rv">03 · The Meridian Engine</div><h2 class="rv d1" style="margin-top:20px">Your numbers. <em>Ranked.</em></h2></div>
+      <div><div class="eyebrow rv">03 · The Patrician Engine</div><h2 class="rv d1" style="margin-top:20px">Your numbers. <em>Ranked.</em></h2></div>
       <p class="lede rv d2">Move a slider and the world reorders itself. Every ranking is computed live from your inputs. Tap any city to see its Tuesday.</p>
     </div>
     <div class="engine-grid">
       <div class="panel rv">
         <h5>Inputs</h5>
         <div class="ctrl"><label>Start from a profile</label><div class="seg" id="presets"><button data-p="exec">Executive with kids</button><button data-p="founder">Founder before exit</button><button data-p="investor">Investor after exit</button><button data-p="builder">Builder, remote</button></div></div>
+<div class="ctrl"><label>Only addresses with</label><div class="seg" id="filters"><button data-f="zero">0% income tax</button><button data-f="lump">Lump sum residence</button><button data-f="inv">Golden visa</button><button data-f="cbi">Citizenship by investment</button><button data-f="nomad">Remote work visa</button><button data-f="talent">Founder & talent</button><button data-f="regime">Inbound tax regime</button><button data-f="nowealth">No wealth tax</button><button data-f="walk">Walk in on my passports</button><button data-f="near">Under 5h from home</button></div><p class="fine" id="filterNote" style="display:none;margin:8px 0 0"></p></div>
         <div class="ctrl"><label>Annual income <output id="incOut">$500,000</output></label><input type="range" id="inc" min="0" max="100" value="42"></div>
         <div class="ctrl"><label>One time liquidity event <output id="exitOut">$0</output></label><input type="range" id="exit" min="0" max="100" value="0"></div>
         <div class="ctrl"><label>Passports held</label><div class="seg" id="pp">
@@ -459,8 +460,14 @@ $('#home').innerHTML=HOMES.map((h,i)=>`<option value="${i}">${h[0]}</option>`).j
 /* ---------- ENGINE ---------- */
 let last=[];
 function compute(){return computeRows(S)}
+const FILTERS={zero:r=>r.eff<.005,lump:r=>r.j.doors.includes('lump'),inv:r=>r.j.doors.includes('inv'),cbi:r=>r.j.doors.includes('cbi'),nomad:r=>r.j.doors.includes('nomad'),talent:r=>r.j.doors.includes('talent'),regime:r=>STR.reg.has(r.j.id),nowealth:r=>!STR.wealth.has(r.j.id)&&!r.j.wealth,walk:r=>r.fr===1,near:r=>r.fly>0&&r.fly<=5};
+S.f=new Set();
 function render(){
-  const rows=compute();last=rows;const top=rows[0].score,bot=rows[rows.length-1].score;
+  const all=compute();const rows=S.f.size?all.filter(r=>[...S.f].every(k=>FILTERS[k](r))):all;
+  const note=$('#filterNote');if(note){note.style.display=S.f.size?'':'none';note.textContent=rows.length?`${rows.length} of ${J.length} addresses match`:'Nothing on the board matches all of these at once. Drop one.'}
+  $$('.jn').forEach(e=>e.textContent=rows.length);
+  if(!rows.length){$('#results').innerHTML='';last=all;drawTraj([]);return}
+  last=rows;const top=rows[0].score,bot=rows[rows.length-1].score;
   $('#results').innerHTML=rows.map((r,i)=>`<div class="row ${i===0?'top':''}" data-id="${r.j.id}">
     <div class="rk">${String(i+1).padStart(2,'0')}</div>
     <div><div class="nm">${r.j.city} <small>${r.j.flag} ${r.j.country}</small></div><div class="bar"><i style="width:${Math.round(((r.score-bot)/((top-bot)||1))*88+12)}%"></i></div>
@@ -490,7 +497,7 @@ let THI=0,thHome=null,DECK=[];
 function openTheatre(i,fromEl){const t=$('#theatre');THI=i;const m=DECK[i];const j=J.find(x=>x.id===m.id);const r=last.find(x=>x.j.id===m.id);const rank=last.indexOf(r)+1;
   const rect=fromEl?fromEl.getBoundingClientRect():null;
   const img=$('#thImg'),v=$('#thVid');v.classList.remove('on');v.pause();v.removeAttribute('src');img.src=m.u;
-  $('#thRank').textContent=`${j.flag} ${j.country} · ${lt(j.tz,{weekday:'long'})} local · ranked #${rank} of ${J.length} for you`;$('#thCity').textContent=j.city;$('#thLede').textContent=j.lede;
+  $('#thRank').textContent=`${j.flag} ${j.country} · ${lt(j.tz,{weekday:'long'})} local · ranked #${rank} of ${last.length} for you`;$('#thCity').textContent=j.city;$('#thLede').textContent=j.lede;
   $('#thFly').textContent=r.fly?r.fly+'h':'Home';$('#thSig').innerHTML=sigHTML(j);$('#thDots').innerHTML=DECK.length>12?`<span>${String(i+1).padStart(2,'0')} / ${DECK.length}</span>`:DECK.map((_,k)=>`<i class="${k===i?'on':''}"></i>`).join('');
   ['#thRank','#thCity','#thLede','.th-stats','#thSig','.th-acts'].forEach((sel,k)=>{const el=$(sel);el.classList.add('rv');el.style.transitionDelay=(0.25+k*.12)+'s'});
   if(rect&&!t.classList.contains('on')){const fly=document.createElement('img');fly.className='th-fly';fly.src=m.u;Object.assign(fly.style,{left:rect.left+'px',top:rect.top+'px',width:rect.width+'px',height:rect.height+'px'});document.body.appendChild(fly);
@@ -510,7 +517,7 @@ document.addEventListener('keydown',e=>{if(!$('#theatre').classList.contains('on
 function sigHTML(j){const row=(l,h,n)=>`<div><i>${l}</i><em>${h}</em><b>${[0,1,2,3,4].map(k=>`<s class="${k<n?'on':''}" style="transition-delay:${.6+k*.08}s"></s>`).join('')}</b></div>`;return row('Watch houses','Rolex · Patek Philippe · Audemars Piguet · Richard Mille',j.sig[0])+row('Supercar dealers','Ferrari · Lamborghini · Rolls-Royce · Bugatti',j.sig[1])+row('Supercars on the street',`Street index #${j.streetRank} of ${J.length}`,j.sig[2])+(j.doors.length?`<div class="mig"><i>Doors that open</i><em>${(j.visa&&j.visa.t)||''}</em><b class="doors big">${doorsHTML(j)}${climHTML(j)}</b></div>`:'')+(MOB[j.cc]!=null?`<div class="mig"><i>Wealth mobility score 2026</i><em>Henley Global Wealth Mobility Framework, 0 to 100, country level.</em><b><span>${MOB[j.cc].toFixed(1)} <small>of 100</small></span></b></div>`:'')+(()=>{const t=trend(j.cc);const f=FLOW[j.cc];return f==null?'':`<div class="mig"><i>Millionaire migration</i><em>${t.label}. Henley, country level.</em><b><span>${f>0?'+':''}${f.toLocaleString()} <small>2025</small></span>${FLOW24[j.cc]!=null?`<span>${FLOW24[j.cc]>0?'+':''}${FLOW24[j.cc].toLocaleString()} <small>2024</small></span>`:''}<span class="ar">${t.arrow}</span></b></div>`})()}
 function tween(el,to,f){const from=+el.dataset.v||0;const t0=performance.now();(function step(n){const k=Math.min(1,(n-t0)/750);const e=1-Math.pow(1-k,3);el.textContent=f(from+(to-from)*e);if(k<1)requestAnimationFrame(step);else el.dataset.v=to})(t0)}
 let bgFlip=false;
-function hudShow(id){const j=J.find(x=>x.id===id);const r=last.find(x=>x.j.id===id);const rank=last.indexOf(r)+1;const h=$('#hud');h.classList.remove('on');void h.offsetWidth;$('#hudRank').textContent=`#${rank} of ${J.length} for you`;$('#hudCity').textContent=j.city;$('#hudCountry').textContent=`${j.flag} ${j.country} · ${lt(j.tz)} local`;tween($('#hudEff'),Math.round(r.eff*100),v=>Math.round(v)+'%');tween($('#hudKept'),r.kept10,v=>fmt(v));$('#hudFly').textContent=r.fly?r.fly+'h':'Home';const fl=FLOW[j.cc];if(fl!=null)tween($('#hudFlow'),fl,v=>(v>0?'+':'')+Math.round(v).toLocaleString()+' '+((trend(j.cc)||{}).arrow||''));else $('#hudFlow').textContent='No data';$('#hudMobW').style.display=MOB[j.cc]!=null?'':'none';$('#hudMob').textContent=MOB[j.cc]!=null?MOB[j.cc].toFixed(1)+' / 100':'';const nt=r.tags.find(t=>typeof t==='string')||(r.tags[0]&&r.tags[0].t)||'';$('#hudNote').textContent=nt;$('#hudDoors').innerHTML=climHTML(j)+doorsHTML(j);h.classList.add('on');$('.globe-box').classList.add('has');const src=j.vid?j.vid.poster:j.img;const A=$('#gbgA'),B=$('#gbgB');const inEl=bgFlip?A:B,outEl=bgFlip?B:A;inEl.onload=()=>{inEl.classList.add('on');outEl.classList.remove('on')};inEl.src=src;bgFlip=!bgFlip}
+function hudShow(id){const j=J.find(x=>x.id===id);const r=last.find(x=>x.j.id===id);const rank=last.indexOf(r)+1;const h=$('#hud');h.classList.remove('on');void h.offsetWidth;$('#hudRank').textContent=`#${rank} of ${last.length} for you`;$('#hudCity').textContent=j.city;$('#hudCountry').textContent=`${j.flag} ${j.country} · ${lt(j.tz)} local`;tween($('#hudEff'),Math.round(r.eff*100),v=>Math.round(v)+'%');tween($('#hudKept'),r.kept10,v=>fmt(v));$('#hudFly').textContent=r.fly?r.fly+'h':'Home';const fl=FLOW[j.cc];if(fl!=null)tween($('#hudFlow'),fl,v=>(v>0?'+':'')+Math.round(v).toLocaleString()+' '+((trend(j.cc)||{}).arrow||''));else $('#hudFlow').textContent='No data';$('#hudMobW').style.display=MOB[j.cc]!=null?'':'none';$('#hudMob').textContent=MOB[j.cc]!=null?MOB[j.cc].toFixed(1)+' / 100':'';const nt=r.tags.find(t=>typeof t==='string')||(r.tags[0]&&r.tags[0].t)||'';$('#hudNote').textContent=nt;$('#hudDoors').innerHTML=climHTML(j)+doorsHTML(j);h.classList.add('on');$('.globe-box').classList.add('has');const src=j.vid?j.vid.poster:j.img;const A=$('#gbgA'),B=$('#gbgB');const inEl=bgFlip?A:B,outEl=bgFlip?B:A;inEl.onload=()=>{inEl.classList.add('on');outEl.classList.remove('on')};inEl.src=src;bgFlip=!bgFlip}
 
 /* ---------- ATLAS + TICKER + PINS ---------- */
 $('#rail').innerHTML=J.map((j,i)=>`<div class="card" data-id="${j.id}">
@@ -527,6 +534,7 @@ $$('.bgvid').forEach(v=>{v.addEventListener('playing',()=>v.classList.add('on'))
 const tickHTML=()=>(J.map(j=>`<span>${j.city}<b data-tz="${j.tz}">${lt(j.tz)}</b></span>`).join('')).repeat(2);$('#tick').innerHTML=tickHTML();requestAnimationFrame(()=>{const w=$('#tick').scrollWidth/2;$('#tick').style.animationDuration=Math.max(60,Math.round(w/38))+'s'});$('#jcount').textContent=J.length;if($('#pcount'))$('#pcount').textContent=PASSALL.length;$$('.jn').forEach(e=>e.textContent=J.length);
 $('#pins').innerHTML=[...J].sort((a,b)=>a.city.localeCompare(b.city)).map(j=>`<button data-id="${j.id}"><b>${j.city}</b><small>${j.flag}</small></button>`).join('');
 $$('#pins button').forEach(b=>b.addEventListener('click',()=>setLife(b.dataset.id,true)));
+$$('#filters button').forEach(b=>b.addEventListener('click',()=>{b.classList.toggle('on');if(b.classList.contains('on'))S.f.add(b.dataset.f);else S.f.delete(b.dataset.f);track('filter',{filter:b.dataset.f,on:b.classList.contains('on')});render()}));
 
 /* ---------- PASSPORTS ---------- */
 const PS=new Set(['ch','sg','us']);
