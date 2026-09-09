@@ -157,7 +157,7 @@ input[type=range]::-moz-range-thumb{width:18px;height:18px;border-radius:50%;bac
 .pp-cmp{display:grid;gap:0;border-top:1px solid var(--line)}
 .pp-row{display:grid;grid-template-columns:150px 1fr;gap:16px;padding:18px 0;border-bottom:1px solid var(--line);align-items:center}
 @media(max-width:600px){.pp-row{grid-template-columns:1fr;gap:8px}}
-@media(max-width:899px){#repVid{display:none}#report{overflow:clip}#report .rep-media{position:sticky;inset:auto;top:0;width:100%;height:100dvh;margin-bottom:-100dvh}#report .rep-media video,#report .rep-media img{object-position:50% 50%}.rep-media:after{background:linear-gradient(90deg,rgba(10,10,12,.9) 0%,rgba(10,10,12,.78) 50%,rgba(10,10,12,.6) 100%),linear-gradient(180deg,rgba(10,10,12,.9),rgba(10,10,12,.25) 25%,rgba(10,10,12,.25) 70%,rgba(10,10,12,.9))}.globe-box{aspect-ratio:auto}.globe-box canvas{aspect-ratio:1;width:100%}.hud{position:relative;left:auto;bottom:auto;width:100%;margin-top:14px;transform:none;opacity:0;height:0;padding:0;overflow:hidden;border-width:0;transition:opacity .5s var(--ease)}.hud.on{opacity:1;height:auto;padding:16px 18px;border-width:1px;overflow:visible}}
+@media(max-width:899px){#report{overflow:clip;--sp:clamp(20px,6vw,96px);--st:clamp(76px,11vw,170px)}#report .rep-media{position:sticky;inset:auto;top:0;width:calc(100% + 2*var(--sp));height:100dvh;margin:calc(-1*var(--st)) calc(-1*var(--sp)) calc(-100dvh + var(--st))}#report .rep-media video,#report .rep-media img{object-position:50% 50%}.rep-media:after{background:linear-gradient(90deg,rgba(10,10,12,.9) 0%,rgba(10,10,12,.78) 50%,rgba(10,10,12,.6) 100%),linear-gradient(180deg,rgba(10,10,12,.9),rgba(10,10,12,.25) 25%,rgba(10,10,12,.25) 70%,rgba(10,10,12,.9))}.globe-box{aspect-ratio:auto}.globe-box canvas{aspect-ratio:1;width:100%}.hud{position:relative;left:auto;bottom:auto;width:100%;margin-top:14px;transform:none;opacity:0;height:0;padding:0;overflow:hidden;border-width:0;transition:opacity .5s var(--ease)}.hud.on{opacity:1;height:auto;padding:16px 18px;border-width:1px;overflow:visible}}
 @media(max-width:480px){nav{padding:16px 18px}.brand{letter-spacing:.22em;font-size:13px;gap:8px}.brand span{letter-spacing:.2em;font-size:8px}.nav-cta{white-space:nowrap;padding:9px 11px;font-size:9px;letter-spacing:.14em}}
 .pp-row .k{font-size:10px;letter-spacing:.24em;text-transform:uppercase;color:var(--mute)}
 .pp-row .vals{display:grid;gap:10px}.pp-val{display:grid;grid-template-columns:110px 1fr;gap:12px;align-items:center;font-size:14px;color:var(--bone)}
@@ -374,7 +374,7 @@ footer{padding:64px clamp(20px,6vw,96px) 32px;border-top:1px solid var(--line);b
 </section>
 
 <section class="alt" id="report">
-  <div class="thesis-media rep-media"><img src="https://images.pexels.com/videos/32098956/pexels-photo-32098956.jpeg?auto=compress&cs=tinysrgb&w=1600" alt="" loading="lazy"><video id="repVid" class="bgvid" muted loop playsinline preload="none" data-rate="0.5" data-freeze="phone" data-src="https://videos.pexels.com/video-files/32098956/13684270_1280_720_24fps.mp4"></video></div>
+  <div class="thesis-media rep-media"><img src="https://images.pexels.com/videos/32098956/pexels-photo-32098956.jpeg?auto=compress&cs=tinysrgb&w=1600" alt="" loading="lazy"><video id="repVid" class="bgvid" muted loop playsinline preload="none" data-rate="0.5" data-src="https://videos.pexels.com/video-files/32098956/13684270_1280_720_24fps.mp4"></video></div>
   <div class="wrap rep-grid">
     <div>
       <div class="eyebrow rv">08 · The Private Dossier</div>
