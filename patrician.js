@@ -8,7 +8,10 @@ const PXP=path=>`https://images.pexels.com/photos/${path}?auto=compress&cs=tinys
 const UN=id=>`https://images.unsplash.com/${id}?auto=format&fit=crop&w=1600&q=80`;
 const PV=(id,file,poster)=>({src:`https://videos.pexels.com/video-files/${id}/${file}`,poster:`https://images.pexels.com/videos/${id}/${poster}.jpeg?auto=compress&cs=tinysrgb&w=1200`});
 const FX={KRW:0.00072,CHF:1.18,EUR:1.10,ILS:0.27,XCD:0.37,KYD:1.20,BMD:1,BSD:1,AED:0.272,GBP:1.30,SGD:0.75,HKD:0.128,JPY:0.0067,NOK:0.092,CAD:0.73,AUD:0.65,USD:1};
-const FLOW={ae:9800,us:7500,it:3600,ch:3000,sa:2400,sg:1600,pt:1400,gr:1200,ca:1000,au:1000,uk:-16500,cn:-7800,in:-3500,kr:-2400,ru:-1500,fr:-800,es:-500,de:-400,no:-150};
+const FLOW={ae:9800,us:7500,it:3600,ch:3000,sa:2400,sg:1600,pt:1400,gr:1200,ca:1000,au:1000,uk:-16500,cn:-7800,in:-3500,kr:-2400,ru:-1500,fr:-800,es:-500,de:-400,no:-150}
+/* Henley 2024 net millionaire migration, country level, for the trend arrow */
+const FLOW24={ae:6700,us:3800,sg:3500,ca:3200,au:2500,it:2200,ch:1500,gr:1200,pt:800,jp:400,cn:-15200,uk:-9500,in:-4300,kr:-1200,ru:-1000,br:-800,za:-600}
+const trend=cc=>{const a=FLOW[cc],b=FLOW24[cc];if(a==null)return null;if(b==null)return {arrow:'',label:a>0?'Net inflow 2025':'Net outflow 2025'};const d=a-b;if(a>0&&b>0)return {arrow:d>0?'↑':'↓',label:d>0?`Inflow accelerating, +${d.toLocaleString()} on 2024`:`Inflow slowing, ${d.toLocaleString()} on 2024`};if(a<0&&b<0)return {arrow:d<0?'↓':'↑',label:d<0?`Exodus accelerating, ${d.toLocaleString()} on 2024`:`Exodus slowing, +${d.toLocaleString()} on 2024`};return {arrow:a>0?'↑':'↓',label:a>0?'Reversed to net inflow in 2025':'Reversed to net outflow in 2025'}};
 const USF=[[0,.10],[11925,.12],[48475,.22],[103350,.24],[197300,.32],[250525,.35],[626350,.37]];
 const J=[
 {id:'zrh',cc:'ch',city:'Zurich',country:'Switzerland',flag:'🇨🇭',cur:'CHF',lat:47.37,lon:8.54,vid:PV(7830799,'7830799-hd_1280_720_30fps.mp4','switzerland-switzerland-drone-4-k-zurich-zurich-city-7830799'),img:UN('photo-1620563092215-0fbc6b55cfc5'),imgs:[UN('photo-1617181129985-3dee7252966b'),UN('photo-1599082323832-2676eca28e86')],
