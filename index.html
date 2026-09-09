@@ -248,7 +248,7 @@ footer{padding:64px clamp(20px,6vw,96px) 32px;border-top:1px solid var(--line);b
         <div class="ctrl"><label>Annual income <output id="incOut">$500,000</output></label><input type="range" id="inc" min="0" max="100" value="42"></div>
         <div class="ctrl"><label>One time liquidity event <output id="exitOut">$0</output></label><input type="range" id="exit" min="0" max="100" value="0"></div>
         <div class="ctrl"><label>Passports held</label><div class="seg" id="pp">
-          <button data-v="eu" class="on">EU</button><button data-v="uk">UK</button><button data-v="us">US</button><button data-v="ca">Canada</button><button data-v="au">Australia</button><button data-v="sg">Singapore</button><button data-v="jp">Japan</button><button data-v="ch">Swiss</button><button data-v="il">Israel</button><button data-v="other">Other</button></div></div>
+          <button data-v="eu" class="on">EU</button><button data-v="uk">UK</button><button data-v="us">US</button><button data-v="ch">Switzerland</button><button data-v="ca">Canada</button><button data-v="au">Australia</button><button data-v="sg">Singapore</button><button data-v="jp">Japan</button><button data-v="il">Israel</button><button data-v="other">Other</button></div></div>
         <div class="ctrl"><label>Household</label><div class="seg" id="hh"><button data-v="solo">Solo</button><button data-v="couple">Couple</button><button data-v="kids" class="on">Kids</button></div></div>
         <div class="ctrl"><label>Home base, for flight time</label><select class="sel" id="home"></select></div>
         <h5 style="margin-top:28px">What you refuse to compromise on</h5>
@@ -486,7 +486,8 @@ const J=[
 {id:'skn',city:'Basseterre',country:'St Kitts and Nevis',flag:'🇰🇳',cur:'XCD',lat:17.3,lon:-62.72,img:PXP('38903642/pexels-photo-38903642/free-photo-of-scenic-aerial-view-of-frigate-bay-beach-in-saint-kitts.jpeg'),imgs:[PX(5844598),PX(5769831)],br:[[0,0]],cg:0,cost:70,safe:6,school:5,sun:2800,beauty:8,visa:{_:2,t:'The oldest citizenship by investment program in the world: a contribution from about US$250K or real estate from about US$325K, passport in months, no residence requirement. Verify current thresholds.'},lede:'The passport people buy, not the place they live. No income tax, no capital gains tax, and a second citizenship that arrives by courier.',day:[['07:00','Frigate Bay','Swim on the Caribbean side, walk to the Atlantic side by lunch.'],['09:30','Basseterre','The citizenship file, the authorized agent, and a government that processes it in 4 months.'],['13:00','Nevis','Ferry across. The Four Seasons and a plantation inn older than the country.'],['18:00','Christophe Harbour','Sunset from the marina. Miami is 3 hours, New York 4.']]},
 {id:'auh',city:'Abu Dhabi',country:'UAE',flag:'🇦🇪',cc:'ae',cur:'AED',lat:24.45,lon:54.65,vid:PV(31541334,'13442736_720_1280_30fps.mp4','emirates-palace-31541334'),br:[[0,0]],cg:0,cost:70,safe:9,school:8,sun:3500,beauty:5,visa:{_:2,t:'Golden Visa via property of AED 2M or a company, or an employment visa in days. 9% corporate tax on profits above AED 375K.'},lede:'Dubai\'s quieter, richer sibling, home of the sovereign fund that owns a piece of everything. Zero tax, the Louvre on an island, and a family office district built for people who do not want to be seen.',day:[['06:00','Saadiyat','Swim at dawn on a beach with turtles and no crowds.'],['09:00','ADGM','The foundation, the family office, and a regulator that speaks English common law.'],['13:00','Louvre Abu Dhabi','Lunch under the dome. Rain of light, no rain.'],['19:00','Al Raha','Sunset from the terrace. Dubai is an hour, the world is 8.']]}
 ];
-const HOMES=[['New York',40.71,-74],['London',51.51,-.13],['Zurich',47.37,8.54],['Paris',48.86,2.35],['Dubai',25.2,55.27],['Singapore',1.35,103.82],['Hong Kong',22.32,114.17],['Tel Aviv',32.08,34.78],['Los Angeles',34.05,-118.24],['Toronto',43.65,-79.38],['Sydney',-33.87,151.21],['Mumbai',19.08,72.88]];
+const ORDER=['zrh','zug','gva','vdz','mco','mil','cmo','muc','vie','lux','lon','lis','ath','mla','osl','dxb','auh','tlv','sin','hkg','tyo','syd','nyc','mia','aus','lax','yvr','gcm','bda','nas','skn','sbh'];J.sort((a,b)=>ORDER.indexOf(a.id)-ORDER.indexOf(b.id));
+const HOMES=[['New York',40.71,-74],['Los Angeles',34.05,-118.24],['Toronto',43.65,-79.38],['London',51.51,-.13],['Paris',48.86,2.35],['Zurich',47.37,8.54],['Tel Aviv',32.08,34.78],['Dubai',25.2,55.27],['Mumbai',19.08,72.88],['Singapore',1.35,103.82],['Hong Kong',22.32,114.17],['Sydney',-33.87,151.21]];
 const PASS=[
 {k:'ch',n:'Switzerland',f:'🇨🇭',mob:187,yrs:'10 years of residence, 3 of the last 5 in the canton',dual:'Yes',inv:'No investment route. Lump sum taxation grants residence, not a passport',ctax:'No',note:'The most discreet passport on the board and the slowest to earn.'},
 {k:'sg',n:'Singapore',f:'🇸🇬',mob:193,yrs:'PR first (2 to 6 years), citizenship 2 years after PR, discretionary',dual:'No',inv:'Global Investor Programme from S$10M to PR',ctax:'No',note:'Highest mobility in the world. You surrender every other passport to hold it.'},
@@ -557,7 +558,7 @@ function render(){
     <div class="kp"><b>${fmt(r.kept10)}</b><small>${Math.round(r.eff*100)}% effective</small></div></div>`).join('');
   $$('#results .row').forEach(el=>el.addEventListener('click',()=>setLife(el.dataset.id,true)));
   if(!S.pick||!rows.some(r=>r.j.id===S.pick))setLife((rows.slice(0,3).find(r=>r.j.vid||r.j.img)||rows[0]).j.id,false);
-  const sel=$('#leadCity');if(!sel.dataset.set){sel.innerHTML=J.map(j=>`<option value="${j.id}">${j.city}</option>`).join('');sel.dataset.set=1}
+  const sel=$('#leadCity');if(!sel.dataset.set){sel.innerHTML=[...J].sort((a,b)=>a.city.localeCompare(b.city)).map(j=>`<option value="${j.id}">${j.city}</option>`).join('');sel.dataset.set=1}
   drawTraj(rows.slice(0,3));$$('#pins button').forEach(b=>b.classList.toggle('on',b.dataset.id===S.pick))}
 
 /* ---------- LIFE ---------- */
@@ -588,7 +589,7 @@ const vio=new IntersectionObserver(es=>es.forEach(e=>{const v=e.target;if(e.isIn
 $$('.card video').forEach(v=>vio.observe(v));
 (()=>{const v=$('#thesisVid');if(!v)return;v.addEventListener('playing',()=>v.classList.add('on'));new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){if(!v.src)v.src=v.dataset.src;v.play().catch(()=>{})}else v.pause()}),{threshold:.15}).observe(v)})();
 $('#tick').innerHTML=(J.map(j=>`<span>${j.city}</span>`).join('')).repeat(2);$('#jcount').textContent=J.length;
-$('#pins').innerHTML=J.map(j=>`<button data-id="${j.id}"><b>${j.city}</b><small>${j.flag}</small></button>`).join('');
+$('#pins').innerHTML=[...J].sort((a,b)=>a.city.localeCompare(b.city)).map(j=>`<button data-id="${j.id}"><b>${j.city}</b><small>${j.flag}</small></button>`).join('');
 $$('#pins button').forEach(b=>b.addEventListener('click',()=>setLife(b.dataset.id,true)));
 
 /* ---------- PASSPORTS ---------- */
