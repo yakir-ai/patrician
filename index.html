@@ -601,7 +601,7 @@ const G=(()=>{const cv=$('#globe'),ctx=cv.getContext('2d');let W,H,R,R0,dpr=1,ya
     const path=()=>{tc.beginPath();polys.forEach(p=>{p.forEach((q,i)=>{const[x,y]=P(q);i?tc.lineTo(x,y):tc.moveTo(x,y)});tc.closePath()})};
     if(img){tc.drawImage(img,0,0,TW,TH)}else{
     /* seas: dark blue green paper, mottled */
-    tc.fillStyle='#101b2c';tc.fillRect(0,0,TW,TH);
+    tc.fillStyle='#0c0c0f';tc.fillRect(0,0,TW,TH);
     for(let i=0;i<420;i++){const x=rnd()*TW,y=rnd()*TH,r=40+rnd()*220;const g=tc.createRadialGradient(x,y,0,x,y,r);const a=.05+rnd()*.12;g.addColorStop(0,`rgba(${rnd()<.5?'30,52,72':'6,10,20'},${a.toFixed(3)})`);g.addColorStop(1,'rgba(0,0,0,0)');tc.fillStyle=g;tc.fillRect(x-r,y-r,2*r,2*r)}
     /* wave hatching on the seas, the way engraved charts render water */
     tc.strokeStyle='rgba(196,190,170,.075)';tc.lineWidth=1.2;for(let y=3;y<TH;y+=9){tc.beginPath();for(let x=0;x<=TW;x+=32){tc.lineTo(x,y+Math.sin(x/38+y*.13)*1.8)}tc.stroke()}
@@ -621,7 +621,7 @@ const G=(()=>{const cv=$('#globe'),ctx=cv.getContext('2d');let W,H,R,R0,dpr=1,ya
     tc.strokeStyle='rgba(196,164,104,.45)';tc.lineWidth=2.4;tc.beginPath();tc.moveTo(0,TH/2);tc.lineTo(TW,TH/2);tc.stroke();TD=tc.getImageData(0,0,TW,TH).data}
   let TD=null;paint(null);
   /* the real relief, baked from the NASA Blue Marble into aged paper, replaces the procedural paper once it arrives */
-  (()=>{const gi=new Image();gi.onload=()=>{paint(gi);if(typeof buildRaster==='function'&&RS){renderRaster();}draw&&draw()};gi.src='/globe-tex.jpg?v=2'})();
+  (()=>{const gi=new Image();gi.onload=()=>{paint(gi);if(typeof buildRaster==='function'&&RS){renderRaster();}draw&&draw()};gi.src='/globe-tex.jpg?v=3'})();
   let ringTex=null,lastRaster=0,RS=0,rc=document.createElement('canvas'),rctx=rc.getContext('2d'),rimg=null,NX=null,NY=null,NZ=null,SH=null,SP=null,MASK=null;
   function buildRaster(){RS=Math.round(Math.min(W,640));rc.width=rc.height=RS;rimg=rctx.createImageData(RS,RS);const n=RS*RS;NX=new Float32Array(n);NY=new Float32Array(n);NZ=new Float32Array(n);SH=new Float32Array(n);SP=new Float32Array(n);MASK=new Uint8Array(n);const c=RS/2,r=RS/2-.5;const L=[-.45,.5,.74],ll=Math.hypot(...L);L[0]/=ll;L[1]/=ll;L[2]/=ll;const Hh=[L[0],L[1],L[2]+1],hl=Math.hypot(...Hh);Hh[0]/=hl;Hh[1]/=hl;Hh[2]/=hl;
     for(let py=0;py<RS;py++)for(let px=0;px<RS;px++){const i=py*RS+px;const nx=(px+.5-c)/r,ny=(c-py-.5)/r;const q=nx*nx+ny*ny;if(q>1){MASK[i]=0;continue}MASK[i]=1;const nz=Math.sqrt(1-q);NX[i]=nx;NY[i]=ny;NZ[i]=nz;const dl=Math.max(0,nx*L[0]+ny*L[1]+nz*L[2]);SH[i]=(.58+.42*dl)*(.5+.5*Math.pow(nz,.5));const dh=Math.max(0,nx*Hh[0]+ny*Hh[1]+nz*Hh[2]);SP[i]=Math.pow(dh,18)*22}}
