@@ -2,7 +2,7 @@
   <defs>
     <radialGradient id="bg" cx="35%" cy="30%" r="80%"><stop offset="0" stop-color="#1c1c22"/><stop offset="1" stop-color="#08080a"/></radialGradient>
     <linearGradient id="au" gradientUnits="userSpaceOnUse" x1="10" y1="8" x2="54" y2="58"><stop offset="0" stop-color="#e9d4a0"/><stop offset=".5" stop-color="#c4a468"/><stop offset="1" stop-color="#8f7443"/></linearGradient>
-    <radialGradient id="rd" cx="38%" cy="28%" r="80%"><stop offset="0" stop-color="#e0342a"/><stop offset=".55" stop-color="#da291c"/><stop offset="1" stop-color="#b01a10"/></radialGradient>
+    <radialGradient id="rd" cx="38%" cy="28%" r="80%"><stop offset="0" stop-color="#bd0a3d"/><stop offset=".55" stop-color="#b10034"/><stop offset="1" stop-color="#8a0028"/></radialGradient>
   </defs>
   <rect width="64" height="64" rx="14" fill="url(#bg)"/>
   <rect x="1.5" y="1.5" width="61" height="61" rx="12.5" fill="none" stroke="url(#au)" stroke-opacity=".35" stroke-width="1"/>
