@@ -1,13 +1,12 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
   <defs>
-    <radialGradient id="bg" cx="35%" cy="30%" r="80%"><stop offset="0" stop-color="#1c1c22"/><stop offset="1" stop-color="#08080a"/></radialGradient>
     <linearGradient id="au" gradientUnits="userSpaceOnUse" x1="10" y1="8" x2="54" y2="58"><stop offset="0" stop-color="#e9d4a0"/><stop offset=".5" stop-color="#c4a468"/><stop offset="1" stop-color="#8f7443"/></linearGradient>
-    <radialGradient id="rd" cx="38%" cy="28%" r="80%"><stop offset="0" stop-color="#bd0a3d"/><stop offset=".55" stop-color="#b10034"/><stop offset="1" stop-color="#8a0028"/></radialGradient>
+    <radialGradient id="rd" cx="38%" cy="28%" r="80%"><stop offset="0" stop-color="#d81046"/><stop offset=".55" stop-color="#cb003b"/><stop offset="1" stop-color="#9c002d"/></radialGradient>
   </defs>
-  <rect width="64" height="64" rx="14" fill="url(#bg)"/>
-  <rect x="1.5" y="1.5" width="61" height="61" rx="12.5" fill="none" stroke="url(#au)" stroke-opacity=".35" stroke-width="1"/>
+  <g transform="translate(32 32) scale(1.28) translate(-32 -32.5)">
   <path d="M32 8 L51 13.8 V33 C51 44.5 42.6 52.4 32 57 C21.4 52.4 13 44.5 13 33 V13.8 Z" fill="url(#au)"/>
   <path d="M32 10.6 L48.6 15.7 V33 C48.6 43.2 41.3 50.2 32 54.3 C22.7 50.2 15.4 43.2 15.4 33 V15.7 Z" fill="url(#rd)"/>
   <path d="M32 12.4 L47 17 V33 C47 42.3 40.4 48.6 32 52.4 C23.6 48.6 17 42.3 17 33 V17 Z" fill="none" stroke="url(#au)" stroke-opacity=".55" stroke-width=".7"/>
   <polygon points="28.70,20.50 35.30,20.50 35.30,28.20 43.00,28.20 43.00,34.80 35.30,34.80 35.30,42.50 28.70,42.50 28.70,34.80 21.00,34.80 21.00,28.20 28.70,28.20" fill="#ffffff"/>
+  </g>
 </svg>
