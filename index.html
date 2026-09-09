@@ -390,7 +390,7 @@ footer{padding:64px clamp(20px,6vw,96px) 32px;border-top:1px solid var(--line);b
   <div class="foot-bottom"><span>© 2026 Patrician · patrician.ch</span><span>Not tax, legal, or immigration advice. Figures are indicative. Engage licensed counsel before acting.</span></div>
 </footer>
 <div class="cookie" id="cookie" role="dialog" aria-label="Cookie notice"><p>This site sets no advertising trackers. One preference is stored on your device to remember this choice, and media loads from Pexels and fonts from Google, who see your IP address. <a href="legal.html#cookies">Details</a>.</p><div class="acts"><button id="ckEss">Essentials only</button><button class="ok" id="ckOk">Accept</button></div></div>
-<script src="patrician.js?v=2"></script>
+<script src="patrician.js?v=3"></script>
 <script>
 const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)];
 
@@ -432,7 +432,7 @@ function hudShow(id){const j=J.find(x=>x.id===id);const r=last.find(x=>x.j.id===
 
 /* ---------- ATLAS + TICKER + PINS ---------- */
 $('#rail').innerHTML=J.map((j,i)=>`<div class="card" data-id="${j.id}">
-  ${j.vid?`<video muted loop playsinline preload="none" poster="${j.vid.poster}" data-src="${j.vid.src}"></video><div class="film-tag">Film</div>`:j.img?`<img src="${j.img}" loading="lazy" alt="" onerror="this.style.opacity=0">`:`<div class="plain"><span>${j.city[0]}</span></div>`}
+  ${j.vid?`<video muted loop playsinline preload="none" poster="${j.vid.poster}" data-src="${j.vid.src}"></video>`:j.img?`<img src="${j.img}" loading="lazy" alt="" onerror="this.style.opacity=0">`:`<div class="plain"><span>${j.city[0]}</span></div>`}
   <div class="idx">${String(i+1).padStart(2,'0')}</div>
   <div class="cb"><small>${j.flag} ${j.country}</small><h3>${j.city}</h3><p>${j.lede}</p>
     <div class="stat"><div>Cost index<b>${j.cost}</b></div><div>Safety<b>${j.safe}/10</b></div><div>${FLOW[j.cc]!=null?`Net HNWI inflow 2025<b>${FLOW[j.cc]>0?'+':''}${FLOW[j.cc].toLocaleString()}</b>`:`Beauty<b>${j.beauty}/10</b>`}</div></div></div></div>`).join('');
