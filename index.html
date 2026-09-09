@@ -7,7 +7,7 @@
 <meta name="description" content="A private relocation desk for the globally mobile. Model where to live, which passport to hold, how to structure it, and what the life looks like once you arrive.">
 <meta name="theme-color" content="#0a0a0c">
 <meta property="og:title" content="PATRICIAN · Where should a high earner actually live">
-<meta property="og:description" content="Rank 14 tier-one jurisdictions on your own numbers. Passports, structure, and a Tuesday in the city that wins.">
+<meta property="og:description" content="Rank 23 tier-one jurisdictions on your own numbers. Passports, structure, and a Tuesday in the city that wins.">
 <link rel="canonical" href="https://patrician.ch/">
 <meta property="og:url" content="https://patrician.ch/">
 <meta property="og:image" content="https://images.pexels.com/videos/15493905/mountain-rigi-rigi-kulm-swiss-15493905.jpeg?auto=compress&w=1200">
@@ -114,6 +114,7 @@ input[type=range]::-moz-range-thumb{width:18px;height:18px;border-radius:50%;bac
 .card .cb{position:absolute;left:0;right:0;bottom:0;padding:24px;z-index:2}.card .cb small{font-size:10px;letter-spacing:.3em;text-transform:uppercase;color:var(--gold)}.card .cb h3{margin:6px 0 8px}
 .card .cb p{font-size:13px;color:var(--bone);line-height:1.6;max-height:0;overflow:hidden;opacity:0;transition:all .6s var(--ease)}.card:hover .cb p,.card.open .cb p{max-height:170px;opacity:1}
 .card .cb .stat{display:flex;gap:20px;margin-top:12px;font-size:9px;letter-spacing:.18em;text-transform:uppercase;color:var(--mute)}.card .cb .stat b{display:block;font-family:var(--serif);font-size:22px;font-weight:300;letter-spacing:0;color:var(--ivory);text-transform:none}
+.card .plain{position:absolute;inset:0;background:radial-gradient(ellipse at 30% 20%,rgba(196,164,104,.14),transparent 55%),linear-gradient(160deg,#16161b,#0b0b0e)}.card .plain span,.film .plain span{position:absolute;right:-6%;bottom:8%;font-family:var(--serif);font-size:min(52vw,300px);line-height:1;color:rgba(242,236,223,.06);font-style:italic}.film .plain{position:absolute;inset:0;background:radial-gradient(ellipse at 30% 20%,rgba(196,164,104,.14),transparent 55%),linear-gradient(160deg,#16161b,#0b0b0e)}
 .card .idx{position:absolute;top:20px;left:20px;font-family:var(--serif);font-size:14px;color:var(--bone);z-index:2;letter-spacing:.2em}
 .card .film-tag{position:absolute;top:20px;right:20px;z-index:2;font-size:9px;letter-spacing:.22em;text-transform:uppercase;color:var(--gold);border:1px solid rgba(196,164,104,.5);padding:4px 7px}
 /* PASSPORTS */
@@ -179,7 +180,7 @@ footer p{max-width:64ch;letter-spacing:.06em;text-transform:none;font-size:12px;
     <div class="eyebrow rv in" style="margin-bottom:28px">Your private relocation desk</div>
     <h1><span class="l"><span>Where should</span></span><span class="l"><span>a high earner</span></span><span class="l"><span><em>actually</em> live.</span></span></h1>
     <div class="hero-grid">
-      <p class="lede rv in d2">Fourteen tier-one addresses. Your income, your passports, your family, and what you refuse to compromise on. Ninety seconds to a ranked answer, a passport ladder, an entity architecture, and a Tuesday in the city that wins.</p>
+      <p class="lede rv in d2">Twenty-three addresses on 4 continents. Your income, your passports, your family, and what you refuse to compromise on. Ninety seconds to a ranked answer, a passport ladder, an entity architecture, and a Tuesday in the city that wins.</p>
       <div class="hero-meta rv in d3"><div>Jurisdictions<b id="jcount">14</b></div><div>Passports compared<b>10</b></div><div>Decision axes<b>8</b></div></div>
     </div>
   </div>
@@ -192,7 +193,7 @@ footer p{max-width:64ch;letter-spacing:.06em;text-transform:none;font-size:12px;
     <div class="rv"><div class="globe-box"><canvas id="globe"></canvas><div class="globe-hint">Drag to rotate · tap a city</div></div></div>
     <div>
       <div class="eyebrow rv">01 · The map</div>
-      <h2 class="rv d1" style="margin-top:20px">The world, reduced to the <em>fourteen</em> places that matter.</h2>
+      <h2 class="rv d1" style="margin-top:20px">The world, reduced to the <em>twenty-three</em> places that matter.</h2>
       <p class="lede rv d2" style="margin-top:20px">Gold arcs run from your home base to the top 3 addresses the engine picks for you. Move a slider below and watch the arcs move.</p>
       <div class="pins rv d3" id="pins"></div>
     </div>
@@ -255,7 +256,7 @@ footer p{max-width:64ch;letter-spacing:.06em;text-transform:none;font-size:12px;
 </section>
 
 <section class="atlas alt" id="atlas">
-  <div class="wrap"><div class="eyebrow rv">04 · The Atlas</div><h2 class="rv d1" style="margin-top:20px">Fourteen addresses. <em>One</em> of them is yours.</h2></div>
+  <div class="wrap"><div class="eyebrow rv">04 · The Atlas</div><h2 class="rv d1" style="margin-top:20px">Twenty-three addresses. <em>One</em> of them is yours.</h2></div>
   <div class="rail" id="rail"></div>
 </section>
 
@@ -325,7 +326,7 @@ footer p{max-width:64ch;letter-spacing:.06em;text-transform:none;font-size:12px;
 
 <footer>
   <div><a href="#top" class="brand">PATRICIAN</a><p style="margin-top:14px">Patrician is a modeling and introduction service. Nothing on this site is tax, legal, or immigration advice. Figures are indicative and for orientation only. Engage licensed counsel before acting. Footage and stills via Pexels and Unsplash under their free licenses.</p></div>
-  <div>Zurich · Singapore · Dubai · London · New York</div>
+  <div>Zurich · Monaco · Singapore · Dubai · London · New York · George Town</div>
   <div>© 2026 patrician.ch</div>
 </footer>
 <script>
@@ -337,25 +338,25 @@ footer p{max-width:64ch;letter-spacing:.06em;text-transform:none;font-size:12px;
 const PX=id=>`https://images.pexels.com/photos/${id}/pexels-photo-${id}.jpeg?auto=compress&cs=tinysrgb&w=1600`;
 const UN=id=>`https://images.unsplash.com/${id}?auto=format&fit=crop&w=1600&q=80`;
 const PV=(id,file,poster)=>({src:`https://videos.pexels.com/video-files/${id}/${file}`,poster:`https://images.pexels.com/videos/${id}/${poster}.jpeg?auto=compress&cs=tinysrgb&w=1200`});
-const FX={CHF:1.18,EUR:1.10,AED:0.272,GBP:1.30,SGD:0.75,HKD:0.128,JPY:0.0067,NOK:0.092,CAD:0.73,AUD:0.65,USD:1};
+const FX={CHF:1.18,EUR:1.10,KYD:1.20,BMD:1,BSD:1,AED:0.272,GBP:1.30,SGD:0.75,HKD:0.128,JPY:0.0067,NOK:0.092,CAD:0.73,AUD:0.65,USD:1};
 const USF=[[0,.10],[11925,.12],[48475,.22],[103350,.24],[197300,.32],[250525,.35],[626350,.37]];
 const J=[
-{id:'zrh',city:'Zurich',country:'Switzerland',flag:'🇨🇭',cur:'CHF',lat:47.37,lon:8.54,img:UN('photo-1620563092215-0fbc6b55cfc5'),imgs:[UN('photo-1617181129985-3dee7252966b'),UN('photo-1599082323832-2676eca28e86')],
+{id:'zrh',city:'Zurich',country:'Switzerland',flag:'🇨🇭',cur:'CHF',lat:47.37,lon:8.54,vid:PV(7830799,'7830799-hd_1920_1080_30fps.mp4','switzerland-switzerland-drone-4-k-zurich-zurich-city-7830799'),img:UN('photo-1620563092215-0fbc6b55cfc5'),imgs:[UN('photo-1617181129985-3dee7252966b'),UN('photo-1599082323832-2676eca28e86')],
  br:[[0,.05],[50000,.15],[100000,.24],[200000,.32],[400000,.38],[800000,.40]],cg:0,cost:100,safe:10,school:9,sun:1560,beauty:8,
  visa:{eu:1,ch:1,_:4,t:'EU and Swiss nationals register on arrival. Everyone else needs a quota permit, usually employer sponsored, or the lump sum taxation route for the non working wealthy.'},
  lede:'The city that ranks first in your own spreadsheet every time you run it. Lake, mountains, discretion, and a train that leaves when it says it will.',
  day:[['06:40','The lake','Run the Seefeld shore before the city wakes. Grossmünster bells at 7.'],['08:15','School run','International or Swiss public with German immersion, both 12 minutes away.'],['13:00','Kreis 1','Lunch at a Zunfthaus. Nobody asks what you do. Nobody needs to.'],['18:30','Above the city','Dolder or Uetliberg. The exit money sits in a Swiss AG that pays no tax on private gains.']]},
-{id:'zug',city:'Zug',country:'Switzerland',flag:'🇨🇭',cur:'CHF',lat:47.17,lon:8.52,img:UN('photo-1657137436880-e906b111b040'),imgs:[UN('photo-1573137785546-9d19e4f33f87')],
+{id:'zug',city:'Zug',country:'Switzerland',flag:'🇨🇭',cur:'CHF',lat:47.17,lon:8.52,vid:PV(15493905,'15493905-hd_1920_1080_30fps.mp4','mountain-rigi-rigi-kulm-swiss-15493905'),
  br:[[0,.04],[50000,.10],[100000,.16],[200000,.20],[400000,.23]],cg:0,cost:92,safe:10,school:8,sun:1600,beauty:7,
  visa:{eu:1,ch:1,_:4,t:'EU and Swiss nationals register on arrival. Others need a quota permit or the lump sum route.'},
  lede:'The lowest tax canton that still feels like Switzerland. Crypto Valley, small town, 25 minutes to Zurich when you need a city.',
  day:[['07:00','Zugersee','Swim from the Seebad. The water is glacial and the view is Rigi.'],['09:00','Crypto Valley','Coffee with someone who moved a foundation here in 2018 and never left.'],['12:30','Altstadt','Lunch on the lake, 40 francs, no tourists.'],['17:00','Zurich, briefly','The train takes 25 minutes. You return before dark and pay a fraction of the tax.']]},
-{id:'gva',city:'Geneva',country:'Switzerland',flag:'🇨🇭',cur:'CHF',lat:46.2,lon:6.14,img:UN('photo-1584200463394-bba4b2117e4d'),imgs:[UN('photo-1574904935745-7e40279f589d'),UN('photo-1580316205823-da182af14ab3')],
+{id:'gva',city:'Geneva',country:'Switzerland',flag:'🇨🇭',cur:'CHF',lat:46.2,lon:6.14,vid:PV(7798070,'7798070-hd_1920_1080_30fps.mp4','geneva-switzerland-7798070'),img:UN('photo-1584200463394-bba4b2117e4d'),imgs:[UN('photo-1574904935745-7e40279f589d'),UN('photo-1580316205823-da182af14ab3')],
  br:[[0,.06],[50000,.18],[100000,.28],[200000,.36],[400000,.42],[800000,.45]],cg:0,cost:104,safe:9,school:9,sun:1830,beauty:8,
  visa:{eu:1,ch:1,_:4,t:'EU and Swiss nationals register on arrival. Others need a quota permit or the lump sum route, which Geneva still grants.'},
  lede:'French, private, and the capital of the family office. Higher tax than Zug, better wine, and the Alps on the lake.',
  day:[['07:00','Quai Gustave-Ador','Row on the lake before the Jet d\'Eau switches on.'],['09:30','Rue du Rhône','The private bank has known families like yours since 1796.'],['13:00','Carouge','Lunch in the Sardinian quarter, Italian in every way but the bill.'],['18:00','Cologny','Home above the lake. Ferney and Annecy for the weekend.']]},
-{id:'mco',city:'Monaco',country:'Monaco',flag:'🇲🇨',cur:'EUR',lat:43.73,lon:7.42,img:PX(34712723),imgs:[PX(31371840),PX(30673484)],
+{id:'mco',city:'Monaco',country:'Monaco',flag:'🇲🇨',cur:'EUR',lat:43.73,lon:7.42,vid:PV(11957604,'11957604-hd_1920_1080_30fps.mp4','city-coast-monaco-museum-11957604'),img:PX(34712723),imgs:[PX(31371840),PX(30673484)],
  br:[[0,0]],cg:0,cost:125,safe:10,school:8,sun:2700,beauty:8,
  visa:{eu:2,_:3,t:'Residence card with proof of accommodation and a local bank relationship. Non EU nationals route through a French long stay visa first.'},
  lede:'Two square kilometers of zero. The price is the rent, the reward is a life measured in harbors.',
@@ -395,7 +396,7 @@ const J=[
  visa:{ca:1,_:3,t:'Express Entry, the Start-up Visa, or a provincial nominee program. Citizenship after 3 years of residence in 5.'},
  lede:'Mountains, ocean, and the softest landing in North America for a family. The tax is real and the passport is one of the best in the world.',
  day:[['06:30','Stanley Park','Run the seawall. The mountains have snow and the beach has none.'],['09:00','Coal Harbour','The CCPC pays 11% on the first half million. Take the salary later.'],['13:00','Gastown','Lunch, then a seaplane to Victoria if the afternoon is free.'],['18:00','West Van','Home on the north shore. Whistler is 90 minutes on a Friday.']]},
-{id:'nyc',city:'New York',country:'United States',flag:'🇺🇸',cur:'USD',lat:40.71,lon:-74.0,img:PX(14426200),imgs:[PX(11317199),PX(3359912)],
+{id:'nyc',city:'New York',country:'United States',flag:'🇺🇸',cur:'USD',lat:40.71,lon:-74.0,vid:PV(12122308,'12122308-hd_1920_1080_24fps.mp4','boat-video-cruise-drone-hudson-river-12122308'),img:PX(14426200),imgs:[PX(11317199),PX(3359912)],
  br:USF,br2:[[0,.04],[80650,.06],[215400,.0685],[1077550,.0965],[5000000,.103]],br3:[[0,.03078],[50000,.03876]],cg:.36,cost:108,safe:6,school:9,sun:2530,beauty:7,
  visa:{us:1,il:3,uk:3,ca:3,au:3,jp:3,ch:3,_:4,t:'E-2 treaty investor for treaty nationals, L-1, O-1, or EB-5 from $800K. US citizens are taxed worldwide for life.'},
  lede:'The highest combined tax on the board and the deepest market for what you do. You pay for proximity to capital.',
@@ -409,7 +410,16 @@ const J=[
  br:[[0,0],[18200,.16],[45000,.30],[135000,.37],[190000,.45]],add:.02,cg:.235,cost:90,safe:9,school:9,sun:2590,beauty:8,
  visa:{au:1,_:3,t:'National Innovation visa for exceptional talent or the skilled stream. The investor visa closed in 2024. Citizenship after 4 years, 1 as permanent resident.'},
  lede:'The harbour, the light, and a passport you will keep for your grandchildren. Far from everything, which is either the point or the problem.',
- day:[['06:00','Bondi','Swim the Icebergs pool before the sun is fully up.'],['09:00','Barangaroo','The Pty Ltd, the super fund, and a 45% rate that funds the beaches.'],['13:00','Surry Hills','Lunch, flat white, a meeting under a jacaranda.'],['18:30','Mosman','Home across the bridge. The ferry is the commute.']]}
+ day:[['06:00','Bondi','Swim the Icebergs pool before the sun is fully up.'],['09:00','Barangaroo','The Pty Ltd, the super fund, and a 45% rate that funds the beaches.'],['13:00','Surry Hills','Lunch, flat white, a meeting under a jacaranda.'],['18:30','Mosman','Home across the bridge. The ferry is the commute.']]},
+{id:'sbh',city:'Saint Barthélemy',country:'French West Indies',flag:'🇫🇷',cur:'EUR',lat:17.9,lon:-62.83,br:[[0,0]],cg:0,regime:'French income tax on local income falls away after 5 years of residence',cost:132,safe:9,school:5,sun:2900,beauty:9,visa:{eu:1,_:3,t:'EU nationals settle freely. Everyone else routes through a French long stay visa. No sales tax, no income tax on locally sourced income once you have 5 years of residence.'},lede:'Gustavia is the Caribbean address that money keeps to itself. 25 square kilometers, a harbor of superyachts, and a fiscal status the French Republic granted and never revoked.',day:[['07:00','Saline','The beach with no road sign. You walk in over the dunes and have it to yourself.'],['10:00','Gustavia','The port office, the notaire, and a villa contract in French.'],['13:00','Eden Rock','Lunch on the water. The people at the next table own the boat you looked at.'],['18:30','Colombier','Sunset from the hill. Saint Martin for the airport, Paris for the rest.']]},
+{id:'mil',city:'Milan',country:'Italy',flag:'🇮🇹',cur:'EUR',lat:45.46,lon:9.19,img:PX(745209),br:[[0,.23],[28000,.35],[50000,.43]],add:.025,cg:.26,regime:'Flat tax for new residents on foreign income, a fixed annual sum in the low hundreds of thousands, verify the current figure',cost:78,safe:6,school:8,sun:1900,beauty:7,visa:{eu:1,_:3,t:'EU nationals register on arrival. Others use the elective residence visa, the investor visa from €250K, or an intra company transfer. The flat tax regime is elected on arrival and runs 15 years.'},lede:'The most serious money in Italy lives here, quietly, behind courtyards you will never see from the street. Since London closed its door, Milan opened one.',day:[['07:30','Parco Sempione','Run to the castle and back. The city is already dressed.'],['09:30','Porta Nuova','The family office, the private bank, and a flat tax election that made the whole move work.'],['13:00','Brera','Lunch is 90 minutes and nobody apologizes for it.'],['19:00','Quadrilatero','Home in a palazzo apartment. Lake Como on Friday, the Alps on Saturday.']]},
+{id:'vie',city:'Vienna',country:'Austria',flag:'🇦🇹',cur:'EUR',lat:48.21,lon:16.37,img:PX(16133756),br:[[0,0],[13308,.20],[21617,.30],[35836,.40],[69166,.48],[103072,.50],[1000000,.55]],cg:.275,cost:74,safe:9,school:9,sun:1900,beauty:9,visa:{eu:1,_:3,t:'EU nationals register on arrival. Others need the Red-White-Red card, usually with a job offer or as a key worker. No investment route.'},lede:'The most livable city on earth by most rankings and the most beautiful by the ones that matter. You pay Austrian tax for it. Old money has always thought that fair.',day:[['07:00','Prater','Run the Hauptallee under 4 kilometers of chestnut trees.'],['09:30','Innere Stadt','The Privatstiftung, the private bank on the Ring, and a lawyer who has advised the same families for 3 generations.'],['13:00','Café Central','Lunch where Freud and Trotsky had theirs.'],['19:00','Döbling','Home in a villa with a garden. The opera at 7:30, the Heuriger after.']]},
+{id:'lux',city:'Luxembourg City',country:'Luxembourg',flag:'🇱🇺',cur:'EUR',lat:49.61,lon:6.13,br:[[0,0],[12438,.08],[20000,.12],[30000,.20],[40000,.30],[60000,.38],[100000,.40],[220788,.42]],mult:1.07,cg:.21,cost:88,safe:9,school:9,sun:1600,beauty:6,visa:{eu:1,_:3,t:'EU nationals register on arrival. Others need a residence permit for highly qualified workers or an investor permit from €500K in a Luxembourg company.'},lede:'The engine room of European private wealth. Not a place people dream about, but the place where the dream is structured.',day:[['07:00','Grund','Run the valley under the old fortress walls.'],['09:00','Kirchberg','The SICAV, the SPF, and a fund administrator who has seen your structure a thousand times.'],['13:00','Place Guillaume','Lunch in 3 languages at one table.'],['17:30','Belair','Home, and Paris, Brussels, or Frankfurt for dinner if you wanted.']]},
+{id:'vdz',city:'Vaduz',country:'Liechtenstein',flag:'🇱🇮',cur:'CHF',lat:47.14,lon:9.52,br:[[0,.03],[50000,.08],[100000,.13],[200000,.17],[400000,.20]],cg:0,cost:95,safe:10,school:6,sun:1600,beauty:7,visa:{ch:2,eu:3,_:4,t:'Residence is by quota, even for EEA nationals, with a small annual allocation partly by lottery. Most people structure here and live in Switzerland or Austria next door.'},lede:'The principality that invented discretion as a product. Foundations, trusts, and a prince who lives above the town.',day:[['07:30','The Rhine','Cycle the dam path with Switzerland on the far bank.'],['09:00','Städtle','The Stiftung, the trustee, and a bank that has kept quiet since 1861.'],['12:30','Torkel','Lunch in the prince\'s own vineyard restaurant.'],['16:00','Malbun','Ski above the valley. Zurich is an hour and a half.']]},
+{id:'gcm',city:'George Town',country:'Cayman Islands',flag:'🇰🇾',cur:'KYD',lat:19.29,lon:-81.37,br:[[0,0]],cg:0,cost:105,safe:8,school:7,sun:2800,beauty:6,visa:{_:2,t:'Residency certificate for persons of independent means through a real estate investment of roughly US$1.2M, permanent residence through about US$2.4M. Verify current thresholds.'},lede:'Seven Mile Beach in front, the world\'s hedge funds behind. The most tax neutral serious jurisdiction on earth, with the schools and the flights to match.',day:[['06:30','Seven Mile','Swim before the cruise ships anchor. The water is 28 degrees in January.'],['09:00','Camana Bay','The exempted company, the fund, and a registered office that also runs half of Wall Street\'s vehicles.'],['13:00','Cayman Kai','Lunch on the north side, then back in 40 minutes.'],['18:00','South Sound','Home on the water. Miami is 70 minutes by air.']]},
+{id:'bda',city:'Hamilton',country:'Bermuda',flag:'🇧🇲',cur:'BMD',lat:32.29,lon:-64.78,br:[[0,0]],add:.09,cg:0,regime:'No income tax, a payroll tax on salaries applies',cost:115,safe:8,school:7,sun:2600,beauty:8,visa:{_:2,t:'Economic Investment Certificate from US$2.5M, or the Work From Bermuda certificate for a year while you decide. Verify current thresholds.'},lede:'Pink sand, British manners, and a 2 hour flight to New York. The insurance capital of the world, which is a polite way of saying the money never left.',day:[['06:45','Horseshoe Bay','Swim in the cove before the sun is high.'],['09:00','Front Street','The exempted company and the trust, in an office that looks like a Georgian townhouse because it is one.'],['13:00','Hamilton Harbour','Lunch on the water, then the ferry to Dockyard for no reason.'],['18:30','Tucker\'s Town','Home on the golf course. New York for a Tuesday meeting and back by dinner Wednesday.']]},
+{id:'nas',city:'Nassau',country:'Bahamas',flag:'🇧🇸',cur:'BSD',lat:25.05,lon:-77.35,br:[[0,0]],cg:0,cost:95,safe:6,school:6,sun:2900,beauty:7,visa:{_:2,t:'Permanent residence through a property purchase from about US$1M, faster consideration at higher amounts. No income, capital gains, or inheritance tax. Verify current thresholds.'},lede:'Lyford Cay is the address, Nassau is the airport. A gated peninsula where the North American families keep their winters and their trusts.',day:[['07:00','Lyford Cay','Walk the beach inside the gates. Everyone knows everyone and nobody says so.'],['09:30','Downtown','The IBC, the private trust company, and a banker who flies in from Zurich.'],['13:00','The club','Lunch by the marina. Bring the membership card.'],['17:00','Albany','Golf, then the 3 hour flight to New York on Friday.']]},
+{id:'mla',city:'Valletta',country:'Malta',flag:'🇲🇹',cur:'EUR',lat:35.9,lon:14.51,br:[[0,0],[12000,.15],[16000,.25],[60000,.35]],cg:.35,regime:'Non domiciled residents pay tax only on income remitted to Malta, 15% under the Global Residence Programme',cost:66,safe:8,school:7,sun:3000,beauty:8,visa:{eu:1,_:2,t:'EU nationals register on arrival. Others use the Malta Permanent Residence Programme, a property plus contribution route, or the Global Residence Programme with a 15% flat rate on remitted income.'},lede:'The cheapest tier-one address in the EU and the sunniest. A baroque capital built by knights, and a tax system built for people who live between countries.',day:[['06:30','Sliema','Swim off the rocks before the ferry to Valletta.'],['09:00','Valletta','The holding company, the 5% effective rate after refunds, and a lawyer whose office has 16th century ceilings.'],['13:00','Upper Barrakka','Lunch above the Grand Harbour.'],['19:00','Tigné Point','Home with the harbor in front. Sicily is 90 minutes by ferry.']]}
 ];
 const HOMES=[['New York',40.71,-74],['London',51.51,-.13],['Zurich',47.37,8.54],['Paris',48.86,2.35],['Dubai',25.2,55.27],['Singapore',1.35,103.82],['Hong Kong',22.32,114.17],['Tel Aviv',32.08,34.78],['Los Angeles',34.05,-118.24],['Toronto',43.65,-79.38],['Sydney',-33.87,151.21],['Mumbai',19.08,72.88]];
 const PASS=[
@@ -468,7 +478,7 @@ function compute(){
   rows.forEach(r=>{const j=r.j;const n={tax:(r.kept10-mn)/((mx-mn)||1),safe:j.safe/10,school:j.school/10,sun:Math.min(1,Math.max(0,(j.sun-1500)/2000)),prox:1-Math.min(1,r.fly/18),beauty:j.beauty/10,cost:1-(j.cost-60)/70,visa:1-(r.fr-1)/3};
     r.score=Object.keys(w).reduce((a,k)=>a+w[k]*n[k],0)/tw;r.tags=[];
     if(r.eff<.005)r.tags.push('0% income tax');else if(r.eff<.18)r.tags.push('Low effective tax');
-    if(j.regime)r.tags.push({t:j.regime,w:1});if(j.wealth)r.tags.push({t:'Wealth tax',w:1});
+    if(j.regime)r.tags.push({t:j.regime.length>48?j.regime.slice(0,46)+'…':j.regime,w:1});if(j.wealth)r.tags.push({t:'Wealth tax',w:1});
     if(us&&j.cur!=='USD')r.tags.push({t:'US tax floor applied',w:1});
     if(r.fr===1)r.tags.push('Walk in');else if(r.fr>=4)r.tags.push({t:'Quota permit',w:1});
     if(r.fly>0&&r.fly<=5)r.tags.push('Under 5h from home');});
@@ -481,7 +491,7 @@ function render(){
       <div class="tags">${r.tags.map(t=>typeof t==='string'?`<span>${t}</span>`:`<span class="warn">${t.t}</span>`).join('')}<span>${r.fly?r.fly+'h flight':'Home'}</span></div></div>
     <div class="kp"><b>${fmt(r.kept10)}</b><small>${Math.round(r.eff*100)}% effective</small></div></div>`).join('');
   $$('#results .row').forEach(el=>el.addEventListener('click',()=>setLife(el.dataset.id,true)));
-  if(!S.pick||!rows.some(r=>r.j.id===S.pick))setLife(rows[0].j.id,false);
+  if(!S.pick||!rows.some(r=>r.j.id===S.pick))setLife((rows.slice(0,3).find(r=>r.j.vid||r.j.img)||rows[0]).j.id,false);
   const sel=$('#leadCity');if(!sel.dataset.set){sel.innerHTML=J.map(j=>`<option value="${j.id}">${j.city}</option>`).join('');sel.dataset.set=1}
   drawTraj(rows.slice(0,3));$$('#pins button').forEach(b=>b.classList.toggle('on',b.dataset.id===S.pick))}
 
@@ -492,8 +502,8 @@ function setLife(id,user){
   $('#lifeLede').textContent=j.lede;$('#tl').innerHTML=j.day.map(d=>`<div><time>${d[0]}</time><p><b>${d[1]}</b>${d[2]}</p></div>`).join('');
   $('#basket').innerHTML=`<div>Effective tax<b>${Math.round(r.eff*100)}%</b></div><div>Sun hours / yr<b>${j.sun.toLocaleString()}</b></div><div>Flight from home<b>${r.fly?r.fly+'h':'Home'}</b></div>`;
   const img=$('#lifeImg'),v=$('#lifeVid');
-  if(j.vid){img.src=j.vid.poster;v.src=j.vid.src;v.style.display='';v.play().catch(()=>{})}else{v.pause();v.removeAttribute('src');v.style.display='none';img.src=j.img}
-  const pool=J.filter(x=>x.id!==id).flatMap(x=>[{u:x.vid?x.vid.poster:x.img,c:x.city},...(x.imgs||[]).map(u=>({u,c:x.city}))]);
+  const pl=document.querySelector('#film .plain');if(pl)pl.remove();if(j.vid){img.src=j.vid.poster;img.style.display='';v.src=j.vid.src;v.style.display='';v.play().catch(()=>{})}else{v.pause();v.removeAttribute('src');v.style.display='none';if(j.img){img.style.display='';img.src=j.img}else{img.style.display='none';const d=document.createElement('div');d.className='plain';d.innerHTML=`<span>${j.city[0]}</span>`;$('#film').prepend(d)}}
+  const pool=J.filter(x=>x.id!==id&&(x.vid||x.img)).flatMap(x=>[{u:x.vid?x.vid.poster:x.img,c:x.city},...(x.imgs||[]).map(u=>({u,c:x.city}))]);
   const own=(j.imgs||[]).map(u=>({u,c:j.city}));const pick=[...own,...pool.filter((_,i)=>i%3===0)].slice(0,8);
   $('#mosaic').innerHTML=pick.map(p=>`<div><img src="${p.u}" loading="lazy" alt="" onerror="this.style.opacity=0"><span>${p.c}</span></div>`).join('');
   $('#leadCity').value=id;$$('#pins button').forEach(b=>b.classList.toggle('on',b.dataset.id===id));
@@ -501,7 +511,7 @@ function setLife(id,user){
 
 /* ---------- ATLAS + TICKER + PINS ---------- */
 $('#rail').innerHTML=J.map((j,i)=>`<div class="card" data-id="${j.id}">
-  ${j.vid?`<video muted loop playsinline preload="none" poster="${j.vid.poster}" data-src="${j.vid.src}"></video><div class="film-tag">Film</div>`:`<img src="${j.img}" loading="lazy" alt="" onerror="this.style.opacity=0">`}
+  ${j.vid?`<video muted loop playsinline preload="none" poster="${j.vid.poster}" data-src="${j.vid.src}"></video><div class="film-tag">Film</div>`:j.img?`<img src="${j.img}" loading="lazy" alt="" onerror="this.style.opacity=0">`:`<div class="plain"><span>${j.city[0]}</span></div>`}
   <div class="idx">${String(i+1).padStart(2,'0')}</div>
   <div class="cb"><small>${j.flag} ${j.country}</small><h3>${j.city}</h3><p>${j.lede}</p>
     <div class="stat"><div>Cost index<b>${j.cost}</b></div><div>Safety<b>${j.safe}/10</b></div><div>Beauty<b>${j.beauty}/10</b></div></div></div></div>`).join('');
