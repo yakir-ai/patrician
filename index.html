@@ -278,7 +278,7 @@ footer{padding:64px clamp(20px,6vw,96px) 32px;border-top:1px solid var(--line);b
         <div class="ctrl"><label>Annual income <output id="incOut">$500,000</output></label><input type="range" id="inc" min="0" max="100" value="42"></div>
         <div class="ctrl"><label>One time liquidity event <output id="exitOut">$0</output></label><input type="range" id="exit" min="0" max="100" value="0"></div>
         <div class="ctrl"><label>Passports held</label><div class="seg" id="pp">
-          <button data-v="eu" class="on">EU</button><button data-v="uk">UK</button><button data-v="us">US</button><button data-v="ch">Switzerland</button><button data-v="ca">Canada</button><button data-v="au">Australia</button><button data-v="sg">Singapore</button><button data-v="jp">Japan</button><button data-v="il">Israel</button><button data-v="other">Other</button></div></div>
+          <button data-v="us">US</button><button data-v="eu" class="on">EU</button><button data-v="uk">UK</button><button data-v="il">Israel</button><button data-v="ch">Switzerland</button><button data-v="ca">Canada</button><button data-v="au">Australia</button><button data-v="sg">Singapore</button><button data-v="jp">Japan</button><button data-v="other">Other</button></div></div>
         <div class="ctrl"><label>Household</label><div class="seg" id="hh"><button data-v="solo">Solo</button><button data-v="couple">Couple</button><button data-v="kids" class="on">Kids</button></div></div>
         <div class="ctrl"><label>Home base, for flight time</label><select class="sel" id="home"></select></div>
         <h5 style="margin-top:28px">What you refuse to compromise on</h5>
@@ -434,7 +434,8 @@ footer{padding:64px clamp(20px,6vw,96px) 32px;border-top:1px solid var(--line);b
   <div class="th-dots" id="thDots"></div>
 </div>
 <div class="cookie" id="cookie" role="dialog" aria-label="Cookie notice"><p>This site sets no advertising trackers. One preference is stored on your device to remember this choice, and media loads from Pexels and fonts from Google, who see your IP address. <a href="legal.html#cookies">Details</a>.</p><div class="acts"><button id="ckEss">Essentials only</button><button class="ok" id="ckOk">Accept</button></div></div>
-<script src="patrician.js?v=14"></script>
+<script src="land.js?v=1"></script>
+<script src="patrician.js?v=15"></script>
 <script>
 const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)];
 
@@ -581,23 +582,37 @@ const G=(()=>{const cv=$('#globe'),ctx=cv.getContext('2d');let W,H,R,R0,dpr=1,ya
   const v3=(lat,lon)=>{const a=rad(lat),b=rad(lon);return[Math.cos(a)*Math.cos(b),Math.sin(a),-Math.cos(a)*Math.sin(b)]};
   const rot=p=>{let[x,y,z]=p;let x1=x*Math.cos(yaw)+z*Math.sin(yaw),z1=-x*Math.sin(yaw)+z*Math.cos(yaw);let y1=y*Math.cos(pitch)-z1*Math.sin(pitch),z2=y*Math.sin(pitch)+z1*Math.cos(pitch);return[x1,y1,z2]};
   const proj=p=>{const[x,y,z]=rot(p);return[W/2+x*R,H/2-y*R,z]};
-  const landV=LAND.map(p=>v3(p[1],p[0]));const cityV=J.map(j=>({j,v:v3(j.lat,j.lon)}));
-  function size(){dpr=Math.min(2,devicePixelRatio||1);const s=cv.clientWidth;W=cv.width=s*dpr;H=cv.height=s*dpr;R0=s*.43*dpr;R=R0*zoom}size();addEventListener('resize',size);
+  const landP=(typeof LANDP!=='undefined'?LANDP:[]).map(p=>p.map(q=>v3(q[1],q[0])));const cityV=J.map(j=>({j,v:v3(j.lat,j.lon)}));
+  function size(){dpr=Math.min(2,devicePixelRatio||1);const s=cv.clientWidth;W=cv.width=s*dpr;H=cv.height=s*dpr;R0=s*.405*dpr;R=R0*zoom}size();addEventListener('resize',size);
   function slerp(a,b,t){const d=Math.acos(Math.max(-1,Math.min(1,a[0]*b[0]+a[1]*b[1]+a[2]*b[2])));if(d<1e-6)return a;const s1=Math.sin((1-t)*d)/Math.sin(d),s2=Math.sin(t*d)/Math.sin(d);return[a[0]*s1+b[0]*s2,a[1]*s1+b[1]*s2,a[2]*s1+b[2]*s2]};
   let pins=[];
-  const labels=[];const put=(txt,x,y,font,color,ls,pin)=>{ctx.font=font;if('letterSpacing' in ctx)ctx.letterSpacing=ls||'0px';const w=ctx.measureText(txt).width,h=parseFloat((font.match(/([\d.]+)px/)||[0,12])[1])*1.15;const box=[x-2*dpr,y-h,x+w+2*dpr,y+h*.35];if(labels.some(b=>!(box[2]<b[0]||box[0]>b[2]||box[3]<b[1]||box[1]>b[3])))return false;labels.push(box);if(pin)pin.lb=box;ctx.fillStyle=color;ctx.textAlign='left';ctx.fillText(txt,x,y);return true};
+  const labels=[];const put=(txt,x,y,font,color,ls,pin)=>{ctx.font=font;if('letterSpacing' in ctx)ctx.letterSpacing=ls||'0px';const w=ctx.measureText(txt).width,h=parseFloat((font.match(/([\d.]+)px/)||[0,12])[1])*1.15;const box=[x-2*dpr,y-h,x+w+2*dpr,y+h*.35];if(labels.some(b=>!(box[2]<b[0]||box[0]>b[2]||box[3]<b[1]||box[1]>b[3])))return false;labels.push(box);if(pin)pin.lb=box;ctx.fillStyle='rgba(8,8,11,.62)';ctx.fillRect(box[0]-3*dpr,box[1]+h*.12,box[2]-box[0]+6*dpr,h*1.02);ctx.fillStyle=color;ctx.textAlign='left';ctx.fillText(txt,x,y);return true};
   const arc=(av,bv,lift0,pr)=>{let pen=false;ctx.beginPath();for(let t=0;t<=pr+1e-4;t+=.02){const tt=Math.min(t,1);const q=slerp(av,bv,tt);const lift=1+Math.sin(tt*Math.PI)*lift0;const[x,y,z]=proj([q[0]*lift,q[1]*lift,q[2]*lift]);if(z>-.12){pen?ctx.lineTo(x,y):ctx.moveTo(x,y);pen=true}else pen=false}ctx.stroke()};
   function draw(){const now=performance.now();ctx.clearRect(0,0,W,H);const cx=W/2,cy=H/2;labels.length=0;if('letterSpacing' in ctx)ctx.letterSpacing='0px';
     let g=ctx.createRadialGradient(cx,cy,R*.9,cx,cy,R*1.22);g.addColorStop(0,'rgba(196,164,104,.14)');g.addColorStop(.45,'rgba(196,164,104,.04)');g.addColorStop(1,'rgba(196,164,104,0)');ctx.fillStyle=g;ctx.beginPath();ctx.arc(cx,cy,R*1.22,0,7);ctx.fill();
-    g=ctx.createRadialGradient(cx-R*.38,cy-R*.42,R*.04,cx,cy,R);g.addColorStop(0,'#26262d');g.addColorStop(.5,'#121216');g.addColorStop(1,'#07070a');ctx.fillStyle=g;ctx.beginPath();ctx.arc(cx,cy,R,0,7);ctx.fill();
-    g=ctx.createRadialGradient(cx,cy,R*.72,cx,cy,R);g.addColorStop(0,'rgba(0,0,0,0)');g.addColorStop(1,'rgba(0,0,0,.6)');ctx.fillStyle=g;ctx.beginPath();ctx.arc(cx,cy,R,0,7);ctx.fill();
-    ctx.strokeStyle='rgba(242,236,223,.06)';ctx.lineWidth=dpr*.8;
+    g=ctx.createRadialGradient(cx-R*.36,cy-R*.4,R*.05,cx,cy,R);g.addColorStop(0,'#2b3552');g.addColorStop(.35,'#141d33');g.addColorStop(.75,'#0a1020');g.addColorStop(1,'#04060d');ctx.fillStyle=g;ctx.beginPath();ctx.arc(cx,cy,R,0,7);ctx.fill();
+    ctx.strokeStyle='rgba(196,164,104,.13)';ctx.lineWidth=dpr*.7;
     for(let la=-60;la<=60;la+=30){ctx.beginPath();let pen=false;for(let lo=-180;lo<=180;lo+=4){const[x,y,z]=proj(v3(la,lo));if(z>.02){pen?ctx.lineTo(x,y):ctx.moveTo(x,y);pen=true}else pen=false}ctx.stroke()}
     for(let lo=-180;lo<180;lo+=30){ctx.beginPath();let pen=false;for(let la=-90;la<=90;la+=4){const[x,y,z]=proj(v3(la,lo));if(z>.02){pen?ctx.lineTo(x,y):ctx.moveTo(x,y);pen=true}else pen=false}ctx.stroke()}
-    ctx.strokeStyle='rgba(196,164,104,.55)';ctx.lineWidth=dpr;ctx.beginPath();ctx.arc(cx,cy,R,0,7);ctx.stroke();
-    ctx.strokeStyle='rgba(196,164,104,.16)';ctx.lineWidth=dpr*.7;ctx.beginPath();ctx.arc(cx,cy,R*1.07,0,7);ctx.stroke();
-    ctx.strokeStyle='rgba(196,164,104,.3)';ctx.lineWidth=dpr*.7;for(let i=0;i<72;i++){const a=i*Math.PI/36+yaw*.15;const r1=R*1.07,r2=R*(i%9?1.082:1.1);ctx.beginPath();ctx.moveTo(cx+Math.cos(a)*r1,cy+Math.sin(a)*r1);ctx.lineTo(cx+Math.cos(a)*r2,cy+Math.sin(a)*r2);ctx.stroke()}
-    ctx.fillStyle='#ebe2cc';landV.forEach(v=>{const[x,y,z]=proj(v);if(z>0){ctx.globalAlpha=.18+.62*z;const d=(1.4+1.4*z)*dpr;ctx.fillRect(x-d/2,y-d/2,d,d)}});ctx.globalAlpha=1;
+    /* parchment continents, clipped to the lit hemisphere by pushing hidden vertices to the limb */
+    ctx.save();ctx.beginPath();ctx.arc(cx,cy,R,0,7);ctx.clip();
+    const lg0=ctx.createRadialGradient(cx-R*.3,cy-R*.35,R*.1,cx,cy,R*1.05);lg0.addColorStop(0,'#eadfbf');lg0.addColorStop(.55,'#d6c397');lg0.addColorStop(1,'#a88b58');
+    ctx.fillStyle=lg0;ctx.strokeStyle='rgba(120,92,50,.55)';ctx.lineWidth=dpr*.55;ctx.lineJoin='round';
+    landP.forEach(poly=>{const n=poly.length;const P=poly.map(v=>{const[x,y,z]=proj(v);return[x,y,z]});let s=P.findIndex(p=>p[2]>0);if(s<0)return;
+      /* start on a visible vertex, walk the ring: visible runs are drawn as lines, hidden runs collapse to one short arc along the limb between the two horizon crossings */
+      ctx.beginPath();ctx.moveTo(P[s][0],P[s][1]);let i=s,hid=null;for(let k=1;k<=n;k++){const p=P[(s+k)%n];if(p[2]>0){if(hid!==null){const a1=hid,a2=Math.atan2(p[1]-cy,p[0]-cx);let d=a2-a1;d=Math.atan2(Math.sin(d),Math.cos(d));ctx.arc(cx,cy,R,a1,a1+d,d<0);hid=null}ctx.lineTo(p[0],p[1])}else if(hid===null){const q=P[(s+k-1)%n];const a=Math.atan2(q[1]-cy,q[0]-cx);ctx.lineTo(cx+Math.cos(a)*R,cy+Math.sin(a)*R);hid=a}}
+      ctx.closePath();ctx.fill();ctx.stroke()});
+    ctx.restore();
+    /* lacquer: limb darkening and a soft specular */
+    g=ctx.createRadialGradient(cx,cy,R*.62,cx,cy,R);g.addColorStop(0,'rgba(3,5,12,0)');g.addColorStop(.7,'rgba(3,5,12,.28)');g.addColorStop(1,'rgba(3,5,12,.78)');ctx.fillStyle=g;ctx.beginPath();ctx.arc(cx,cy,R,0,7);ctx.fill();
+    g=ctx.createRadialGradient(cx-R*.42,cy-R*.46,0,cx-R*.42,cy-R*.46,R*.5);g.addColorStop(0,'rgba(255,250,235,.16)');g.addColorStop(.5,'rgba(255,250,235,.04)');g.addColorStop(1,'rgba(255,250,235,0)');ctx.fillStyle=g;ctx.beginPath();ctx.arc(cx,cy,R,0,7);ctx.fill();
+    /* brass meridian ring */
+    const r1=R*1.03,r2=R*1.092;let bg=ctx.createLinearGradient(cx-R,cy-R,cx+R,cy+R);bg.addColorStop(0,'#efdfb2');bg.addColorStop(.3,'#c4a468');bg.addColorStop(.62,'#7f6539');bg.addColorStop(1,'#a88b58');
+    ctx.beginPath();ctx.arc(cx,cy,r2,0,7);ctx.arc(cx,cy,r1,0,7,true);ctx.fillStyle=bg;ctx.fill('evenodd');
+    ctx.strokeStyle='rgba(40,28,10,.6)';ctx.lineWidth=dpr*.8;ctx.beginPath();ctx.arc(cx,cy,r1,0,7);ctx.stroke();ctx.beginPath();ctx.arc(cx,cy,r2,0,7);ctx.stroke();
+    ctx.strokeStyle='rgba(255,245,215,.35)';ctx.lineWidth=dpr*.6;ctx.beginPath();ctx.arc(cx,cy,r1+dpr,0,7);ctx.stroke();
+    ctx.strokeStyle='rgba(40,28,10,.5)';ctx.lineWidth=dpr*.7;for(let i=0;i<72;i++){const a=i*Math.PI/36+yaw*.15;const rr=R*(i%9?1.072:1.092);ctx.beginPath();ctx.moveTo(cx+Math.cos(a)*r1,cy+Math.sin(a)*r1);ctx.lineTo(cx+Math.cos(a)*rr,cy+Math.sin(a)*rr);ctx.stroke()}
+    ctx.strokeStyle='rgba(196,164,104,.18)';ctx.lineWidth=dpr*.6;ctx.beginPath();ctx.arc(cx,cy,R*1.15,0,7);ctx.stroke();
     const home=HOMES[S.home],hv=v3(home[1],home[2]);const[hx,hy,hz]=proj(hv);const top=last.slice(0,3);
     top.forEach((r,i)=>{if(r.j.id===sel)return;const tv=cityV.find(c=>c.j.id===r.j.id).v;const[tx,ty]=proj(tv);const lg=ctx.createLinearGradient(hx,hy,tx,ty);lg.addColorStop(0,'rgba(242,236,223,.5)');lg.addColorStop(1,i?'rgba(196,164,104,.55)':'rgba(196,164,104,.95)');ctx.strokeStyle=lg;ctx.lineWidth=(i?.9:1.5)*dpr;ctx.setLineDash(i?[4*dpr,5*dpr]:[]);arc(hv,tv,.12,1);ctx.setLineDash([])});
     if(sel){const sv=cityV.find(c=>c.j.id===sel);if(sv){const pr=Math.min(1,(now-selT)/900);const[sx,sy,sz]=proj(sv.v);const lg=ctx.createLinearGradient(hx,hy,sx,sy);lg.addColorStop(0,'rgba(242,236,223,.7)');lg.addColorStop(1,'#e9d4a0');ctx.strokeStyle=lg;ctx.lineWidth=2*dpr;arc(hv,sv.v,.15,pr);
@@ -606,7 +621,7 @@ const G=(()=>{const cv=$('#globe'),ctx=cv.getContext('2d');let W,H,R,R0,dpr=1,ya
     if(hz>0){ctx.strokeStyle='rgba(242,236,223,.8)';ctx.lineWidth=dpr;ctx.beginPath();ctx.arc(hx,hy,5*dpr,0,7);ctx.stroke();ctx.fillStyle='#f2ecdf';ctx.beginPath();ctx.arc(hx,hy,1.8*dpr,0,7);ctx.fill()}
     pins=[];const vis=[];cityV.forEach(({j,v})=>{const[x,y,z]=proj(v);if(z<=0)return;const pin={j,x,y};pins.push(pin);vis.push({j,x,y,z,pin})});
     vis.forEach(({j,x,y,z})=>{const on=j.id===sel;const rk=top.findIndex(r=>r.j.id===j.id);if(on||rk>=0){const gr=ctx.createRadialGradient(x,y,0,x,y,14*dpr);gr.addColorStop(0,on?'rgba(210,182,120,.75)':'rgba(196,164,104,.45)');gr.addColorStop(1,'rgba(0,0,0,0)');ctx.fillStyle=gr;ctx.beginPath();ctx.arc(x,y,14*dpr,0,7);ctx.fill()}
-      ctx.fillStyle=on?'#e9d4a0':rk>=0?'#c4a468':'rgba(242,236,223,'+(.5+.5*z)+')';ctx.beginPath();ctx.arc(x,y,(on?3.6:rk>=0?2.8:1.9)*dpr,0,7);ctx.fill();
+      ctx.fillStyle=on?'#e9d4a0':rk>=0?'#c4a468':'#14141a';ctx.beginPath();ctx.arc(x,y,(on?3.6:rk>=0?2.8:2.1)*dpr,0,7);ctx.fill();if(!on&&rk<0){ctx.strokeStyle='rgba(233,212,160,'+(.45+.5*z).toFixed(2)+')';ctx.lineWidth=dpr*.9;ctx.stroke()}
       if(on){ctx.strokeStyle='rgba(233,212,160,.9)';ctx.lineWidth=dpr;ctx.beginPath();ctx.arc(x,y,7*dpr,0,7);ctx.stroke()}
       if(rk>=0&&!on){put(['I','II','III'][rk],x-11*dpr,y-6*dpr,`italic ${11*dpr}px "Cormorant Garamond",serif`,'#c4a468')}});
     vis.sort((a,b)=>(b.j.id===sel)-(a.j.id===sel)||b.z-a.z);
