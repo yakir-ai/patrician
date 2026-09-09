@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
+<script>try{history.scrollRestoration="manual"}catch(e){}</script>
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Patrician.ch: Where Should a High Earner Actually Live?</title>
 <meta name="description" content="Rank every tier-one jurisdiction on your own income, passports, and family. Effective tax, visa path, cost of the life, 65 passports compared, and a private dossier in 72 hours.">
@@ -321,7 +322,7 @@ footer{padding:64px clamp(20px,6vw,96px) 32px;border-top:1px solid var(--line);b
 </section>
 
 <section id="passports">
-  <div class="pp-bg" aria-hidden="true"><img src="/passports.svg?v=3" alt=""><i></i></div>
+  <div class="pp-bg" aria-hidden="true"><img src="/passports.svg?v=4" alt=""><i></i></div>
   <div class="wrap">
     <div class="eyebrow rv">05 · The Passport Ladder</div>
     <h2 class="rv d1" style="margin-top:20px;max-width:16ch">The document you carry decides which doors <em>open</em>.</h2>
@@ -750,6 +751,7 @@ glossify(document.body);
 $$('a.brand').forEach(a=>a.addEventListener('click',e=>{e.preventDefault();window.scrollTo({top:0,behavior:'smooth'});history.replaceState(null,'',location.pathname+location.search)}));
 if(location.hash){const id=location.hash.slice(1);const t=document.getElementById(id);if(t&&id!=='top')setTimeout(()=>t.scrollIntoView(),0);history.replaceState(null,'',location.pathname+location.search)}
 if('scrollRestoration' in history)history.scrollRestoration='manual';
+if(!location.hash){window.scrollTo(0,0);addEventListener('load',()=>window.scrollTo(0,0));addEventListener('pageshow',e=>{if(e.persisted)window.scrollTo(0,0)})}
 $$('nav a[href^="#"],.foot a[href^="#"],a.showall[href^="#"]').forEach(a=>a.addEventListener('click',e=>{const t=document.getElementById(a.getAttribute('href').slice(1));if(!t)return;e.preventDefault();t.scrollIntoView({behavior:'smooth'});history.replaceState(null,'',location.pathname+location.search)}));
 </script>
 </body>
