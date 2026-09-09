@@ -582,33 +582,38 @@ const G=(()=>{const cv=$('#globe'),ctx=cv.getContext('2d');let W,H,R,R0,dpr=1,ya
   const v3=(lat,lon)=>{const a=rad(lat),b=rad(lon);return[Math.cos(a)*Math.cos(b),Math.sin(a),-Math.cos(a)*Math.sin(b)]};
   const rot=p=>{let[x,y,z]=p;let x1=x*Math.cos(yaw)+z*Math.sin(yaw),z1=-x*Math.sin(yaw)+z*Math.cos(yaw);let y1=y*Math.cos(pitch)-z1*Math.sin(pitch),z2=y*Math.sin(pitch)+z1*Math.cos(pitch);return[x1,y1,z2]};
   const proj=p=>{const[x,y,z]=rot(p);return[W/2+x*R,H/2-y*R,z]};
-  const landP=(typeof LANDP!=='undefined'?LANDP:[]).map(p=>p.map(q=>v3(q[1],q[0])));const cityV=J.map(j=>({j,v:v3(j.lat,j.lon)}));
-  function size(){dpr=Math.min(2,devicePixelRatio||1);const s=cv.clientWidth;W=cv.width=s*dpr;H=cv.height=s*dpr;R0=s*.405*dpr;R=R0*zoom}size();addEventListener('resize',size);
+  /* printed globe: an equirectangular parchment texture built once, sampled per pixel every frame (correct clipping, real paper) */
+  const TW=2048,TH=1024,tex=document.createElement('canvas');tex.width=TW;tex.height=TH;const tc=tex.getContext('2d');
+  (function paint(){const polys=(typeof LANDP!=='undefined'?LANDP:[]);const P=q=>[(q[0]+180)/360*TW,(90-q[1])/180*TH];
+    tc.fillStyle='#0d1729';tc.fillRect(0,0,TW,TH);
+    const og=tc.createLinearGradient(0,0,0,TH);og.addColorStop(0,'rgba(30,45,75,.55)');og.addColorStop(.5,'rgba(0,0,0,0)');og.addColorStop(1,'rgba(30,45,75,.45)');tc.fillStyle=og;tc.fillRect(0,0,TW,TH);
+    const path=()=>{tc.beginPath();polys.forEach(p=>{p.forEach((q,i)=>{const[x,y]=P(q);i?tc.lineTo(x,y):tc.moveTo(x,y)});tc.closePath()})};
+    path();tc.fillStyle='#cdbb92';tc.fill();
+    tc.save();path();tc.clip();const lg=tc.createLinearGradient(0,0,0,TH);lg.addColorStop(0,'#d8c9a4');lg.addColorStop(.5,'#cbb88d');lg.addColorStop(1,'#c2ad80');tc.fillStyle=lg;tc.fillRect(0,0,TW,TH);
+    path();tc.strokeStyle='rgba(110,85,50,.32)';tc.lineWidth=14;tc.lineJoin='round';tc.stroke();path();tc.strokeStyle='rgba(110,85,50,.3)';tc.lineWidth=5;tc.stroke();
+    const id=tc.getImageData(0,0,TW,TH),d=id.data;let s=7;for(let i=0;i<d.length;i+=4){s=(s*1103515245+12345)&0x7fffffff;const n=((s>>8)&63)-32;d[i]+=n*.28;d[i+1]+=n*.26;d[i+2]+=n*.2}tc.putImageData(id,0,0);tc.restore();
+    path();tc.strokeStyle='rgba(70,52,30,.9)';tc.lineWidth=1.8;tc.lineJoin='round';tc.stroke();
+    tc.strokeStyle='rgba(196,164,104,.2)';tc.lineWidth=1.3;for(let la=-75;la<=75;la+=15){const y=(90-la)/180*TH;tc.beginPath();tc.moveTo(0,y);tc.lineTo(TW,y);tc.stroke()}for(let lo=-180;lo<180;lo+=15){const x=(lo+180)/360*TW;tc.beginPath();tc.moveTo(x,0);tc.lineTo(x,TH);tc.stroke()}
+    tc.strokeStyle='rgba(196,164,104,.42)';tc.lineWidth=2;tc.beginPath();tc.moveTo(0,TH/2);tc.lineTo(TW,TH/2);tc.stroke();})();
+  const TD=tc.getImageData(0,0,TW,TH).data;
+  let lastRaster=0,RS=0,rc=document.createElement('canvas'),rctx=rc.getContext('2d'),rimg=null,NX=null,NY=null,NZ=null,SH=null,SP=null,MASK=null;
+  function buildRaster(){RS=Math.round(Math.min(W,640));rc.width=rc.height=RS;rimg=rctx.createImageData(RS,RS);const n=RS*RS;NX=new Float32Array(n);NY=new Float32Array(n);NZ=new Float32Array(n);SH=new Float32Array(n);SP=new Float32Array(n);MASK=new Uint8Array(n);const c=RS/2,r=RS/2-.5;const L=[-.45,.5,.74],ll=Math.hypot(...L);L[0]/=ll;L[1]/=ll;L[2]/=ll;const Hh=[L[0],L[1],L[2]+1],hl=Math.hypot(...Hh);Hh[0]/=hl;Hh[1]/=hl;Hh[2]/=hl;
+    for(let py=0;py<RS;py++)for(let px=0;px<RS;px++){const i=py*RS+px;const nx=(px+.5-c)/r,ny=(c-py-.5)/r;const q=nx*nx+ny*ny;if(q>1){MASK[i]=0;continue}MASK[i]=1;const nz=Math.sqrt(1-q);NX[i]=nx;NY[i]=ny;NZ[i]=nz;const dl=Math.max(0,nx*L[0]+ny*L[1]+nz*L[2]);SH[i]=(.5+.5*dl)*(.45+.55*Math.pow(nz,.55));const dh=Math.max(0,nx*Hh[0]+ny*Hh[1]+nz*Hh[2]);SP[i]=Math.pow(dh,42)*70}}
+  function renderRaster(){const d=rimg.data,n=RS*RS;const cy_=Math.cos(yaw),sy_=Math.sin(yaw),cp_=Math.cos(pitch),sp_=Math.sin(pitch);const kx=TW/(2*Math.PI),ky=TH/Math.PI;
+    for(let i=0;i<n;i++){const o=i*4;if(!MASK[i]){d[o+3]=0;continue}const X=NX[i],Y=NY[i],Z=NZ[i];const z1=-Y*sp_+Z*cp_;const y=Y*cp_+Z*sp_;const x=X*cy_-z1*sy_;const z=X*sy_+z1*cy_;const lat=Math.asin(y>1?1:y<-1?-1:y),lon=Math.atan2(-z,x);let u=((lon+Math.PI)*kx)|0,v=((Math.PI/2-lat)*ky)|0;if(u>=TW)u=TW-1;if(v>=TH)v=TH-1;if(v<0)v=0;const t=(v*TW+u)*4,sh=SH[i],sp=SP[i];d[o]=TD[t]*sh+sp;d[o+1]=TD[t+1]*sh+sp;d[o+2]=TD[t+2]*sh+sp*.9;d[o+3]=255}
+    rctx.putImageData(rimg,0,0)}const cityV=J.map(j=>({j,v:v3(j.lat,j.lon)}));
+  function size(){dpr=Math.min(2,devicePixelRatio||1);const s=cv.clientWidth;W=cv.width=s*dpr;H=cv.height=s*dpr;R0=s*.405*dpr;R=R0*zoom;buildRaster()}size();addEventListener('resize',size);
   function slerp(a,b,t){const d=Math.acos(Math.max(-1,Math.min(1,a[0]*b[0]+a[1]*b[1]+a[2]*b[2])));if(d<1e-6)return a;const s1=Math.sin((1-t)*d)/Math.sin(d),s2=Math.sin(t*d)/Math.sin(d);return[a[0]*s1+b[0]*s2,a[1]*s1+b[1]*s2,a[2]*s1+b[2]*s2]};
   let pins=[];
   const labels=[];const put=(txt,x,y,font,color,ls,pin)=>{ctx.font=font;if('letterSpacing' in ctx)ctx.letterSpacing=ls||'0px';const w=ctx.measureText(txt).width,h=parseFloat((font.match(/([\d.]+)px/)||[0,12])[1])*1.15;const box=[x-2*dpr,y-h,x+w+2*dpr,y+h*.35];if(labels.some(b=>!(box[2]<b[0]||box[0]>b[2]||box[3]<b[1]||box[1]>b[3])))return false;labels.push(box);if(pin)pin.lb=box;ctx.fillStyle='rgba(8,8,11,.62)';ctx.fillRect(box[0]-3*dpr,box[1]+h*.12,box[2]-box[0]+6*dpr,h*1.02);ctx.fillStyle=color;ctx.textAlign='left';ctx.fillText(txt,x,y);return true};
   const arc=(av,bv,lift0,pr)=>{let pen=false;ctx.beginPath();for(let t=0;t<=pr+1e-4;t+=.02){const tt=Math.min(t,1);const q=slerp(av,bv,tt);const lift=1+Math.sin(tt*Math.PI)*lift0;const[x,y,z]=proj([q[0]*lift,q[1]*lift,q[2]*lift]);if(z>-.12){pen?ctx.lineTo(x,y):ctx.moveTo(x,y);pen=true}else pen=false}ctx.stroke()};
   function draw(){const now=performance.now();ctx.clearRect(0,0,W,H);const cx=W/2,cy=H/2;labels.length=0;if('letterSpacing' in ctx)ctx.letterSpacing='0px';
     let g=ctx.createRadialGradient(cx,cy,R*.9,cx,cy,R*1.22);g.addColorStop(0,'rgba(196,164,104,.14)');g.addColorStop(.45,'rgba(196,164,104,.04)');g.addColorStop(1,'rgba(196,164,104,0)');ctx.fillStyle=g;ctx.beginPath();ctx.arc(cx,cy,R*1.22,0,7);ctx.fill();
-    g=ctx.createRadialGradient(cx-R*.36,cy-R*.4,R*.05,cx,cy,R);g.addColorStop(0,'#2b3552');g.addColorStop(.35,'#141d33');g.addColorStop(.75,'#0a1020');g.addColorStop(1,'#04060d');ctx.fillStyle=g;ctx.beginPath();ctx.arc(cx,cy,R,0,7);ctx.fill();
-    ctx.strokeStyle='rgba(196,164,104,.13)';ctx.lineWidth=dpr*.7;
-    for(let la=-60;la<=60;la+=30){ctx.beginPath();let pen=false;for(let lo=-180;lo<=180;lo+=4){const[x,y,z]=proj(v3(la,lo));if(z>.02){pen?ctx.lineTo(x,y):ctx.moveTo(x,y);pen=true}else pen=false}ctx.stroke()}
-    for(let lo=-180;lo<180;lo+=30){ctx.beginPath();let pen=false;for(let la=-90;la<=90;la+=4){const[x,y,z]=proj(v3(la,lo));if(z>.02){pen?ctx.lineTo(x,y):ctx.moveTo(x,y);pen=true}else pen=false}ctx.stroke()}
-    /* parchment continents, clipped to the lit hemisphere by pushing hidden vertices to the limb */
-    ctx.save();ctx.beginPath();ctx.arc(cx,cy,R,0,7);ctx.clip();
-    const lg0=ctx.createRadialGradient(cx-R*.3,cy-R*.35,R*.1,cx,cy,R*1.05);lg0.addColorStop(0,'#eadfbf');lg0.addColorStop(.55,'#d6c397');lg0.addColorStop(1,'#a88b58');
-    ctx.fillStyle=lg0;ctx.strokeStyle='rgba(120,92,50,.55)';ctx.lineWidth=dpr*.55;ctx.lineJoin='round';
-    landP.forEach(poly=>{const n=poly.length;const P=poly.map(v=>{const[x,y,z]=proj(v);return[x,y,z]});let s=P.findIndex(p=>p[2]>0);if(s<0)return;
-      /* start on a visible vertex, walk the ring: visible runs are drawn as lines, hidden runs collapse to one short arc along the limb between the two horizon crossings */
-      ctx.beginPath();ctx.moveTo(P[s][0],P[s][1]);let i=s,hid=null;for(let k=1;k<=n;k++){const p=P[(s+k)%n];if(p[2]>0){if(hid!==null){const a1=hid,a2=Math.atan2(p[1]-cy,p[0]-cx);let d=a2-a1;d=Math.atan2(Math.sin(d),Math.cos(d));ctx.arc(cx,cy,R,a1,a1+d,d<0);hid=null}ctx.lineTo(p[0],p[1])}else if(hid===null){const q=P[(s+k-1)%n];const a=Math.atan2(q[1]-cy,q[0]-cx);ctx.lineTo(cx+Math.cos(a)*R,cy+Math.sin(a)*R);hid=a}}
-      ctx.closePath();ctx.fill();ctx.stroke()});
-    ctx.restore();
-    /* lacquer: limb darkening and a soft specular */
-    g=ctx.createRadialGradient(cx,cy,R*.62,cx,cy,R);g.addColorStop(0,'rgba(3,5,12,0)');g.addColorStop(.7,'rgba(3,5,12,.28)');g.addColorStop(1,'rgba(3,5,12,.78)');ctx.fillStyle=g;ctx.beginPath();ctx.arc(cx,cy,R,0,7);ctx.fill();
-    g=ctx.createRadialGradient(cx-R*.42,cy-R*.46,0,cx-R*.42,cy-R*.46,R*.5);g.addColorStop(0,'rgba(255,250,235,.16)');g.addColorStop(.5,'rgba(255,250,235,.04)');g.addColorStop(1,'rgba(255,250,235,0)');ctx.fillStyle=g;ctx.beginPath();ctx.arc(cx,cy,R,0,7);ctx.fill();
+    if(now-lastRaster>30||!lastRaster){renderRaster();lastRaster=now}ctx.save();ctx.beginPath();ctx.arc(cx,cy,R,0,7);ctx.clip();ctx.imageSmoothingEnabled=true;ctx.imageSmoothingQuality='high';ctx.drawImage(rc,cx-R,cy-R,2*R,2*R);ctx.restore();
+    g=ctx.createRadialGradient(cx,cy,R*.9,cx,cy,R);g.addColorStop(0,'rgba(3,5,12,0)');g.addColorStop(1,'rgba(3,5,12,.55)');ctx.fillStyle=g;ctx.beginPath();ctx.arc(cx,cy,R,0,7);ctx.fill();
     /* brass meridian ring */
     const r1=R*1.03,r2=R*1.092;let bg=ctx.createLinearGradient(cx-R,cy-R,cx+R,cy+R);bg.addColorStop(0,'#efdfb2');bg.addColorStop(.3,'#c4a468');bg.addColorStop(.62,'#7f6539');bg.addColorStop(1,'#a88b58');
-    ctx.beginPath();ctx.arc(cx,cy,r2,0,7);ctx.arc(cx,cy,r1,0,7,true);ctx.fillStyle=bg;ctx.fill('evenodd');
+    ctx.beginPath();ctx.arc(cx,cy,r2,0,Math.PI*2);ctx.arc(cx,cy,r1,Math.PI*2,0,true);ctx.fillStyle=bg;ctx.fill('evenodd');
     ctx.strokeStyle='rgba(40,28,10,.6)';ctx.lineWidth=dpr*.8;ctx.beginPath();ctx.arc(cx,cy,r1,0,7);ctx.stroke();ctx.beginPath();ctx.arc(cx,cy,r2,0,7);ctx.stroke();
     ctx.strokeStyle='rgba(255,245,215,.35)';ctx.lineWidth=dpr*.6;ctx.beginPath();ctx.arc(cx,cy,r1+dpr,0,7);ctx.stroke();
     ctx.strokeStyle='rgba(40,28,10,.5)';ctx.lineWidth=dpr*.7;for(let i=0;i<72;i++){const a=i*Math.PI/36+yaw*.15;const rr=R*(i%9?1.072:1.092);ctx.beginPath();ctx.moveTo(cx+Math.cos(a)*r1,cy+Math.sin(a)*r1);ctx.lineTo(cx+Math.cos(a)*rr,cy+Math.sin(a)*rr);ctx.stroke()}
@@ -621,7 +626,7 @@ const G=(()=>{const cv=$('#globe'),ctx=cv.getContext('2d');let W,H,R,R0,dpr=1,ya
     if(hz>0){ctx.strokeStyle='rgba(242,236,223,.8)';ctx.lineWidth=dpr;ctx.beginPath();ctx.arc(hx,hy,5*dpr,0,7);ctx.stroke();ctx.fillStyle='#f2ecdf';ctx.beginPath();ctx.arc(hx,hy,1.8*dpr,0,7);ctx.fill()}
     pins=[];const vis=[];cityV.forEach(({j,v})=>{const[x,y,z]=proj(v);if(z<=0)return;const pin={j,x,y};pins.push(pin);vis.push({j,x,y,z,pin})});
     vis.forEach(({j,x,y,z})=>{const on=j.id===sel;const rk=top.findIndex(r=>r.j.id===j.id);if(on||rk>=0){const gr=ctx.createRadialGradient(x,y,0,x,y,14*dpr);gr.addColorStop(0,on?'rgba(210,182,120,.75)':'rgba(196,164,104,.45)');gr.addColorStop(1,'rgba(0,0,0,0)');ctx.fillStyle=gr;ctx.beginPath();ctx.arc(x,y,14*dpr,0,7);ctx.fill()}
-      ctx.fillStyle=on?'#e9d4a0':rk>=0?'#c4a468':'#14141a';ctx.beginPath();ctx.arc(x,y,(on?3.6:rk>=0?2.8:2.1)*dpr,0,7);ctx.fill();if(!on&&rk<0){ctx.strokeStyle='rgba(233,212,160,'+(.45+.5*z).toFixed(2)+')';ctx.lineWidth=dpr*.9;ctx.stroke()}
+      ctx.fillStyle=on?'#e9d4a0':rk>=0?'#c4a468':'#0f0f14';ctx.beginPath();ctx.arc(x,y,(on?3.6:rk>=0?2.8:2.3)*dpr,0,7);ctx.fill();if(!on&&rk<0){ctx.strokeStyle='rgba(233,212,160,'+(.55+.45*z).toFixed(2)+')';ctx.lineWidth=dpr*1.1;ctx.stroke()}
       if(on){ctx.strokeStyle='rgba(233,212,160,.9)';ctx.lineWidth=dpr;ctx.beginPath();ctx.arc(x,y,7*dpr,0,7);ctx.stroke()}
       if(rk>=0&&!on){put(['I','II','III'][rk],x-11*dpr,y-6*dpr,`italic ${11*dpr}px "Cormorant Garamond",serif`,'#c4a468')}});
     vis.sort((a,b)=>(b.j.id===sel)-(a.j.id===sel)||b.z-a.z);
