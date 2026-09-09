@@ -450,6 +450,8 @@ const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)];
 /* ---------- STATE ---------- */
 const S={inc:500000,exit:0,pp:new Set(['eu']),hh:'kids',home:0,w:{tax:8,safe:7,school:7,sun:5,prox:5,beauty:7,cost:3,visa:6},pick:null};
 $('#home').innerHTML=HOMES.map((h,i)=>`<option value="${i}">${h[0]}</option>`).join('');
+/* home base guessed from the browser's time zone, no IP lookup, no network call. The dropdown overrides it. */
+(()=>{try{const tz=Intl.DateTimeFormat().resolvedOptions().timeZone||'';const M=[[/^(Asia\/(Jerusalem|Tel_Aviv))/,'Tel Aviv'],[/^Asia\/(Dubai|Muscat|Riyadh|Qatar|Bahrain|Kuwait|Baghdad|Tehran)/,'Dubai'],[/^Asia\/(Kolkata|Calcutta|Karachi|Colombo|Dhaka|Kathmandu)/,'Mumbai'],[/^Asia\/(Singapore|Kuala_Lumpur|Jakarta|Bangkok|Manila|Ho_Chi_Minh|Saigon|Makassar)/,'Singapore'],[/^Asia\/(Hong_Kong|Shanghai|Taipei|Seoul|Tokyo|Macau|Chongqing)/,'Hong Kong'],[/^(Australia|Pacific\/Auckland)/,'Sydney'],[/^Europe\/(London|Dublin|Lisbon|Edinburgh)|^Atlantic\//,'London'],[/^Europe\/(Paris|Madrid|Brussels|Amsterdam|Luxembourg|Monaco|Andorra|Barcelona)/,'Paris'],[/^Europe\//,'Zurich'],[/^America\/(Toronto|Montreal|Halifax|Winnipeg|Edmonton|Regina)/,'Toronto'],[/^America\/(Los_Angeles|Vancouver|Denver|Phoenix|Boise|Tijuana|Anchorage)|^Pacific\/Honolulu/,'Los Angeles'],[/^America\//,'New York'],[/^Africa\//,'London']];const hit=M.find(([re])=>re.test(tz));if(hit){const i=HOMES.findIndex(x=>x[0]===hit[1]);if(i>=0){S.home=i;$('#home').value=i}}}catch(e){}})();
 
 /* ---------- ENGINE ---------- */
 let last=[];
