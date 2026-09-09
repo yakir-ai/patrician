@@ -162,7 +162,7 @@ input[type=range]::-moz-range-thumb{width:18px;height:18px;border-radius:50%;bac
 .th-stats{display:grid;grid-template-columns:repeat(2,1fr);gap:14px 28px;margin-top:26px;max-width:640px}@media(min-width:700px){.th-stats{grid-template-columns:repeat(4,1fr)}}.th-stats i{font-style:normal;display:block;font-size:9px;letter-spacing:.22em;text-transform:uppercase;color:var(--mute)}.th-stats b{font-family:var(--serif);font-weight:300;font-size:clamp(24px,2.6vw,36px);line-height:1.1}
 .th-acts{display:flex;flex-wrap:wrap;gap:14px 22px;align-items:center;margin-top:30px}.th-ui .rv{opacity:0;transform:translateY(22px);transition:opacity .9s var(--ease),transform .9s var(--ease)}.theatre.on .th-ui .rv{opacity:1;transform:none}
 .th-x{position:absolute;top:22px;right:clamp(20px,6vw,96px);z-index:3;font-size:10px;letter-spacing:.28em;text-transform:uppercase;color:var(--bone);border:1px solid var(--line);padding:12px 16px;background:rgba(10,10,12,.5);backdrop-filter:blur(8px)}.th-x:hover{border-color:var(--gold);color:var(--ivory)}
-.th-dots{position:absolute;top:32px;left:clamp(20px,6vw,96px);z-index:3;display:flex;gap:6px}.th-dots i{width:22px;height:2px;background:rgba(242,236,223,.25)}.th-dots i.on{background:var(--gold)}
+.th-dots{position:absolute;top:32px;left:clamp(20px,6vw,96px);z-index:3;display:flex;gap:6px}.th-dots i{width:22px;height:2px;background:rgba(242,236,223,.25)}.th-dots i.on{background:var(--gold)}.th-dots span{font-size:10px;letter-spacing:.3em;color:var(--bone)}
 .th-fly{position:fixed;z-index:81;object-fit:cover;pointer-events:none;filter:saturate(.75) brightness(.6)}
 /* REPORT */
 .rep-grid{display:grid;gap:40px}@media(min-width:1000px){.rep-grid{grid-template-columns:1.1fr 1fr;gap:80px;align-items:center}}
@@ -446,15 +446,15 @@ function setLife(id,user){
   const pool=J.filter(x=>x.id!==id&&(x.vid||x.img)).flatMap(x=>[{u:x.vid?x.vid.poster:x.img,c:x.city,id:x.id},...(x.imgs||[]).map(u=>({u,c:x.city,id:x.id}))]);
   const own=(j.imgs||[]).map(u=>({u,c:j.city,id:j.id}));MOS=[...own,...pool.filter((_,i)=>i%3===0)].slice(0,8);
   $('#mosaic').innerHTML=MOS.map((p,i)=>`<div data-i="${i}" role="button" tabindex="0" aria-label="Open ${p.c}"><img src="${p.u}" loading="lazy" alt="" onerror="this.style.opacity=0"><span>${p.c}</span><i>↗</i></div>`).join('');
-  $$('#mosaic div').forEach(d=>{d.addEventListener('click',()=>openTheatre(+d.dataset.i));d.addEventListener('keydown',e=>{if(e.key==='Enter')openTheatre(+d.dataset.i)})});
+  $$('#mosaic div').forEach(d=>{const go=()=>{DECK=MOS;openTheatre(+d.dataset.i,d.querySelector('img'))};d.addEventListener('click',go);d.addEventListener('keydown',e=>{if(e.key==='Enter')go()})});
   $('#leadCity').value=id;$$('#pins button').forEach(b=>b.classList.toggle('on',b.dataset.id===id));
   if(user){$('#film').animate([{opacity:.4},{opacity:1}],{duration:700,easing:'ease-out'});G.focus(id);hudShow(id)}}
-let THI=0,thHome=null;
-function openTheatre(i){const t=$('#theatre');THI=i;const m=MOS[i];const j=J.find(x=>x.id===m.id);const r=last.find(x=>x.j.id===m.id);const rank=last.indexOf(r)+1;
-  const tile=$(`#mosaic div[data-i="${i}"] img`);const rect=tile?tile.getBoundingClientRect():null;
+let THI=0,thHome=null,DECK=[];
+function openTheatre(i,fromEl){const t=$('#theatre');THI=i;const m=DECK[i];const j=J.find(x=>x.id===m.id);const r=last.find(x=>x.j.id===m.id);const rank=last.indexOf(r)+1;
+  const rect=fromEl?fromEl.getBoundingClientRect():null;
   const img=$('#thImg'),v=$('#thVid');v.classList.remove('on');v.pause();v.removeAttribute('src');img.src=m.u;
   $('#thRank').textContent=`${j.flag} ${j.country} · ranked #${rank} of ${J.length} for you`;$('#thCity').textContent=j.city;$('#thLede').textContent=j.lede;
-  $('#thFly').textContent=r.fly?r.fly+'h':'Home';$('#thDots').innerHTML=MOS.map((_,k)=>`<i class="${k===i?'on':''}"></i>`).join('');
+  $('#thFly').textContent=r.fly?r.fly+'h':'Home';$('#thDots').innerHTML=DECK.length>12?`<span>${String(i+1).padStart(2,'0')} / ${DECK.length}</span>`:DECK.map((_,k)=>`<i class="${k===i?'on':''}"></i>`).join('');
   ['#thRank','#thCity','#thLede','.th-stats','.th-acts'].forEach((sel,k)=>{const el=$(sel);el.classList.add('rv');el.style.transitionDelay=(0.25+k*.12)+'s'});
   if(rect&&!t.classList.contains('on')){const fly=document.createElement('img');fly.className='th-fly';fly.src=m.u;Object.assign(fly.style,{left:rect.left+'px',top:rect.top+'px',width:rect.width+'px',height:rect.height+'px'});document.body.appendChild(fly);
     fly.animate([{left:rect.left+'px',top:rect.top+'px',width:rect.width+'px',height:rect.height+'px'},{left:'0px',top:'0px',width:'100vw',height:'100vh'}],{duration:760,easing:'cubic-bezier(.2,.7,.1,1)',fill:'forwards'});
@@ -465,10 +465,10 @@ function openTheatre(i){const t=$('#theatre');THI=i;const m=MOS[i];const j=J.fin
   thHome=document.activeElement;$('#thX').focus({preventScroll:true})}
 function closeTheatre(){const t=$('#theatre');t.classList.remove('on');t.setAttribute('aria-hidden','true');const v=$('#thVid');v.pause();setTimeout(()=>v.removeAttribute('src'),500);document.body.style.overflow='';if(thHome&&thHome.focus)thHome.focus({preventScroll:true})}
 $('#thX').addEventListener('click',closeTheatre);
-$('#thNext').addEventListener('click',()=>openTheatre((THI+1)%MOS.length));
-$('#thGo').addEventListener('click',()=>{const id=MOS[THI].id;closeTheatre();setLife(id,true);setTimeout(()=>$('#life').scrollIntoView({behavior:'smooth'}),150)});
-document.addEventListener('keydown',e=>{if(!$('#theatre').classList.contains('on'))return;if(e.key==='Escape')closeTheatre();else if(e.key==='ArrowRight')openTheatre((THI+1)%MOS.length);else if(e.key==='ArrowLeft')openTheatre((THI-1+MOS.length)%MOS.length)});
-(()=>{let x0=null;const t=$('#theatre');t.addEventListener('touchstart',e=>x0=e.touches[0].clientX,{passive:true});t.addEventListener('touchend',e=>{if(x0==null)return;const dx=e.changedTouches[0].clientX-x0;if(Math.abs(dx)>60)openTheatre((THI+(dx<0?1:-1)+MOS.length)%MOS.length);x0=null})})();
+$('#thNext').addEventListener('click',()=>openTheatre((THI+1)%DECK.length));
+$('#thGo').addEventListener('click',()=>{const id=DECK[THI].id;closeTheatre();setLife(id,true);setTimeout(()=>$('#life').scrollIntoView({behavior:'smooth'}),150)});
+document.addEventListener('keydown',e=>{if(!$('#theatre').classList.contains('on'))return;if(e.key==='Escape')closeTheatre();else if(e.key==='ArrowRight')openTheatre((THI+1)%DECK.length);else if(e.key==='ArrowLeft')openTheatre((THI-1+DECK.length)%DECK.length)});
+(()=>{let x0=null;const t=$('#theatre');t.addEventListener('touchstart',e=>x0=e.touches[0].clientX,{passive:true});t.addEventListener('touchend',e=>{if(x0==null)return;const dx=e.changedTouches[0].clientX-x0;if(Math.abs(dx)>60)openTheatre((THI+(dx<0?1:-1)+DECK.length)%DECK.length);x0=null})})();
 function tween(el,to,f){const from=+el.dataset.v||0;const t0=performance.now();(function step(n){const k=Math.min(1,(n-t0)/750);const e=1-Math.pow(1-k,3);el.textContent=f(from+(to-from)*e);if(k<1)requestAnimationFrame(step);else el.dataset.v=to})(t0)}
 let bgFlip=false;
 function hudShow(id){const j=J.find(x=>x.id===id);const r=last.find(x=>x.j.id===id);const rank=last.indexOf(r)+1;const h=$('#hud');h.classList.remove('on');void h.offsetWidth;$('#hudRank').textContent=`#${rank} of ${J.length} for you`;$('#hudCity').textContent=j.city;$('#hudCountry').textContent=`${j.flag} ${j.country}`;tween($('#hudEff'),Math.round(r.eff*100),v=>Math.round(v)+'%');tween($('#hudKept'),r.kept10,v=>fmt(v));$('#hudFly').textContent=r.fly?r.fly+'h':'Home';const fl=FLOW[j.cc];if(fl!=null)tween($('#hudFlow'),fl,v=>(v>0?'+':'')+Math.round(v).toLocaleString());else $('#hudFlow').textContent='No data';const nt=r.tags.find(t=>typeof t==='string')||(r.tags[0]&&r.tags[0].t)||'';$('#hudNote').textContent=nt;h.classList.add('on');$('.globe-box').classList.add('has');const src=j.vid?j.vid.poster:j.img;const A=$('#gbgA'),B=$('#gbgB');const inEl=bgFlip?A:B,outEl=bgFlip?B:A;inEl.onload=()=>{inEl.classList.add('on');outEl.classList.remove('on')};inEl.src=src;bgFlip=!bgFlip}
@@ -479,7 +479,8 @@ $('#rail').innerHTML=J.map((j,i)=>`<div class="card" data-id="${j.id}">
   <div class="idx">${String(i+1).padStart(2,'0')}</div>
   <div class="cb"><small>${j.flag} ${j.country}</small><h3>${j.city}</h3><p>${j.lede}</p>
     <div class="stat"><div>Cost index<b>${j.cost}</b></div><div>Safety<b>${j.safe}/10</b></div><div>${FLOW[j.cc]!=null?`Net HNWI inflow 2025<b>${FLOW[j.cc]>0?'+':''}${FLOW[j.cc].toLocaleString()}</b>`:`Beauty<b>${j.beauty}/10</b>`}</div></div></div></div>`).join('');
-$$('.card').forEach(c=>c.addEventListener('click',()=>{$$('.card').forEach(x=>x.classList.remove('open'));c.classList.add('open');setLife(c.dataset.id,true)}));
+const ATLAS=J.map(j=>({id:j.id,u:j.vid?j.vid.poster:j.img,c:j.city}));
+$$('.card').forEach(c=>c.addEventListener('click',()=>{$$('.card').forEach(x=>x.classList.remove('open'));c.classList.add('open');setLife(c.dataset.id,true);DECK=ATLAS;openTheatre(ATLAS.findIndex(a=>a.id===c.dataset.id),c.querySelector('video,img')||c)}));
 const vio=new IntersectionObserver(es=>es.forEach(e=>{const v=e.target;if(e.isIntersecting){if(!v.src){v.src=v.dataset.src}v.play().catch(()=>{})}else{v.pause()}}),{threshold:.35});
 $$('.card video').forEach(v=>vio.observe(v));
 $$('.bgvid').forEach(v=>{v.addEventListener('playing',()=>v.classList.add('on'));new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){if(!v.src)v.src=v.dataset.src;v.play().catch(()=>{})}else v.pause()}),{threshold:.15}).observe(v)});
