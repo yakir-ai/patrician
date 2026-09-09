@@ -1,10 +1,11 @@
 <!DOCTYPE html>
+<!-- © 2026 Patrician · patrician.ch · All rights reserved. The content, data, models, indices, design, and code of this site are protected. No copying, scraping, or use for training of any model without written consent. See /legal.html#ip -->
 <html lang="en">
 <head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Private Dossier · Patrician.ch</title>
 <meta name="description" content="Your top 3 jurisdictions modeled on your own numbers, with the visa path and the structure questions. Delivered in 72 hours.">
-<meta name="robots" content="noindex">
+<meta name="robots" content="noindex,noai,noimageai">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
@@ -213,7 +214,7 @@ page('',`<div class="eyebrow">10 · Assumptions, sources, and the small print</d
 <h3>Assumptions</h3>
 <p class="small" style="font-size:9pt;line-height:1.5">Income tax uses simplified 2026 headline marginal brackets in local currency converted at fixed rates (${Object.entries(FX).slice(0,6).map(([k,v])=>k+' '+v).join(', ')}). Capital gains uses the local headline rate on the full event. US citizens are floored at US federal rates (income) and 23.8% (gains). Social contributions, deductions, municipal taxes, wealth taxes, and treaties are excluded. Editorial indices for cost, safety, schools, sun, and beauty are Patrician's. Net millionaire inflow is country level from the Henley Private Wealth Migration Report 2025. Visa routes are as understood at publication and change often.</p>
 <h3>Sources</h3><ul class="small" style="font-size:9pt"><li>Henley &amp; Partners, Private Wealth Migration Report 2025, for country level net millionaire flows.</li><li>National tax authorities and published 2026 headline brackets, simplified.</li><li>Published residence and citizenship program rules as understood at the date on the cover.</li><li>Patrician editorial indices for cost, safety, schools, sun, and beauty.</li></ul>
-<h3>The small print</h3><p class="small" style="font-size:9pt;line-height:1.5">This dossier is a modeling and introduction document. It is not tax, legal, immigration, or investment advice, and nothing in it creates an adviser relationship. Licensed counsel in the jurisdiction must confirm every figure and route before you act. Reference ${REF}, prepared ${DATE}.</p>
+<h3>The small print</h3><p class="small" style="font-size:9pt;line-height:1.5">This dossier is a modeling and introduction document. It is not tax, legal, immigration, or investment advice, and nothing in it creates an adviser relationship. Licensed counsel in the jurisdiction must confirm every figure and route before you act. Reference ${REF}, prepared ${DATE}.</p><p class="small" style="font-size:9pt;line-height:1.5"><b>Confidential and protected.</b> This dossier is prepared for the named recipient on the inputs they supplied, is licensed for their personal use and for sharing with their own advisers, and may not be resold, republished, extracted, or used to provide services to others. © 2026 Patrician · patrician.ch · All rights reserved. It is not legal, tax, immigration, investment, or financial advice, no outcome is guaranteed, and the terms at patrician.ch/legal.html apply, including the limitation of liability and the requirement to verify every figure with licensed counsel before acting.</p>
 <div class="sig">Patrician</div>`);
 
 document.getElementById('doc').innerHTML=P.join('');
