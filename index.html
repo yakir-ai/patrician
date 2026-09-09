@@ -126,6 +126,9 @@ input[type=range]::-moz-range-thumb{width:18px;height:18px;border-radius:50%;bac
 .card .film-tag{position:absolute;top:20px;right:20px;z-index:2;font-size:9px;letter-spacing:.22em;text-transform:uppercase;color:var(--gold);border:1px solid rgba(196,164,104,.5);padding:4px 7px}
 /* PASSPORTS */
 .pp-grid{display:grid;gap:36px}@media(min-width:1000px){.pp-grid{grid-template-columns:360px 1fr;gap:60px}}
+.pp-search{position:relative}.pp-search input{width:100%;background:transparent;border:0;border-bottom:1px solid var(--gold-2);padding:14px 0;color:var(--ivory);font-family:var(--serif);font-size:22px;outline:0}.pp-search input::placeholder{color:var(--mute);font-size:18px}.pp-search input::-webkit-search-cancel-button{-webkit-appearance:none}
+.pp-dd{position:absolute;left:0;right:0;top:100%;z-index:20;background:rgba(17,17,20,.98);border:1px solid var(--line);border-top:0;display:none;max-height:340px;overflow:auto}.pp-dd.show{display:block}.pp-dd button{width:100%;text-align:left;display:flex;justify-content:space-between;align-items:center;padding:12px 14px;border-bottom:1px solid var(--line);transition:background .2s}.pp-dd button:hover,.pp-dd button.hi{background:rgba(196,164,104,.08)}.pp-dd b{font-family:var(--serif);font-weight:400;font-size:18px}.pp-dd small{font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--mute)}.pp-dd .none{padding:14px;color:var(--mute);font-size:13px}
+.pp-chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px;min-height:34px}.pp-chips button{display:inline-flex;align-items:center;gap:10px;border:1px solid var(--gold);padding:7px 12px;font-size:12px;color:var(--ivory)}.pp-chips button i{font-style:normal;color:var(--gold)}
 .pp-list{display:grid;gap:8px}.pp-list button{text-align:left;border:1px solid var(--line);padding:14px 16px;display:flex;justify-content:space-between;align-items:center;transition:all .3s}
 .pp-list button b{font-family:var(--serif);font-weight:400;font-size:21px}.pp-list button small{font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--mute)}.pp-list button.on{border-color:var(--gold);background:rgba(196,164,104,.08)}
 .pp-cmp{display:grid;gap:0;border-top:1px solid var(--line)}
@@ -286,9 +289,12 @@ footer{padding:64px clamp(20px,6vw,96px) 32px;border-top:1px solid var(--line);b
   <div class="wrap">
     <div class="eyebrow rv">05 · The Passport Ladder</div>
     <h2 class="rv d1" style="margin-top:20px;max-width:16ch">The document you carry decides which doors <em>open</em>.</h2>
-    <p class="lede rv d2" style="margin-top:20px">Pick up to 3 passports to compare. Mobility, the realistic path to hold it, whether you can keep the one you have, and whether it taxes you after you leave.</p>
+    <p class="lede rv d2" style="margin-top:20px">Search any of 65 passports and compare up to 3. Mobility, the realistic path to hold it, whether you can keep the one you have, and whether it taxes you after you leave.</p>
     <div class="pp-grid" style="margin-top:50px">
-      <div class="pp-list rv" id="ppList"></div>
+      <div class="rv"><div class="pp-search"><input id="ppQ" type="search" placeholder="Search a passport, Portugal, Germany, Grenada…" autocomplete="off" aria-label="Search passports"><div class="pp-dd" id="ppDD"></div></div>
+      <div class="pp-chips" id="ppChips"></div>
+      <h5 style="margin:22px 0 10px">Most compared</h5>
+      <div class="pp-list" id="ppList"></div></div>
       <div class="pp-cmp rv d1" id="ppCmp"></div>
     </div>
   </div>
@@ -384,7 +390,7 @@ footer{padding:64px clamp(20px,6vw,96px) 32px;border-top:1px solid var(--line);b
   <div class="foot-bottom"><span>© 2026 Patrician · patrician.ch</span><span>Not tax, legal, or immigration advice. Figures are indicative. Engage licensed counsel before acting.</span></div>
 </footer>
 <div class="cookie" id="cookie" role="dialog" aria-label="Cookie notice"><p>This site sets no advertising trackers. One preference is stored on your device to remember this choice, and media loads from Pexels and fonts from Google, who see your IP address. <a href="legal.html#cookies">Details</a>.</p><div class="acts"><button id="ckEss">Essentials only</button><button class="ok" id="ckOk">Accept</button></div></div>
-<script src="patrician.js?v=1"></script>
+<script src="patrician.js?v=2"></script>
 <script>
 const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)];
 
@@ -440,14 +446,18 @@ $$('#pins button').forEach(b=>b.addEventListener('click',()=>setLife(b.dataset.i
 
 /* ---------- PASSPORTS ---------- */
 const PS=new Set(['ch','sg','us']);
+function ppToggle(k){if(PS.has(k))PS.delete(k);else{if(PS.size>=3)PS.delete([...PS][0]);PS.add(k)}renderPP()}
 function renderPP(){
   $('#ppList').innerHTML=PASS.map(p=>`<button data-k="${p.k}" class="${PS.has(p.k)?'on':''}"><b>${p.f} ${p.n}</b><small>${p.mob} visa free</small></button>`).join('');
-  $$('#ppList button').forEach(b=>b.addEventListener('click',()=>{const k=b.dataset.k;if(PS.has(k))PS.delete(k);else{if(PS.size>=3)PS.delete([...PS][0]);PS.add(k)}renderPP()}));
-  const sel=PASS.filter(p=>PS.has(p.k));const mx=Math.max(...PASS.map(p=>p.mob));
+  $$('#ppList button').forEach(b=>b.addEventListener('click',()=>ppToggle(b.dataset.k)));
+  $('#ppChips').innerHTML=[...PS].map(k=>{const p=PASSALL.find(x=>x.k===k);return `<button data-k="${k}">${p.f} ${p.n}<i>×</i></button>`}).join('');
+  $$('#ppChips button').forEach(b=>b.addEventListener('click',()=>ppToggle(b.dataset.k)));
+  const sel=[...PS].map(k=>PASSALL.find(p=>p.k===k));const mx=Math.max(...PASSALL.map(p=>p.mob));
   const row=(k,fn)=>`<div class="pp-row"><div class="k">${k}</div><div class="vals">${sel.map(p=>`<div class="pp-val"><b>${p.f} ${p.n}</b><div>${fn(p)}</div></div>`).join('')}</div></div>`;
   $('#ppCmp').innerHTML=row('Mobility',p=>`<div class="mb"><i style="width:${Math.round(p.mob/mx*100)}%"></i><span>${p.mob}</span></div>`)+row('Path to hold it',p=>p.yrs)+row('Dual nationality',p=>p.dual)+row('Investment route',p=>p.inv)+row('Taxes citizens abroad',p=>p.ctax)+row('Verdict',p=>p.note)
    +`<p class="fine"><b>Note.</b> Mobility is an indicative visa free destination count in the style of the Henley index, 2025. Residence rules change often. Verify before acting.</p>`}
 renderPP();
+(()=>{const q=$('#ppQ'),dd=$('#ppDD');let hi=0,hits=[];const show=()=>{const t=q.value.trim().toLowerCase();if(!t){dd.classList.remove('show');return}hits=PASSALL.filter(p=>p.n.toLowerCase().includes(t)).sort((a,b)=>(b.n.toLowerCase().startsWith(t)-a.n.toLowerCase().startsWith(t))||b.mob-a.mob).slice(0,8);hi=0;dd.innerHTML=hits.length?hits.map((p,i)=>`<button data-k="${p.k}" class="${i===hi?'hi':''}"><b>${p.f} ${p.n}${PS.has(p.k)?' <i style="color:var(--gold);font-style:normal">·</i>':''}</b><small>${p.mob} visa free</small></button>`).join(''):'<div class="none">Not on the board yet. Request it through the dossier form.</div>';dd.classList.add('show');$$('#ppDD button').forEach(b=>b.addEventListener('mousedown',e=>{e.preventDefault();pick(b.dataset.k)}))};const pick=k=>{if(!PS.has(k))ppToggle(k);q.value='';dd.classList.remove('show');$('#ppCmp').scrollIntoView({behavior:'smooth',block:'nearest'})};q.addEventListener('input',show);q.addEventListener('focus',show);q.addEventListener('blur',()=>setTimeout(()=>dd.classList.remove('show'),120));q.addEventListener('keydown',e=>{if(!hits.length)return;if(e.key==='ArrowDown'){hi=(hi+1)%hits.length}else if(e.key==='ArrowUp'){hi=(hi-1+hits.length)%hits.length}else if(e.key==='Enter'){e.preventDefault();pick(hits[hi].k);return}else if(e.key==='Escape'){dd.classList.remove('show');return}else return;$$('#ppDD button').forEach((b,i)=>b.classList.toggle('hi',i===hi))})})();
 
 /* ---------- STRUCTURE ---------- */
 function drawArch(a){const A=ARCH[a];const N={};A.nodes.forEach(n=>N[n[0]]=n);let s=`<svg viewBox="0 0 800 460" preserveAspectRatio="xMidYMid meet">`;
