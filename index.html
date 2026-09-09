@@ -613,7 +613,7 @@ function track(n,p){if(gaOn&&window.gtag)gtag('event',n,p||{})}
 render();
 
 /* ---------- GLOBE ---------- */
-const G=(()=>{const cv=$('#globe'),ctx=cv.getContext('2d');let W,H,R,R0,dpr=1,yaw=-.6,pitch=.35,auto=true,drag=null,tYaw=-.6,tPitch=.35,fly=false,zoom=1,tZoom=1,sel=null,selT=0,resumeT=null;
+const G=(()=>{const cv=$('#globe'),ctx=cv.getContext('2d');let W,H,R,R0,dpr=1,yaw=-1.05,pitch=.36,auto=true,drag=null,tYaw=-.6,tPitch=.35,fly=false,zoom=1,tZoom=1,sel=null,selT=0,resumeT=null;
   const v3=(lat,lon)=>{const a=rad(lat),b=rad(lon);return[Math.cos(a)*Math.cos(b),Math.sin(a),-Math.cos(a)*Math.sin(b)]};
   const rot=p=>{let[x,y,z]=p;let x1=x*Math.cos(yaw)+z*Math.sin(yaw),z1=-x*Math.sin(yaw)+z*Math.cos(yaw);let y1=y*Math.cos(pitch)-z1*Math.sin(pitch),z2=y*Math.sin(pitch)+z1*Math.cos(pitch);return[x1,y1,z2]};
   const proj=p=>{const[x,y,z]=rot(p);return[W/2+x*R,H/2-y*R,z]};
