@@ -168,13 +168,13 @@ function compareHub(pairs) {
 }
 
 /* ---------- pairs worth a page ---------- */
-const want = ['zrh', 'zug', 'gva', 'dxb', 'auh', 'sin', 'mco', 'lis', 'mil', 'lon', 'mia', 'hkg', 'lux', 'ams', 'vie', 'mad', 'bcn', 'ath', 'nas', 'gcm', 'lcy', 'tlv', 'aus', 'val', 'prg', 'and', 'qtn', 'syd', 'tor', 'pmi'];
+const want = ['zrh', 'zug', 'gva', 'dxb', 'auh', 'sin', 'mco', 'lis', 'mil', 'lon', 'mia', 'hkg', 'lux', 'ams', 'vie', 'mad', 'bcn', 'ath', 'nas', 'gcm', 'lcy', 'tlv', 'aus', 'val', 'prg', 'and', 'qtn', 'syd', 'tor', 'pmi', 'sdg'];
 const picks = want.map(id => J.find(j => j.id === id)).filter(Boolean);
 const pairs = [];
 const seen = new Set();
 const add = (a, b) => { if (!a || !b || a === b) return; const k = [a.id, b.id].sort().join('-'); if (seen.has(k)) return; seen.add(k); pairs.push([a, b]); };
 // natural rivalries first, then each pick against the nearest 2 by distance and the 2 closest by tax
-[['zrh', 'dxb'], ['zrh', 'sin'], ['zug', 'zrh'], ['zug', 'gva'], ['mco', 'dxb'], ['mco', 'sin'], ['dxb', 'sin'], ['dxb', 'auh'], ['lis', 'mil'], ['lis', 'mad'], ['lis', 'bcn'], ['mil', 'zrh'], ['lon', 'dxb'], ['lon', 'zrh'], ['lon', 'lis'], ['mia', 'dxb'], ['mia', 'nas'], ['hkg', 'sin'], ['lux', 'zrh'], ['vie', 'zrh'], ['vie', 'prg'], ['ath', 'lis'], ['nas', 'gcm'], ['tlv', 'dxb'], ['tlv', 'lis'], ['and', 'mco'], ['syd', 'sin'], ['tor', 'mia'], ['pmi', 'lis'], ['aus', 'mia']].forEach(([a, b]) => add(J.find(j => j.id === a), J.find(j => j.id === b)));
+[['zrh', 'dxb'], ['zrh', 'sin'], ['zug', 'zrh'], ['zug', 'gva'], ['mco', 'dxb'], ['mco', 'sin'], ['dxb', 'sin'], ['dxb', 'auh'], ['lis', 'mil'], ['lis', 'mad'], ['lis', 'bcn'], ['mil', 'zrh'], ['lon', 'dxb'], ['lon', 'zrh'], ['lon', 'lis'], ['mia', 'dxb'], ['mia', 'nas'], ['hkg', 'sin'], ['lux', 'zrh'], ['vie', 'zrh'], ['vie', 'prg'], ['ath', 'lis'], ['nas', 'gcm'], ['tlv', 'dxb'], ['tlv', 'lis'], ['and', 'mco'], ['syd', 'sin'], ['tor', 'mia'], ['pmi', 'lis'], ['aus', 'mia'], ['sdg', 'sfo'], ['sdg', 'mia']].forEach(([a, b]) => add(J.find(j => j.id === a), J.find(j => j.id === b)));
 picks.forEach(p => { nearest(p, 2).forEach(q => add(p, q)); const e = taxLine(p, 1000000).eff; J.filter(q => q.id !== p.id).map(q => ({ q, d: Math.abs(taxLine(q, 1000000).eff - e) })).sort((a, b) => a.d - b.d).slice(0, 1).forEach(o => add(p, o.q)); });
 
 /* ---------- write ---------- */
