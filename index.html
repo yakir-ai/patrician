@@ -273,7 +273,7 @@ footer{padding:64px clamp(20px,6vw,96px) 32px;border-top:1px solid var(--line);b
       <div class="eyebrow rv">01 · The map</div>
       <h2 class="rv d1" style="margin-top:20px">The world, reduced to the <em>places that matter</em>.</h2>
       <p class="lede rv d2" style="margin-top:20px">Tap any city and the globe flies there, the section becomes the place, and your numbers for it appear. Gold arcs run from your home base to the top 3 addresses the engine picks for you.</p>
-      <div class="pins rv d3" id="pins"></div>
+      <div class="pins rv d2" id="pins"></div>
     </div>
   </div>
 </section>
@@ -722,7 +722,7 @@ function pop(...ids){ids.forEach(id=>{const el=document.getElementById(id);if(!e
 (()=>{const hb=document.querySelector('.hero-body');const go=()=>requestAnimationFrame(()=>hb.classList.add('go'));Promise.race([document.fonts?document.fonts.ready:Promise.resolve(),new Promise(r=>setTimeout(r,1100))]).then(go)})();
 (()=>{const gb=document.querySelector('.globe-box');if(!gb)return;new IntersectionObserver((es,o)=>{if(es.some(e=>e.isIntersecting)){gb.classList.add('seen');o.disconnect()}},{threshold:.35}).observe(gb)})();
 /* ---------- CHROME ---------- */
-(()=>{const SEL='.pins>button,.ctrl,.pillar,.card,.tier,.tl>div,.basket>div,.mosaic>div,.mos-head,.pp-list>*,.pp-chips,.pp-cmp,.rail>*,.legend,.faq details,.moved,.keep,.mnode,.mlink,.str-notes>div,.sketch,.ov,.arche>button,.film,.showall,.fine,.field,.done,.traj-head,.traj,.steps>*,.tags,.save-row,.letter,.diagram';
+(()=>{const SEL='.ctrl,.pillar,.card,.tier,.tl>div,.basket>div,.mosaic>div,.mos-head,.pp-list>*,.pp-chips,.pp-cmp,.rail>*,.legend,.faq details,.moved,.keep,.mnode,.mlink,.str-notes>div,.sketch,.ov,.arche>button,.film,.showall,.fine,.field,.done,.traj-head,.traj,.steps>*,.tags,.save-row,.letter,.diagram';
   const skip=el=>el.closest('.theatre,.hud,#nav,.cookie,.hero,.results,.pp-dd,.ticker');
   const fio=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){const r=e.boundingClientRect;const fy=Math.max(0,Math.min(1,r.top/innerHeight)),fx=Math.max(0,Math.min(1,r.left/innerWidth));e.target.style.transitionDelay=Math.round((fy<.82?fy*640:0)+fx*160)+'ms';e.target.classList.add('fx-in');fio.unobserve(e.target)}}),{threshold:.04,rootMargin:'0px 0px -6% 0px'});
   const arm=root=>{const list=root.matches&&root.matches(SEL)?[root]:[];list.push(...root.querySelectorAll(SEL));list.forEach(el=>{if(el.classList.contains('fx')||el.classList.contains('rv')||skip(el))return;const r=el.getBoundingClientRect();if(r.top<innerHeight&&r.bottom>0&&document.readyState!=='loading'&&performance.now()>1500){return}const sib=el.parentElement?[...el.parentElement.children].filter(x=>x.matches(SEL)):[el];el.style.setProperty('--i',Math.min(8,sib.indexOf(el)));el.classList.add('fx');fio.observe(el)})};
