@@ -595,13 +595,17 @@ function drawArch(a){const A=ARCH[a];const N={};A.nodes.forEach(n=>N[n[0]]=n);le
 $$('#arche button').forEach(b=>b.addEventListener('click',()=>{$$('#arche button').forEach(x=>x.classList.remove('on'));b.classList.add('on');drawArch(b.dataset.a);sketch()}));drawArch('exec');(()=>{let w=innerWidth<900,t;addEventListener('resize',()=>{clearTimeout(t);t=setTimeout(()=>{const m=innerWidth<900;if(m!==w){w=m;const on=$('#arche button.on');drawArch(on?on.dataset.a:'exec')}},150)})})();
 
 /* ---------- TRAJECTORY ---------- */
-function drawTraj(top){const cv=$('#traj');const dpr=devicePixelRatio||1;const W=cv.clientWidth,H=280;cv.width=W*dpr;cv.height=H*dpr;const c=cv.getContext('2d');c.scale(dpr,dpr);c.clearRect(0,0,W,H);
+let trajTop=[],trajP=0,trajSeen=false,trajRAF=0;
+function drawTraj(top){trajTop=top;if(trajRAF){cancelAnimationFrame(trajRAF);trajRAF=0;trajP=1}renderTraj(trajSeen?1:0)}
+function animTraj(){const t0=performance.now(),D=2400;const step=t=>{const k=Math.min(1,(t-t0)/D);trajP=k*k*k*(k*(k*6-15)+10);renderTraj(trajP);if(k<1)trajRAF=requestAnimationFrame(step);else trajRAF=0};trajRAF=requestAnimationFrame(step)}
+new IntersectionObserver((es,o)=>{if(es.some(e=>e.isIntersecting)){trajSeen=true;o.disconnect();animTraj()}},{threshold:.3}).observe($('#traj'));
+function renderTraj(p){const top=trajTop;const cv=$('#traj');const dpr=devicePixelRatio||1;const W=cv.clientWidth,H=280;cv.width=W*dpr;cv.height=H*dpr;const c=cv.getContext('2d');c.scale(dpr,dpr);c.clearRect(0,0,W,H);
   const us=S.pp.has('us');const cols=['#c4a468','#d6cdbb','#8a8373'];const series=top.map(r=>{let nw=S.exit-cgUSD(r.j,S.exit,us);const pts=[nw];const spend=Math.min(r.net,S.inc*.42)*(r.j.cost/100);for(let y=1;y<=10;y++){nw=nw*1.05+r.net-spend;pts.push(nw)}return pts});
   const all=series.flat();const mx=Math.max(...all,1),mn=Math.min(...all,0);const px=x=>44+x/10*(W-60),py=v=>H-28-(v-mn)/((mx-mn)||1)*(H-52);
   c.strokeStyle='rgba(242,236,223,.1)';c.lineWidth=1;for(let i=0;i<=4;i++){const y=28+i*(H-52)/4;c.beginPath();c.moveTo(44,y);c.lineTo(W-16,y);c.stroke()}
   c.fillStyle='#8a8373';c.font='10px Jost';c.textAlign='right';for(let i=0;i<=4;i++){const v=mx-(mx-mn)*i/4;c.fillText(fmt(v),40,32+i*(H-52)/4)}
   c.textAlign='center';for(let y=0;y<=10;y+=2)c.fillText('Y'+y,px(y),H-8);
-  series.forEach((pts,i)=>{c.strokeStyle=cols[i];c.lineWidth=i?1:1.6;c.beginPath();pts.forEach((v,y)=>y?c.lineTo(px(y),py(v)):c.moveTo(px(y),py(v)));c.stroke();c.fillStyle=cols[i];c.beginPath();c.arc(px(10),py(pts[10]),3,0,7);c.fill()});
+  series.forEach((pts,i)=>{const pp=Math.max(0,Math.min(1,(p-i*.08)/(1-.16)));const end=pp*10;c.strokeStyle=cols[i];c.lineWidth=i?1:1.6;c.beginPath();c.moveTo(px(0),py(pts[0]));for(let y=1;y<=10;y++){if(y<=end)c.lineTo(px(y),py(pts[y]));else{const f=end-(y-1);if(f>0)c.lineTo(px(y-1+f),py(pts[y-1]+(pts[y]-pts[y-1])*f));break}}c.stroke();if(pp>=1){c.fillStyle=cols[i];c.beginPath();c.arc(px(10),py(pts[10]),3,0,7);c.fill()}});
   $('#legend').innerHTML=top.map((r,i)=>`<span><i style="background:${cols[i]}"></i>${r.j.city} · ${fmt(series[i][10])}</span>`).join('')}
 
 /* ---------- INPUTS ---------- */
