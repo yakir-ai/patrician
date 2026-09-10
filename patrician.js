@@ -53,7 +53,7 @@ const J=[
  visa:{ae:1,_:2,t:'Golden Visa via property of AED 2M or a company, or an employment visa in days. 9% corporate tax on profits above AED 375K.'},
  lede:'The most efficient answer on the board and the least old world. Zero tax, a direct flight to everywhere, and a summer you will spend indoors.',
  day:[['06:00','Jumeirah','Before the heat. The sea is warm at dawn and empty.'],['09:00','DIFC','A free zone company, a bank account that took a week, and a 0% line on the return.'],['13:30','Alserkal','Lunch in the one part of the city that feels like it was made by hand.'],['19:00','Palm','Sunset from a terrace. Half the world is within 8 hours.']]},
-{id:'sin',cc:'sg',city:'Singapore',country:'Singapore',flag:'🇸🇬',cur:'SGD',lat:1.35,lon:103.82,vid:PV(33702863,'14314700_2560_1440_60fps.mp4','apartment-building-apartment-house-asia-beautiful-landscape-drone-33702863'),imgs:[PX(18095390)],
+{id:'sin',cc:'sg',city:'Singapore',country:'Singapore',flag:'🇸🇬',cur:'SGD',lat:1.35,lon:103.82,vid:PV(17715709,'17715709-hd_1920_1080_60fps.mp4','marina-bay-sands-singapore-17715709'),imgs:[PX(18095390)],
  br:[[0,0],[20000,.02],[30000,.035],[40000,.07],[80000,.115],[120000,.15],[160000,.18],[200000,.19],[240000,.195],[280000,.20],[320000,.22],[500000,.23],[1000000,.24]],cg:0,cost:98,safe:10,school:10,sun:2020,beauty:6,
  visa:{sg:1,_:3,t:'Employment Pass, ONE Pass for top earners, or the Global Investor Program from S$10M. No capital gains tax. Dual citizenship not permitted.'},
  lede:'Asia\'s Switzerland, but hotter and stricter. The safest city on earth, no capital gains tax, and a school system that terrifies parents elsewhere.',
