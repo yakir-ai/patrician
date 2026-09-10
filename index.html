@@ -28,6 +28,7 @@
 <style>
 :root{--ink:#0a0a0c;--ink-2:#111114;--ink-3:#18181d;--ivory:#f2ecdf;--bone:#d6cdbb;--mute:#8a8373;--line:rgba(242,236,223,.12);--gold:#c4a468;--gold-2:#8b7440;--serif:'Cormorant Garamond',Georgia,serif;--sans:'Jost','Helvetica Neue',sans-serif;--ease:cubic-bezier(.22,1,.36,1)}
 *{box-sizing:border-box;margin:0;padding:0}
+html,body{overflow-x:clip;max-width:100%}
 html{background:var(--ink);scroll-behavior:smooth;-webkit-text-size-adjust:100%}
 body{background:var(--ink);color:var(--ivory);font-family:var(--sans);font-weight:300;line-height:1.6;overflow-x:hidden}
 @media(hover:hover){body,button,a,.row,.card{cursor:none}}
@@ -142,7 +143,7 @@ input[type=range]::-moz-range-thumb{width:18px;height:18px;border-radius:50%;bac
 #traj{width:100%;height:280px;display:block}
 /* ATLAS */
 .atlas{padding-left:0;padding-right:0}.atlas .wrap{padding:0 clamp(20px,6vw,96px)}
-.flowline{margin:22px 0 0;font-family:var(--sans);font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--mute);line-height:2}.flowline span{color:var(--bone);white-space:nowrap}.flowline span b{font-weight:500;color:var(--gold)}.flowline span.neg b{color:var(--mute)}.flowline i{font-style:normal;margin:0 8px;color:rgba(214,205,187,.35)}@media(max-width:899px){.flowline{font-size:11px;letter-spacing:.1em}}
+.flowline{margin:22px 0 0;font-family:var(--sans);font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--mute);line-height:2;overflow-wrap:anywhere}.flowline span{color:var(--bone);white-space:nowrap;display:inline-block}.flowline span b{font-weight:500;color:var(--gold)}.flowline span.neg b{color:var(--mute)}.flowline i{font-style:normal;margin:0 8px;color:rgba(214,205,187,.35)}@media(max-width:899px){.flowline{font-size:11px;letter-spacing:.1em}}
 .rail{display:flex;gap:16px;overflow-x:auto;scroll-snap-type:x mandatory;padding:50px clamp(20px,6vw,96px);scrollbar-width:none;-webkit-overflow-scrolling:touch}.rail::-webkit-scrollbar{display:none}
 .card{flex:0 0 min(78vw,400px);aspect-ratio:3/4;position:relative;scroll-snap-align:start;overflow:hidden;background:var(--ink-3);border:1px solid var(--line)}
 .card img,.card video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;filter:saturate(.7) brightness(.72);transition:transform 1.4s var(--ease),filter 1s}
