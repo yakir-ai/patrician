@@ -71,7 +71,7 @@ ol,ul{padding-left:18px;margin-bottom:8px}li{margin-bottom:4px}
 <script>
 /* ---------- read the state ---------- */
 const Q=new URLSearchParams(location.search);
-const SAMPLE=Q.get('sample')==='1';
+const SAMPLE=Q.get('sample')==='1';if(SAMPLE){['inc','exit','pp','hh','home','w','city','name','tier'].forEach(k=>Q.delete(k))}/* the sample is one fixed profile; a reader cannot pass their own numbers into it */
 /* every value from the URL is validated before use: whitelists for the keyed fields, clamps for the numbers. Nothing from the query reaches the DOM unchecked. */
 const num=(v,lo,hi,dflt)=>{const n=Number(v);return Number.isFinite(n)?Math.min(hi,Math.max(lo,n)):dflt};
 const PPK=['eu','uk','us','ch','ae','ca','au','sg','jp','il','other'];
@@ -227,7 +227,7 @@ page('',`<div class="eyebrow">10 · Assumptions, sources, and the small print</d
 <h3>The small print</h3><p class="small" style="font-size:9pt;line-height:1.5">This dossier is a modeling and introduction document. It is not tax, legal, immigration, or investment advice, and nothing in it creates an adviser relationship. Licensed counsel in the jurisdiction must confirm every figure and route before you act. Reference ${REF}, prepared ${DATE}.</p><p class="small" style="font-size:9pt;line-height:1.5"><b>Confidential and protected.</b> This dossier is prepared for the named recipient on the inputs they supplied, is licensed for their personal use and for sharing with their own advisers, and may not be resold, republished, extracted, or used to provide services to others. © 2026 Patrician · patrician.ch · All rights reserved. It is not legal, tax, immigration, investment, or financial advice, no outcome is guaranteed, and the terms at patrician.ch/legal.html apply, including the limitation of liability and the requirement to verify every figure with licensed counsel before acting.</p>
 <div class="sig">Patrician</div>`);
 
-const PAID=Q.get('k')&&Q.get('k').length>20;
+const PAID=false;/* the paid document is built and stored by the desk backend, never unlocked in the browser */
 if(!SAMPLE&&!PAID){[5,6,7,8,9].forEach(i=>{if(!P[i])return;P[i]=P[i].replace('<section class="page ','<section class="page lock ').replace('</section>',`<div class="unlock"><div><b>The full Dossier unlocks this chapter.</b><span>All 10 chapters on your profile, about 40 pages, as a PDF within 24 hours of payment. Refunded within 7 days if it does not change how you think.</span></div><a href="/#report">Unlock · $149</a></div></section>`)});
   P.unshift(`<div class="preview-note"><span><b>Preview.</b> Chapters 1 to 4 are open. Chapters 5 to 9 unlock with the full Dossier.</span><a href="/#report" style="color:var(--gold)">Get the full Dossier →</a></div>`)}
 document.getElementById('doc').innerHTML=P.join('');
