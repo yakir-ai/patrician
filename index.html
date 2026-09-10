@@ -46,12 +46,7 @@ nav ul{display:none;gap:32px;list-style:none;font-size:11px;letter-spacing:.24em
 nav ul a{position:relative;padding-bottom:4px}nav ul a:after{content:"";position:absolute;left:0;bottom:0;width:0;height:1px;background:var(--gold);transition:width .4s var(--ease)}nav ul a:hover:after{width:100%}
 @media(min-width:960px){nav ul{display:flex}}
 .snd{display:inline-flex;align-items:center;gap:9px;background:none;border:0;padding:8px 10px;margin-right:6px;cursor:pointer;color:#8f8776;font-family:var(--sans);font-size:10px;letter-spacing:.24em;text-transform:uppercase;transition:color .3s}.snd:hover,.snd[aria-pressed=true]{color:var(--gold)}
-.snd-ic{display:inline-flex;align-items:center;justify-content:center;width:13px;height:12px}
-.snd-play{width:11px;height:11px;fill:currentColor;display:block}
-.snd[aria-pressed=true] .snd-play{display:none}
-.snd-bars{display:none}
-.snd[aria-pressed=true] .snd-bars{display:inline-flex}
-.snd[aria-pressed=true] .snd-bars{align-items:flex-end;gap:2px;height:12px}.snd-bars i{display:block;width:2px;height:3px;background:currentColor;transform-origin:bottom;transition:height .3s}
+.snd-bars{display:inline-flex;align-items:flex-end;gap:2px;height:12px}.snd-bars i{display:block;width:2px;height:3px;background:currentColor;transform-origin:bottom;transition:height .3s}
 .snd[aria-pressed=true] .snd-bars i{animation:sndBar 1.1s ease-in-out infinite}.snd[aria-pressed=true] .snd-bars i:nth-child(2){animation-delay:.18s}.snd[aria-pressed=true] .snd-bars i:nth-child(3){animation-delay:.36s}.snd[aria-pressed=true] .snd-bars i:nth-child(4){animation-delay:.54s}
 @keyframes sndBar{0%,100%{height:3px}50%{height:12px}}
 @media(max-width:899px){.snd .snd-t{display:none}.snd{padding:8px 6px;margin-right:2px}}
@@ -264,7 +259,7 @@ footer{padding:64px clamp(20px,6vw,96px) 32px;border-top:1px solid var(--line);b
 <nav id="nav">
   <a href="/" class="brand"><svg class="mark" viewBox="0 0 64 64" aria-hidden="true"><defs><linearGradient id="mk-au" gradientUnits="userSpaceOnUse" x1="10" y1="8" x2="54" y2="58"><stop offset="0" stop-color="#e9d4a0"/><stop offset=".5" stop-color="#c4a468"/><stop offset="1" stop-color="#8f7443"/></linearGradient><radialGradient id="mk-rd" cx="38%" cy="28%" r="80%"><stop offset="0" stop-color="#d81046"/><stop offset=".55" stop-color="#cb003b"/><stop offset="1" stop-color="#9c002d"/></radialGradient></defs><path d="M32 8 L51 13.8 V33 C51 44.5 42.6 52.4 32 57 C21.4 52.4 13 44.5 13 33 V13.8 Z" fill="url(#mk-au)"/><path d="M32 10.6 L48.6 15.7 V33 C48.6 43.2 41.3 50.2 32 54.3 C22.7 50.2 15.4 43.2 15.4 33 V15.7 Z" fill="url(#mk-rd)"/><path d="M32 12.4 L47 17 V33 C47 42.3 40.4 48.6 32 52.4 C23.6 48.6 17 42.3 17 33 V17 Z" fill="none" stroke="url(#mk-au)" stroke-opacity=".55" stroke-width=".7"/><polygon points="28.70,20.50 35.30,20.50 35.30,28.20 43.00,28.20 43.00,34.80 35.30,34.80 35.30,42.50 28.70,42.50 28.70,34.80 21.00,34.80 21.00,28.20 28.70,28.20" fill="#ffffff"/></svg>PATRICIAN<span class="tld">.CH</span></a>
   <ul><li><a href="#atlas">The board</a></li><li><a href="#globe-sec">The globe</a></li><li><a href="#life">The Life</a></li><li><a href="#engine">Engine</a></li><li><a href="#passports">Passports</a></li><li><a href="#structure">Structure</a></li></ul>
-  <button class="snd" id="snd" type="button" aria-pressed="false" aria-label="Sound off" title="Sound"><span class="snd-ic"><svg class="snd-play" viewBox="0 0 12 12" aria-hidden="true"><path d="M2.5 1.4 L10.2 6 L2.5 10.6 Z"/></svg><span class="snd-bars"><i></i><i></i><i></i><i></i></span></span><span class="snd-t">Sound</span></button>
+  <button class="snd" id="snd" type="button" aria-pressed="false" aria-label="Sound off" title="Sound"><span class="snd-bars"><i></i><i></i><i></i><i></i></span><span class="snd-t">Sound</span></button>
   <a href="#report" class="nav-cta">Private Dossier</a>
 </nav>
 <audio id="score" preload="none" playsinline><source src="/audio/intermezzo.m4a" type="audio/mp4"><source src="/audio/intermezzo.mp3" type="audio/mpeg"></audio>
