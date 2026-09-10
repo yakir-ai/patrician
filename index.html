@@ -82,7 +82,7 @@ section.alt{background:var(--ink-2);isolation:isolate}section.alt:before,section
 .globe-box.has .globe-hint{opacity:0}.globe-hint{transition:opacity .4s}
 .globe-grid{display:grid;gap:30px}@media(max-width:899px){.globe-grid{gap:54px}.globe-box{padding-bottom:44px}.globe-hint{bottom:0;padding:0 24px;line-height:1.7}}@media(min-width:1000px){.globe-grid{grid-template-columns:1fr 1.1fr;align-items:center;gap:60px}}
 .globe-box{position:relative;aspect-ratio:1;max-width:680px;margin:0 auto;width:100%}
-#globe{width:100%;height:100%;display:block;touch-action:pan-y;opacity:0;scale:.94;translate:0 28px;transition:opacity 1.6s cubic-bezier(.16,1,.3,1),scale 1.6s cubic-bezier(.16,1,.3,1),translate 1.6s cubic-bezier(.16,1,.3,1)}#globe.ready.seen{opacity:1;scale:1;translate:none}
+#globe{width:100%;height:100%;display:block;touch-action:pan-y;opacity:0;transition:opacity .9s var(--ease)}#globe.ready{opacity:1}.globe-box{opacity:0;transform:translateY(44px) scale(.93);transition:opacity 2s cubic-bezier(.16,1,.3,1),transform 2s cubic-bezier(.16,1,.3,1)}.globe-box.seen{opacity:1;transform:none}
 .globe-hint{position:absolute;left:0;right:0;bottom:-6px;text-align:center;font-size:10px;letter-spacing:.26em;text-transform:uppercase;color:var(--mute)}
 .pins{display:grid;grid-template-columns:repeat(2,1fr);gap:6px;margin-top:26px}@media(min-width:600px){.pins{grid-template-columns:repeat(4,1fr)}}
 .pins button{text-align:left;border:1px solid var(--line);padding:9px 11px;transition:all .3s;display:flex;justify-content:space-between;align-items:baseline;gap:8px}
@@ -709,7 +709,7 @@ const G=(()=>{const cv=$('#globe'),ctx=cv.getContext('2d');const ROLL=0.408,CR=M
     if(hz>0)put(('HOME · '+home[0]).toUpperCase(),hx+9*dpr,hy+3*dpr,`${8.5*dpr}px Jost`,'rgba(242,236,223,.55)','0.14em');
     vis.forEach(({j,x,y,z,pin})=>{const on=j.id===sel;const rk=top.findIndex(r=>r.j.id===j.id);if(on){put(j.city,x+12*dpr,y+5*dpr,`${16*dpr}px "Cormorant Garamond",serif`,'#f2ecdf','0.02em',pin)}else if(rk>=0||z>.42){put(j.city.toUpperCase(),x+7*dpr,y+3*dpr,`${(rk>=0?9:8.5)*dpr}px Jost`,rk>=0?'rgba(196,164,104,.95)':'rgba(242,236,223,'+(.35+.4*z).toFixed(2)+')','0.12em',pin)}})}
   let vis_=true;new IntersectionObserver(es=>{vis_=es[0].isIntersecting},{threshold:0}).observe(cv);
-  (function loop(){if(!R||(!vis_&&!fly&&cv.classList.contains('ready'))){requestAnimationFrame(loop);return}if(fly&&!drag){yaw+=(tYaw-yaw)*.075;pitch+=(tPitch-pitch)*.075;if(Math.abs(tYaw-yaw)<.0015&&Math.abs(tPitch-pitch)<.0015)fly=false}const tv=(auto&&!drag&&!pinch)?.0027:0;spinV+=(tv-spinV)*(tv?.02:.12);yaw+=spinV;zoom+=(tZoom-zoom)*.06;R=R0*zoom;draw();if(!cv.classList.contains('ready')&&lastRaster){cv.classList.add('ready');new IntersectionObserver((es,o)=>{if(es.some(e=>e.isIntersecting)){cv.classList.add('seen');o.disconnect()}},{threshold:.2}).observe(cv)}requestAnimationFrame(loop)})();
+  (function loop(){if(!R||(!vis_&&!fly&&cv.classList.contains('ready'))){requestAnimationFrame(loop);return}if(fly&&!drag){yaw+=(tYaw-yaw)*.075;pitch+=(tPitch-pitch)*.075;if(Math.abs(tYaw-yaw)<.0015&&Math.abs(tPitch-pitch)<.0015)fly=false}const tv=(auto&&!drag&&!pinch)?.0027:0;spinV+=(tv-spinV)*(tv?.02:.12);yaw+=spinV;zoom+=(tZoom-zoom)*.06;R=R0*zoom;draw();if(!cv.classList.contains('ready')&&lastRaster)cv.classList.add('ready');requestAnimationFrame(loop)})();
   const pos=e=>{const r=cv.getBoundingClientRect();const t=e.touches?e.touches[0]:e;return[(t.clientX-r.left)*dpr,(t.clientY-r.top)*dpr]};
   const ZMIN=.85,ZMAX=2.4,clampZ=z=>Math.max(ZMIN,Math.min(ZMAX,z));
   const down=e=>{if(e.touches&&e.touches.length===2){pinch={d0:Math.hypot(e.touches[0].clientX-e.touches[1].clientX,e.touches[0].clientY-e.touches[1].clientY),z0:zoom};drag=null;auto=false;fly=false;return}const[x,y]=pos(e);drag={x,y,yaw,pitch,moved:false,axis:e.touches?null:'g'};auto=false;fly=false};
@@ -720,6 +720,7 @@ const G=(()=>{const cv=$('#globe'),ctx=cv.getContext('2d');const ROLL=0.408,CR=M
 
 function pop(...ids){ids.forEach(id=>{const el=document.getElementById(id);if(!el)return;el.classList.remove('pop');void el.offsetWidth;el.classList.add('pop')})}
 (()=>{const hb=document.querySelector('.hero-body');const go=()=>requestAnimationFrame(()=>hb.classList.add('go'));Promise.race([document.fonts?document.fonts.ready:Promise.resolve(),new Promise(r=>setTimeout(r,1100))]).then(go)})();
+(()=>{const gb=document.querySelector('.globe-box');if(!gb)return;new IntersectionObserver((es,o)=>{if(es.some(e=>e.isIntersecting)){gb.classList.add('seen');o.disconnect()}},{threshold:.35}).observe(gb)})();
 /* ---------- CHROME ---------- */
 (()=>{const SEL='.pins>button,.ctrl,.pillar,.card,.tier,.tl>div,.basket>div,.mosaic>div,.mos-head,.pp-list>*,.pp-chips,.pp-cmp,.rail>*,.legend,.faq details,.moved,.keep,.mnode,.mlink,.str-notes>div,.sketch,.ov,.arche>button,.film,.showall,.fine,.field,.done,.traj-head,.traj,.steps>*,.tags,.save-row,.letter,.diagram';
   const skip=el=>el.closest('.theatre,.hud,#nav,.cookie,.hero,.results,.pp-dd,.ticker');
