@@ -228,8 +228,8 @@ page('',`<div class="eyebrow">10 · Assumptions, sources, and the small print</d
 <div class="sig">Patrician</div>`);
 
 const PAID=false;/* the paid document is built and stored by the desk backend, never unlocked in the browser */
-if(!SAMPLE&&!PAID){[3,4,5,6,7,8,9].forEach(i=>{if(!P[i])return;P[i]=P[i].replace('<section class="page ','<section class="page lock ').replace('</section>',`<div class="unlock"><div><b>The full Dossier unlocks this chapter.</b><span>All 10 chapters on your profile, about 40 pages, as a PDF within 24 hours of payment. Refunded within 7 days if it does not change how you think.</span></div><a href="/#report">Unlock · $149</a></div></section>`)});
-  P.unshift(`<div class="preview-note"><span><b>Preview.</b> Chapters 1 and 2 are open. Chapters 3 to 9 unlock with the full Dossier.</span><a href="/#report" style="color:var(--gold)">Get the full Dossier →</a></div>`)}
+if(!SAMPLE&&!PAID){P.splice(10,1);[3,4,5,6,7,8,9].forEach(i=>{if(!P[i])return;P[i]=P[i].replace('<section class="page ','<section class="page lock ').replace('</section>',`<div class="unlock"><div><b>The full Dossier unlocks this chapter.</b><span>All 10 chapters on your profile, about 40 pages, as a PDF within 24 hours of payment. Refunded within 7 days if it does not change how you think.</span></div><a href="/#report">Unlock · $149</a></div></section>`)});
+  P.unshift(`<div class="preview-note"><span><b>Preview.</b> Chapters 1 and 2 are open. Chapters 3 to 10 unlock with the full Dossier.</span><a href="/#report" style="color:var(--gold)">Get the full Dossier →</a></div>`)}
 document.getElementById('doc').innerHTML=P.join('');
 document.getElementById('tbTitle').textContent=`${SAMPLE||PAID?'Private Dossier':'Dossier preview'} · ${REF} · ${L.j.city}`;
 document.title=`Private Dossier · ${L.j.city} · ${REF}`;
