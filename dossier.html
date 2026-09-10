@@ -6,7 +6,7 @@
 <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://static.cloudflareinsights.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: blob: https://images.pexels.com https://images.unsplash.com https://patek-res.cloudinary.com https://*.google-analytics.com https://*.googletagmanager.com; media-src 'self' blob: https://videos.pexels.com https://images.pexels.com https://patek-res.cloudinary.com; connect-src 'self' https://*.google-analytics.com https://*.analytics.google.com https://*.googletagmanager.com https://cloudflareinsights.com; frame-src 'none'; object-src 'none'; base-uri 'self'; form-action 'self' mailto:; upgrade-insecure-requests">
 <meta name="referrer" content="strict-origin-when-cross-origin">
 <title>Private Dossier · Patrician.ch</title>
-<meta name="description" content="Your top 3 jurisdictions modeled on your own numbers, with the visa path and the structure questions. Delivered in 72 hours.">
+<meta name="description" content="Your top 3 jurisdictions modeled on your own numbers, with the visa path and the structure questions. Delivered in 24 hours.">
 <meta name="robots" content="noindex,noai,noimageai">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
@@ -16,6 +16,10 @@
 html{background:#1b1b1e}body{font-family:var(--sans);font-weight:300;color:var(--ink);line-height:1.5;font-size:9.6pt}
 .toolbar{position:sticky;top:0;z-index:5;background:#0e0e11;color:#d6cdbb;display:flex;justify-content:space-between;align-items:center;gap:16px;padding:12px 24px;font-size:11px;letter-spacing:.22em;text-transform:uppercase}.toolbar a,.toolbar button{color:#c4a468;background:transparent;border:1px solid #c4a468;padding:8px 14px;font:inherit;cursor:pointer;text-decoration:none}.toolbar .brand{font-family:var(--serif);letter-spacing:.34em;font-size:14px;color:#f2ecdf}
 .page{background:var(--paper);width:210mm;margin:24px auto;padding:20mm 20mm 14mm;position:relative;box-shadow:0 20px 60px rgba(0,0,0,.5)}
+.page.lock{max-height:150mm;overflow:hidden}.page.lock>:nth-child(n+5):not(.unlock){filter:blur(7px);user-select:none;pointer-events:none;opacity:.75}.page.lock:after{content:"";position:absolute;left:0;right:0;bottom:0;height:70mm;background:linear-gradient(180deg,rgba(17,17,20,0),var(--paper) 70%)}
+.unlock{position:absolute;left:20mm;right:20mm;bottom:16mm;z-index:2;border:1px solid var(--gold);background:#0e0e11;padding:16px 18px;display:flex;flex-wrap:wrap;gap:12px 18px;align-items:center;justify-content:space-between}.unlock b{font-family:var(--serif);font-weight:400;font-size:15pt;color:#f2ecdf;display:block}.unlock span{font-size:9.5pt;color:#a9a191;display:block;margin-top:4px}.unlock a{border:1px solid var(--gold);color:var(--gold);padding:11px 16px;font-size:9pt;letter-spacing:.2em;text-transform:uppercase;text-decoration:none;white-space:nowrap}.unlock a:hover{background:var(--gold);color:#0a0a0c}
+.preview-note{width:210mm;margin:24px auto 0;color:#a9a191;font-size:10pt;display:flex;gap:14px;align-items:center;justify-content:space-between;flex-wrap:wrap}.preview-note b{color:#f2ecdf;font-weight:500}
+@media print{.page.lock>:nth-child(n+5):not(.unlock){display:none}.page.lock{max-height:none}.page.lock:after{display:none}.unlock{position:static;margin-top:12mm}.preview-note{display:none}}
 .folio{display:flex;justify-content:space-between;font-size:7.5px;letter-spacing:.24em;text-transform:uppercase;color:var(--mute);border-bottom:1px solid var(--rule);padding-bottom:6px;margin-bottom:16px}
 .cover .folio{display:none}
 tr,.kpis,.box,.warn,.tl li,.verify li,.ent div{break-inside:avoid;page-break-inside:avoid}h2,h3,h4{break-after:avoid;page-break-after:avoid}thead{display:table-header-group}.tight td{padding:3px 5px 3px 0}
@@ -50,14 +54,14 @@ ol,ul{padding-left:18px;margin-bottom:8px}li{margin-bottom:4px}
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="patrician.ch">
 <meta property="og:title" content="Private Dossier · Patrician">
-<meta property="og:description" content="Your top 3 jurisdictions modeled on your own numbers, with the visa path and the structure questions. Delivered in 72 hours.">
+<meta property="og:description" content="Your top 3 jurisdictions modeled on your own numbers, with the visa path and the structure questions. Delivered in 24 hours.">
 <meta property="og:url" content="https://patrician.ch/dossier.html">
 <meta property="og:image" content="https://patrician.ch/og.png">
 <meta property="og:image:width" content="1200"><meta property="og:image:height" content="630">
 <meta property="og:image:alt" content="Patrician. Where should a high earner actually live.">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Private Dossier · Patrician">
-<meta name="twitter:description" content="Your top 3 jurisdictions modeled on your own numbers, with the visa path and the structure questions. Delivered in 72 hours.">
+<meta name="twitter:description" content="Your top 3 jurisdictions modeled on your own numbers, with the visa path and the structure questions. Delivered in 24 hours.">
 <meta name="twitter:image" content="https://patrician.ch/og.png">
 </head>
 <body>
@@ -223,8 +227,11 @@ page('',`<div class="eyebrow">10 · Assumptions, sources, and the small print</d
 <h3>The small print</h3><p class="small" style="font-size:9pt;line-height:1.5">This dossier is a modeling and introduction document. It is not tax, legal, immigration, or investment advice, and nothing in it creates an adviser relationship. Licensed counsel in the jurisdiction must confirm every figure and route before you act. Reference ${REF}, prepared ${DATE}.</p><p class="small" style="font-size:9pt;line-height:1.5"><b>Confidential and protected.</b> This dossier is prepared for the named recipient on the inputs they supplied, is licensed for their personal use and for sharing with their own advisers, and may not be resold, republished, extracted, or used to provide services to others. © 2026 Patrician · patrician.ch · All rights reserved. It is not legal, tax, immigration, investment, or financial advice, no outcome is guaranteed, and the terms at patrician.ch/legal.html apply, including the limitation of liability and the requirement to verify every figure with licensed counsel before acting.</p>
 <div class="sig">Patrician</div>`);
 
+const PAID=Q.get('k')&&Q.get('k').length>20;
+if(!SAMPLE&&!PAID){[5,6,7,8,9].forEach(i=>{if(!P[i])return;P[i]=P[i].replace('<section class="page ','<section class="page lock ').replace('</section>',`<div class="unlock"><div><b>The full Dossier unlocks this chapter.</b><span>All 10 chapters on your profile, about 40 pages, as a PDF within 24 hours of payment. Refunded within 7 days if it does not change how you think.</span></div><a href="/#report">Unlock · $149</a></div></section>`)});
+  P.unshift(`<div class="preview-note"><span><b>Preview.</b> Chapters 1 to 4 are open. Chapters 5 to 9 unlock with the full Dossier.</span><a href="/#report" style="color:var(--gold)">Get the full Dossier →</a></div>`)}
 document.getElementById('doc').innerHTML=P.join('');
-document.getElementById('tbTitle').textContent=`Private Dossier · ${REF} · ${L.j.city}`;
+document.getElementById('tbTitle').textContent=`${SAMPLE||PAID?'Private Dossier':'Dossier preview'} · ${REF} · ${L.j.city}`;
 document.title=`Private Dossier · ${L.j.city} · ${REF}`;
 </script>
 </body>
