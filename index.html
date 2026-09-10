@@ -483,15 +483,15 @@ footer{padding:64px clamp(20px,6vw,96px) 32px;border-top:1px solid var(--line);b
 </div>
 <div class="cookie" id="cookie" role="dialog" aria-label="Cookie notice"><p>This site sets no advertising trackers. Accept lets Google Analytics count visits, Essentials only keeps it off. One preference is stored on your device to remember this choice, and media loads from Pexels and fonts from Google, who see your IP address. <a href="legal.html#cookies">Details</a>.</p><div class="acts"><button id="ckEss">Essentials only</button><button class="ok" id="ckOk">Accept</button></div></div>
 <script src="land.js?v=1"></script>
-<script src="patrician.js?v=41"></script>
+<script src="patrician.js?v=42"></script>
 <script>
 const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)];
 
 /* mobile Safari and Chrome ignore a muted attribute that arrived through innerHTML, so the properties are set by hand before play; a rejected play (Low Power Mode, no gesture yet) is retried on the next touch or scroll */
 const PHONE=innerWidth<900;
-const srcFor=v=>{const s=v.dataset.src||'';if(!PHONE||v.dataset.tried)return s;const m=s.replace(/_1920_1080_/,'_1280_720_').replace(/-hd_1920_1080_/,'-hd_1280_720_');return m};
+const srcFor=v=>{const s=v.dataset.src||'';if(!PHONE||v.dataset.step)return s;const m=s.replace(/_1920_1080_/,'_1280_720_').replace(/-hd_1920_1080_/,'-hd_1280_720_');return m};
 /* attach the source and start buffering without playing, so the first frame is ready before the card is on screen */
-const vwarm=v=>{if(v.src||!v.dataset.src)return;v.muted=true;v.defaultMuted=true;v.playsInline=true;v.preload='auto';v.src=srcFor(v);v.load();if(!v.dataset.fb){v.dataset.fb='1';v.addEventListener('error',()=>{if(!v.dataset.tried){v.dataset.tried='1';v.src=v.dataset.src}else if(!v.dataset.tried2&&VALT[v.dataset.src]){v.dataset.tried2='1';v.src=VALT[v.dataset.src]}else if(!v.dataset.tried3&&/-hd_1920_1080_/.test(v.dataset.src)){v.dataset.tried3='1';v.src=v.dataset.src.replace('-hd_1920_1080_','-uhd_2560_1440_')}else if(!v.dataset.tried3&&/_1920_1080_/.test(v.dataset.src)){v.dataset.tried3='1';v.src=v.dataset.src.replace(/_1920_1080_/,'_2560_1440_')}else return;v.load();if(v.dataset.want)v.play().catch(()=>{})})}};
+const vwarm=v=>{if(v.src||!v.dataset.src)return;v.muted=true;v.defaultMuted=true;v.playsInline=true;v.preload='auto';v.src=srcFor(v);v.load();if(!v.dataset.fb){v.dataset.fb='1';v.addEventListener('error',()=>{const b=v.dataset.src||'';const L=[b,VALT[b],b.replace(/-hd_1280_720_/,'-hd_1920_1080_').replace(/(?<!hd)_1280_720_/,'_1920_1080_'),b.replace(/-hd_1280_720_/,'-uhd_2560_1440_').replace(/(?<!hd)_1280_720_/,'_2560_1440_').replace(/-hd_1920_1080_/,'-uhd_2560_1440_').replace(/(?<!hd)_1920_1080_/,'_2560_1440_'),b.replace(/-hd_1280_720_/,'-uhd_3840_2160_').replace(/(?<!hd)_1280_720_/,'_3840_2160_').replace(/-hd_1920_1080_/,'-uhd_3840_2160_').replace(/(?<!hd)_1920_1080_/,'_3840_2160_')].filter((u,k,a)=>u&&a.indexOf(u)===k);const n=+(v.dataset.step||0);if(n>=L.length)return;v.dataset.step=n+1;v.src=L[n];v.load();if(v.dataset.want)v.play().catch(()=>{})})}};
 const vplay=v=>{v.muted=true;v.defaultMuted=true;v.playsInline=true;v.setAttribute('playsinline','');v.setAttribute('webkit-playsinline','');vwarm(v);v.dataset.want='1';const p=v.play();if(p&&p.catch)p.catch(()=>{v.dataset.retry='1'})};
 /* ---------- STATE ---------- */
 const S={inc:500000,exit:0,pp:new Set(['eu']),hh:'kids',home:0,w:{tax:8,safe:7,school:7,sun:5,prox:5,beauty:7,cost:3,visa:6},pick:null};
