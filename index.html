@@ -136,6 +136,7 @@ input[type=range]::-moz-range-thumb{width:18px;height:18px;border-radius:50%;bac
 #traj{width:100%;height:280px;display:block}
 /* ATLAS */
 .atlas{padding-left:0;padding-right:0}.atlas .wrap{padding:0 clamp(20px,6vw,96px)}
+.flowline{margin:22px 0 0;font-family:var(--sans);font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--mute);line-height:2}.flowline span{color:var(--bone);white-space:nowrap}.flowline span b{font-weight:500;color:var(--gold)}.flowline span.neg b{color:var(--mute)}.flowline i{font-style:normal;margin:0 8px;color:rgba(214,205,187,.35)}@media(max-width:899px){.flowline{font-size:11px;letter-spacing:.1em}}
 .rail{display:flex;gap:16px;overflow-x:auto;scroll-snap-type:x mandatory;padding:50px clamp(20px,6vw,96px);scrollbar-width:none;-webkit-overflow-scrolling:touch}.rail::-webkit-scrollbar{display:none}
 .card{flex:0 0 min(78vw,400px);aspect-ratio:3/4;position:relative;scroll-snap-align:start;overflow:hidden;background:var(--ink-3);border:1px solid var(--line)}
 .card img,.card video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;filter:saturate(.7) brightness(.72);transition:transform 1.4s var(--ease),filter 1s}
@@ -269,7 +270,7 @@ footer{padding:64px clamp(20px,6vw,96px) 32px;border-top:1px solid var(--line);b
 <div class="ticker"><div id="tick"></div></div>
 
 <section class="atlas alt" id="atlas">
-  <div class="wrap"><div class="eyebrow rv">01 · The board</div><h2 class="rv d1" style="margin-top:20px">Every serious address on earth.<br><em>One</em> of them is yours.</h2></div>
+  <div class="wrap"><div class="eyebrow rv">01 · The board</div><h2 class="rv d1" style="margin-top:20px">Every serious address on earth.<br><em>One</em> of them is yours.</h2><p class="flowline rv d2" id="flowline"></p></div>
   <div class="rail" id="rail"></div>
 </section>
 
@@ -572,7 +573,7 @@ const vwarmer=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){v
 $$('.card video').forEach(v=>{vio.observe(v);vwarmer.observe(v);v.addEventListener('playing',()=>{const cs=$$('.card video');const i=cs.indexOf(v);cs.slice(i+1,i+3).forEach(vwarm)},{once:true})});$('#rail').addEventListener('scroll',()=>{clearTimeout(window.__rt);window.__rt=setTimeout(()=>{$$('.card video').forEach(v=>{const r=v.getBoundingClientRect();if(r.right>0&&r.left<innerWidth&&r.bottom>0&&r.top<innerHeight)vplay(v);else v.pause()})},120)},{passive:true});
 $$('.bgvid').forEach(v=>{if(v.dataset.freeze&&innerWidth<900)return;v.addEventListener('playing',()=>{v.classList.add('on');if(v.dataset.rate)v.playbackRate=+v.dataset.rate});vwarmer.observe(v);new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){vplay(v)}else{v.pause();delete v.dataset.want}}),{threshold:.05,rootMargin:'40% 0px 40% 0px'}).observe(v)});
 const tickHTML=()=>(J.map(j=>`<span>${j.city}<b data-tz="${j.tz}">${lt(j.tz)}</b></span>`).join('')).repeat(2);$('#tick').innerHTML=tickHTML();requestAnimationFrame(()=>{const w=$('#tick').scrollWidth/2;$('#tick').style.animationDuration=Math.max(60,Math.round(w/38))+'s'});$('#jcount').textContent=J.length;if($('#pcount'))$('#pcount').textContent=PASSALL.length;$$('.jn').forEach(e=>e.textContent=J.length);
-$('#pins').innerHTML=[...J].sort((a,b)=>a.city.localeCompare(b.city)).map(j=>`<button data-id="${j.id}"><b>${j.city}</b><small>${j.flag}</small></button>`).join('');
+$('#flowline').innerHTML='Where the money went in 2025<i>·</i>'+[['ae','UAE'],['us','US'],['it','Italy'],['ch','Switzerland'],['uk','UK']].map(([c,n])=>`<span class="${FLOW[c]<0?'neg':''}">${n} <b>${signed(FLOW[c])}</b></span>`).join('<i>·</i>')+'<i>·</i><span class="gl" data-tip="Henley &amp; Partners, Private Wealth Migration Report 2025. Net millionaires moving in or out of each country over the year. Country level, not city level.">Henley, country level</span>';$('#pins').innerHTML=[...J].sort((a,b)=>a.city.localeCompare(b.city)).map(j=>`<button data-id="${j.id}"><b>${j.city}</b><small>${j.flag}</small></button>`).join('');
 $$('#pins button').forEach(b=>b.addEventListener('click',()=>{setLife(b.dataset.id,true);/* on a phone the list sits under the globe, so bring the globe and its card back into view */if(innerWidth<900){$('#globe-sec').scrollTop=0;const g=$('.globe-box');const top=$('#nav').getBoundingClientRect().bottom;const y=g.getBoundingClientRect().top+scrollY-top-10;window.scrollTo({top:y,behavior:'smooth'})}}));
 $$('#filters button').forEach(b=>b.addEventListener('click',()=>{b.classList.toggle('on');if(b.classList.contains('on'))S.f.add(b.dataset.f);else S.f.delete(b.dataset.f);track('filter',{filter:b.dataset.f,on:b.classList.contains('on')});render()}));
 
