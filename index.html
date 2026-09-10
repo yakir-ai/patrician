@@ -475,7 +475,7 @@ footer{padding:64px clamp(20px,6vw,96px) 32px;border-top:1px solid var(--line);b
 </div>
 <div class="cookie" id="cookie" role="dialog" aria-label="Cookie notice"><p>This site sets no advertising trackers. Accept lets Google Analytics count visits, Essentials only keeps it off. One preference is stored on your device to remember this choice, and media loads from Pexels and fonts from Google, who see your IP address. <a href="legal.html#cookies">Details</a>.</p><div class="acts"><button id="ckEss">Essentials only</button><button class="ok" id="ckOk">Accept</button></div></div>
 <script src="land.js?v=1"></script>
-<script src="patrician.js?v=39"></script>
+<script src="patrician.js?v=40"></script>
 <script>
 const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)];
 
@@ -483,7 +483,7 @@ const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)];
 const PHONE=innerWidth<900;
 const srcFor=v=>{const s=v.dataset.src||'';if(!PHONE||v.dataset.tried)return s;const m=s.replace(/_1920_1080_/,'_1280_720_').replace(/-hd_1920_1080_/,'-hd_1280_720_');return m};
 /* attach the source and start buffering without playing, so the first frame is ready before the card is on screen */
-const vwarm=v=>{if(v.src||!v.dataset.src)return;v.muted=true;v.defaultMuted=true;v.playsInline=true;v.preload='auto';v.src=srcFor(v);v.load();if(!v.dataset.fb){v.dataset.fb='1';v.addEventListener('error',()=>{if(v.dataset.tried)return;v.dataset.tried='1';v.src=v.dataset.src;v.load();if(v.dataset.want)v.play().catch(()=>{})})}};
+const vwarm=v=>{if(v.src||!v.dataset.src)return;v.muted=true;v.defaultMuted=true;v.playsInline=true;v.preload='auto';v.src=srcFor(v);v.load();if(!v.dataset.fb){v.dataset.fb='1';v.addEventListener('error',()=>{if(!v.dataset.tried){v.dataset.tried='1';v.src=v.dataset.src}else if(!v.dataset.tried2&&VALT[v.dataset.src]){v.dataset.tried2='1';v.src=VALT[v.dataset.src]}else return;v.load();if(v.dataset.want)v.play().catch(()=>{})})}};
 const vplay=v=>{v.muted=true;v.defaultMuted=true;v.playsInline=true;v.setAttribute('playsinline','');v.setAttribute('webkit-playsinline','');vwarm(v);v.dataset.want='1';const p=v.play();if(p&&p.catch)p.catch(()=>{v.dataset.retry='1'})};
 /* ---------- STATE ---------- */
 const S={inc:500000,exit:0,pp:new Set(['eu']),hh:'kids',home:0,w:{tax:8,safe:7,school:7,sun:5,prox:5,beauty:7,cost:3,visa:6},pick:null};
@@ -543,7 +543,7 @@ function openTheatre(i,fromEl){const t=$('#theatre');THI=i;const m=DECK[i];const
     setTimeout(()=>{t.classList.add('on');t.setAttribute('aria-hidden','false')},420);setTimeout(()=>fly.remove(),1200)}
   else{t.classList.add('on');t.setAttribute('aria-hidden','false')}
   document.body.style.overflow='hidden';
-  setTimeout(()=>{if(j.vid){v.muted=true;v.defaultMuted=true;v.playsInline=true;v.dataset.src=j.vid.src;delete v.dataset.tried;v.src=srcFor(v);v.load();v.play().then(()=>v.classList.add('on')).catch(()=>{v.dataset.retry='1'});v.onerror=()=>{if(v.dataset.tried)return;v.dataset.tried='1';v.src=j.vid.src;v.load();v.play().catch(()=>{})};v.addEventListener('playing',()=>v.classList.add('on'),{once:true})}tween($('#thEff'),Math.round(r.eff*100),x=>Math.round(x)+'%');tween($('#thKept'),r.kept10,x=>fmt(x));tween($('#thSun'),j.sun,x=>Math.round(x).toLocaleString())},500);
+  setTimeout(()=>{if(j.vid){v.muted=true;v.defaultMuted=true;v.playsInline=true;v.dataset.src=j.vid.src;delete v.dataset.tried;delete v.dataset.tried2;v.src=srcFor(v);v.load();v.play().then(()=>v.classList.add('on')).catch(()=>{v.dataset.retry='1'});v.onerror=()=>{if(!v.dataset.tried){v.dataset.tried='1';v.src=j.vid.src}else if(!v.dataset.tried2&&VALT[j.vid.src]){v.dataset.tried2='1';v.src=VALT[j.vid.src]}else return;v.load();v.play().catch(()=>{})};v.addEventListener('playing',()=>v.classList.add('on'),{once:true})}tween($('#thEff'),Math.round(r.eff*100),x=>Math.round(x)+'%');tween($('#thKept'),r.kept10,x=>fmt(x));tween($('#thSun'),j.sun,x=>Math.round(x).toLocaleString())},500);
   thHome=document.activeElement;$('#thX').focus({preventScroll:true})}
 function closeTheatre(){const t=$('#theatre');t.classList.remove('on');t.setAttribute('aria-hidden','true');const v=$('#thVid');v.pause();setTimeout(()=>v.removeAttribute('src'),500);document.body.style.overflow='';if(thHome&&thHome.focus)thHome.focus({preventScroll:true})}
 $('#openDraft').addEventListener('click',()=>window.open(dossierLink('',$('#tierSel').value),'_blank','noopener'));
