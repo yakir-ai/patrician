@@ -227,6 +227,7 @@ footer{padding:64px clamp(20px,6vw,96px) 32px;border-top:1px solid var(--line);b
 .foot-bottom{max-width:1400px;margin:44px auto 0;padding-top:22px;border-top:1px solid var(--line);display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px 24px;font-size:11px;letter-spacing:.06em;color:var(--mute)}.foot-bottom a{color:var(--mute)}.foot-bottom a:hover{color:var(--bone)}
 .cookie{position:fixed;left:16px;right:16px;bottom:16px;z-index:65;background:rgba(17,17,20,.96);border:1px solid var(--gold-2);padding:18px 20px;display:none;gap:16px;align-items:center;flex-wrap:wrap;backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px)}@media(min-width:800px){.cookie{left:auto;right:24px;bottom:24px;max-width:520px}}.cookie.show{display:flex}.cookie p{font-size:13px;color:var(--bone);line-height:1.6;flex:1 1 260px}.cookie p a{color:var(--gold)}.cookie .acts{display:flex;gap:8px}.cookie button{font-size:10px;letter-spacing:.22em;text-transform:uppercase;padding:10px 14px;border:1px solid var(--line);color:var(--bone)}.cookie button.ok{border-color:var(--gold);color:var(--gold)}
 
+@keyframes rowin{from{opacity:0;translate:0 10px}to{opacity:1;translate:none}}.results.reveal .row{opacity:0}.results.reveal.go .row{animation:rowin .7s var(--ease) both;animation-delay:calc(var(--i,0)*45ms)}
 .fx{opacity:0;translate:0 16px;transition:opacity .9s var(--ease),translate .9s var(--ease);transition-delay:calc(var(--i,0)*60ms)}.fx.fx-in{opacity:1;translate:none}
 @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.rv,.fx{opacity:1;transform:none;translate:none}}
 /* theatre: a sheet that scrolls when its content is taller than the screen, bottom anchored when it is not */
@@ -489,7 +490,7 @@ function render(){
   $$('.jn').forEach(e=>e.textContent=rows.length);
   if(!rows.length){$('#results').innerHTML='';last=all;drawTraj([]);return}
   last=rows;const top=rows[0].score,bot=rows[rows.length-1].score;
-  $('#results').innerHTML=rows.map((r,i)=>`<div class="row ${i===0?'top':''}" data-id="${r.j.id}">
+  $('#results').innerHTML=rows.map((r,i)=>`<div class="row ${i===0?'top':''}" data-id="${r.j.id}" style="--i:${Math.min(i,12)}">
     <div class="rk">${String(i+1).padStart(2,'0')}</div>
     <div><div class="nm">${r.j.city} <small>${r.j.flag} ${r.j.country}</small></div><div class="bar"><i style="width:${Math.round(((r.score-bot)/((top-bot)||1))*88+12)}%"></i></div>
       <div class="tags">${r.tags.map(t=>typeof t==='string'?`<span>${t}</span>`:`<span class="warn">${t.t}</span>`).join('')}<span>${r.fly?r.fly+'h flight':'Home'}</span></div></div>
@@ -713,11 +714,11 @@ const G=(()=>{const cv=$('#globe'),ctx=cv.getContext('2d');let W,H,R,R0,dpr=1,ya
   return{focus(id){const j=J.find(x=>x.id===id);let ty=-rad(j.lon)-Math.PI/2;const tp=Math.PI*2;ty+=Math.round((yaw-ty)/tp)*tp;tYaw=ty;tPitch=rad(j.lat)*.6;fly=true;auto=false;if(tZoom<=1.1)tZoom=1.04;sel=id;selT=performance.now();clearTimeout(resumeT);resumeT=setTimeout(()=>{auto=true;if(tZoom<=1.1)tZoom=1},9000)}}})();
 
 /* ---------- CHROME ---------- */
-(()=>{const SEL='.ctrl,.pillar,.card,.tier,.tl>div,.basket>div,.mosaic>div,.mos-head,.pp-list>*,.pp-chips,.pp-cmp,.rail>*,.legend,.faq details,.moved,.keep,.mnode,.mlink,.str-notes>div,.sketch,.ov,.arche>button,.film,.showall,.fine,.field,.done,.traj-head,.traj,.steps>*,.tags,.save-row,.letter,.diagram';
+(()=>{const SEL='.pins>button,.ctrl,.pillar,.card,.tier,.tl>div,.basket>div,.mosaic>div,.mos-head,.pp-list>*,.pp-chips,.pp-cmp,.rail>*,.legend,.faq details,.moved,.keep,.mnode,.mlink,.str-notes>div,.sketch,.ov,.arche>button,.film,.showall,.fine,.field,.done,.traj-head,.traj,.steps>*,.tags,.save-row,.letter,.diagram';
   const skip=el=>el.closest('.theatre,.hud,#nav,.cookie,.hero,.results,.pp-dd,.ticker');
   const fio=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('fx-in');fio.unobserve(e.target)}}),{threshold:.04,rootMargin:'0px 0px -6% 0px'});
   const arm=root=>{const list=root.matches&&root.matches(SEL)?[root]:[];list.push(...root.querySelectorAll(SEL));list.forEach(el=>{if(el.classList.contains('fx')||el.classList.contains('rv')||skip(el))return;const r=el.getBoundingClientRect();if(r.top<innerHeight&&r.bottom>0&&document.readyState!=='loading'&&performance.now()>1500){return}const sib=el.parentElement?[...el.parentElement.children].filter(x=>x.matches(SEL)):[el];el.style.setProperty('--i',Math.min(8,sib.indexOf(el)));el.classList.add('fx');fio.observe(el)})};
-  arm(document.body);
+  arm(document.body);const res=$('#results');if(res){res.classList.add('reveal');new IntersectionObserver((es,o)=>{if(es.some(e=>e.isIntersecting)){res.classList.add('go');setTimeout(()=>res.classList.remove('reveal','go'),1500);o.disconnect()}},{threshold:0,rootMargin:'0px 0px -10% 0px'}).observe(res)}
   new MutationObserver(ms=>ms.forEach(m=>m.addedNodes.forEach(n=>{if(n.nodeType===1)arm(n)}))).observe(document.body,{childList:true,subtree:true});
 })();
 const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}}),{threshold:.1});$$('.rv').forEach(el=>io.observe(el));
