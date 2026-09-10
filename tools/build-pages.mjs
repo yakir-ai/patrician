@@ -153,7 +153,7 @@ function citiesHub(pages) {
   const byCountry = {};
   J.forEach(j => { (byCountry[j.country] = byCountry[j.country] || []).push(j); });
   const html = head({ title, desc, path, image: SITE + '/globe-tex.jpg' }) + `
-<header class="hero" style="min-height:38vh"><div class="wrap"><div class="eyebrow">The atlas</div><h1>Every serious <em>address</em>.</h1><p class="lede">${J.length} cities in ${Object.keys(byCountry).length} countries, each on the same model: tax on your bracket, the route in, the cost, the day.</p></div></header>
+<header class="hero" style="min-height:38vh"><div class="wrap"><div class="eyebrow">The board</div><h1>Every serious <em>address</em>.</h1><p class="lede">${J.length} cities in ${Object.keys(byCountry).length} countries, each on the same model: tax on your bracket, the route in, the cost, the day.</p></div></header>
 <section><div class="wrap">${Object.keys(byCountry).sort().map(c => `<h2 style="font-size:26px;margin-top:28px">${byCountry[c][0].flag} ${esc(c)}</h2><div class="cards">${byCountry[c].map(j => `<a class="card" href="/cities/${j.id}/"><b>${esc(j.city)}</b><span>tax at $1M ${pct(taxLine(j, 1000000).eff)} · cost ${j.cost} · ${j.sun.toLocaleString()} sun hours</span></a>`).join('')}</div>`).join('')}</div></section>` + foot();
   return { path, html, title };
 }
