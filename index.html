@@ -246,7 +246,7 @@ footer{padding:64px clamp(20px,6vw,96px) 32px;border-top:1px solid var(--line);b
 <div class="cur" id="cur"><div class="dot"></div><div class="ring"></div></div>
 <nav id="nav">
   <a href="/" class="brand"><svg class="mark" viewBox="0 0 64 64" aria-hidden="true"><defs><linearGradient id="mk-au" gradientUnits="userSpaceOnUse" x1="10" y1="8" x2="54" y2="58"><stop offset="0" stop-color="#e9d4a0"/><stop offset=".5" stop-color="#c4a468"/><stop offset="1" stop-color="#8f7443"/></linearGradient><radialGradient id="mk-rd" cx="38%" cy="28%" r="80%"><stop offset="0" stop-color="#d81046"/><stop offset=".55" stop-color="#cb003b"/><stop offset="1" stop-color="#9c002d"/></radialGradient></defs><path d="M32 8 L51 13.8 V33 C51 44.5 42.6 52.4 32 57 C21.4 52.4 13 44.5 13 33 V13.8 Z" fill="url(#mk-au)"/><path d="M32 10.6 L48.6 15.7 V33 C48.6 43.2 41.3 50.2 32 54.3 C22.7 50.2 15.4 43.2 15.4 33 V15.7 Z" fill="url(#mk-rd)"/><path d="M32 12.4 L47 17 V33 C47 42.3 40.4 48.6 32 52.4 C23.6 48.6 17 42.3 17 33 V17 Z" fill="none" stroke="url(#mk-au)" stroke-opacity=".55" stroke-width=".7"/><polygon points="28.70,20.50 35.30,20.50 35.30,28.20 43.00,28.20 43.00,34.80 35.30,34.80 35.30,42.50 28.70,42.50 28.70,34.80 21.00,34.80 21.00,28.20 28.70,28.20" fill="#ffffff"/></svg>PATRICIAN<span class="tld">.CH</span></a>
-  <ul><li><a href="#globe-sec">Globe</a></li><li><a href="#engine">Engine</a></li><li><a href="#atlas">Atlas</a></li><li><a href="#passports">Passports</a></li><li><a href="#structure">Structure</a></li><li><a href="#life">The Life</a></li></ul>
+  <ul><li><a href="#atlas">Atlas</a></li><li><a href="#globe-sec">Globe</a></li><li><a href="#engine">Engine</a></li><li><a href="#passports">Passports</a></li><li><a href="#structure">Structure</a></li><li><a href="#life">The Life</a></li></ul>
   <a href="#report" class="nav-cta">Private Dossier</a>
 </nav>
 <section class="hero" id="top">
@@ -267,12 +267,17 @@ footer{padding:64px clamp(20px,6vw,96px) 32px;border-top:1px solid var(--line);b
 </section>
 <div class="ticker"><div id="tick"></div></div>
 
+<section class="atlas alt" id="atlas">
+  <div class="wrap"><div class="eyebrow rv">01 · The Atlas</div><h2 class="rv d1" style="margin-top:20px">Every serious address on earth. <em>One</em> of them is yours.</h2></div>
+  <div class="rail" id="rail"></div>
+</section>
+
 <section class="globe-sec" id="globe-sec">
   <div class="globe-bg"><img class="base" src="https://images.pexels.com/videos/6850514/above-clouds-aerial-shot-clouds-clouds-form-6850514.jpeg?auto=compress&cs=tinysrgb&w=1600" alt=""><video id="globeVid" class="bgvid" muted loop playsinline preload="none" data-freeze="1" data-src="https://videos.pexels.com/video-files/6850514/6850514-hd_1920_1080_30fps.mp4"></video><img id="gbgA" alt=""><img id="gbgB" alt=""></div>
   <div class="wrap globe-grid">
     <div class="rv"><div class="globe-box"><canvas id="globe" aria-label="Interactive globe"></canvas><div class="globe-hint">Drag sideways to rotate · pinch or scroll to zoom · tap a city</div><div class="hud" id="hud" aria-live="polite"><button class="hud-x" id="hudX" aria-label="Close">×</button><div class="hud-top"><small id="hudRank"></small><b id="hudCity"></b><span id="hudCountry"></span></div><div class="hud-stats"><div><i>Effective tax</i><b id="hudEff" data-v="0">0%</b></div><div><i>Kept over 10 years</i><b id="hudKept" data-v="0">$0</b></div><div><i>Flight from home</i><b id="hudFly"></b></div><div><i>Net millionaire inflow 2025</i><b id="hudFlow" data-v="0"></b></div><div id="hudMobW"><i>Wealth mobility score 2026</i><b id="hudMob"></b></div></div><div class="doors" id="hudDoors"></div><div class="hud-foot"><span id="hudNote"></span><a href="#life" class="hud-cta">An ordinary day here →</a></div></div></div></div>
     <div>
-      <div class="eyebrow rv">01 · The map</div>
+      <div class="eyebrow rv">02 · The map</div>
       <h2 class="rv d1" style="margin-top:20px">The world, reduced to the <em>places that matter</em>.</h2>
       <p class="lede rv d2" style="margin-top:20px">Tap any city and the globe flies there, the section becomes the place, and your numbers for it appear. Gold arcs run from your home base to the top 3 addresses the engine picks for you.</p>
       <div class="pins rv d2" id="pins"></div>
@@ -283,7 +288,7 @@ footer{padding:64px clamp(20px,6vw,96px) 32px;border-top:1px solid var(--line);b
 <section class="alt" id="thesis">
   <div class="thesis-media"><img src="https://images.pexels.com/videos/13878618/pexels-photo-13878618.jpeg?auto=compress&cs=tinysrgb&w=1600" alt=""><video id="thesisVid" class="bgvid" muted loop playsinline preload="none" data-src="https://videos.pexels.com/video-files/13878618/13878618-hd_1920_1080_30fps.mp4"></video></div>
   <div class="wrap thesis">
-    <div><div class="eyebrow rv">02 · The question</div><h2 class="rv d1" style="margin-top:20px">Four decisions, one <em>address</em>.</h2></div>
+    <div><div class="eyebrow rv">03 · The question</div><h2 class="rv d1" style="margin-top:20px">Four decisions, one <em>address</em>.</h2></div>
     <div>
       <p class="big rv" id="thesisText">Most people choose a city on a feeling and a tax rate they read on a forum. Then they spend 5 years fixing the structure they never designed. We model the whole thing at once: the jurisdiction, the passport, the entity, and the life. Because the right answer for a founder with an exit is the wrong answer for an executive on salary, and neither is the answer for a family that needs a school and a direct flight home.</p>
       <div class="pillars">
@@ -299,7 +304,7 @@ footer{padding:64px clamp(20px,6vw,96px) 32px;border-top:1px solid var(--line);b
 <section id="engine">
   <div class="wrap">
     <div class="engine-head">
-      <div><div class="eyebrow rv">03 · The Patrician Engine</div><h2 class="rv d1" style="margin-top:20px">Your numbers. <em>Ranked.</em></h2></div>
+      <div><div class="eyebrow rv">04 · The Patrician Engine</div><h2 class="rv d1" style="margin-top:20px">Your numbers. <em>Ranked.</em></h2></div>
       <p class="lede rv d2">Move a slider and the world reorders itself. Every ranking is computed live from your inputs. Tap any city to see an ordinary day there.</p>
     </div>
     <div class="engine-grid">
@@ -338,11 +343,6 @@ footer{padding:64px clamp(20px,6vw,96px) 32px;border-top:1px solid var(--line);b
       </div>
     </div>
   </div>
-</section>
-
-<section class="atlas alt" id="atlas">
-  <div class="wrap"><div class="eyebrow rv">04 · The Atlas</div><h2 class="rv d1" style="margin-top:20px">Every serious address on earth. <em>One</em> of them is yours.</h2></div>
-  <div class="rail" id="rail"></div>
 </section>
 
 <section id="passports">
@@ -451,7 +451,7 @@ footer{padding:64px clamp(20px,6vw,96px) 32px;border-top:1px solid var(--line);b
     <div><a href="/" class="brand"><svg class="mark" viewBox="0 0 64 64" aria-hidden="true"><defs><linearGradient id="mk-au" gradientUnits="userSpaceOnUse" x1="10" y1="8" x2="54" y2="58"><stop offset="0" stop-color="#e9d4a0"/><stop offset=".5" stop-color="#c4a468"/><stop offset="1" stop-color="#8f7443"/></linearGradient><radialGradient id="mk-rd" cx="38%" cy="28%" r="80%"><stop offset="0" stop-color="#d81046"/><stop offset=".55" stop-color="#cb003b"/><stop offset="1" stop-color="#9c002d"/></radialGradient></defs><path d="M32 8 L51 13.8 V33 C51 44.5 42.6 52.4 32 57 C21.4 52.4 13 44.5 13 33 V13.8 Z" fill="url(#mk-au)"/><path d="M32 10.6 L48.6 15.7 V33 C48.6 43.2 41.3 50.2 32 54.3 C22.7 50.2 15.4 43.2 15.4 33 V15.7 Z" fill="url(#mk-rd)"/><path d="M32 12.4 L47 17 V33 C47 42.3 40.4 48.6 32 52.4 C23.6 48.6 17 42.3 17 33 V17 Z" fill="none" stroke="url(#mk-au)" stroke-opacity=".55" stroke-width=".7"/><polygon points="28.70,20.50 35.30,20.50 35.30,28.20 43.00,28.20 43.00,34.80 35.30,34.80 35.30,42.50 28.70,42.50 28.70,34.80 21.00,34.80 21.00,28.20 28.70,28.20" fill="#ffffff"/></svg>PATRICIAN<span class="tld">.CH</span></a><p style="margin-top:16px">A private relocation desk for the globally mobile. Model where to live, which passport to hold, how to structure it, and what the life looks like once you arrive.</p>
       <h6 style="margin-top:28px">The Patrician Letter</h6><p style="font-size:13px">Once a month. Where the money moved, which regimes changed, and one ordinary day in a city you have not considered.</p>
       <form class="letter" id="letter"><input type="email" name="email" required placeholder="you@domain.com" aria-label="Email"><button type="submit">Subscribe</button></form><p id="letterDone" style="display:none;font-size:13px;margin-top:8px">Noted. First letter at the start of next month.</p></div>
-    <div><h6>Explore</h6><ul><li><a href="#globe-sec">The map</a></li><li><a href="#engine">The engine</a></li><li><a href="#atlas">The atlas</a></li><li><a href="#passports">Passport ladder</a></li><li><a href="#structure">Structure</a></li><li><a href="#life">The life</a></li><li><a href="#report">Private dossier</a></li><li><a href="#faq">Questions</a></li><li><a href="/cities/">All 100 addresses</a></li><li><a href="/compare/">Head to head</a></li></ul></div>
+    <div><h6>Explore</h6><ul><li><a href="#atlas">The atlas</a></li><li><a href="#globe-sec">The map</a></li><li><a href="#engine">The engine</a></li><li><a href="#passports">Passport ladder</a></li><li><a href="#structure">Structure</a></li><li><a href="#life">The life</a></li><li><a href="#report">Private dossier</a></li><li><a href="#faq">Questions</a></li><li><a href="/cities/">All 100 addresses</a></li><li><a href="/compare/">Head to head</a></li></ul></div>
     <div><h6>Legal</h6><ul><li><a href="legal.html#terms">Terms of service</a></li><li><a href="legal.html#privacy">Privacy notice</a></li><li><a href="legal.html#cookies">Cookies</a></li><li><a href="legal.html#disclaimer">Disclaimer</a></li><li><a href="#" id="cookieOpen">Cookie settings</a></li></ul></div>
     <div><h6>Contact</h6><ul><li><a href="mailto:hello@patrician.ch">hello@patrician.ch</a></li><li><a href="#report">Request a dossier</a></li><li>Made with <svg viewBox="0 0 24 24" width="12" height="12" aria-label="love" role="img" style="vertical-align:-1px;margin:0 2px"><path fill="#cb003b" d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg> in 🇨🇭</li><li>Replies within 24 hours, Monday to Friday</li></ul>
       <h6 style="margin-top:28px">Sources</h6><ul><li>Statutory brackets, surcharges, and inbound regimes as published by each jurisdiction's tax authority, 2026 rate tables</li><li>Residence and visa program rules from each jurisdiction's immigration authority, as in force at publication</li><li>Wealth, inheritance, and exit tax rules from national tax codes, with OECD treaty texts where a treaty governs</li><li>Cost, safety, schools, sun hours, and beauty: Patrician editorial indices, sun from national climate normals</li><li>Wealth signals, watch houses, dealers, the street index: scored by Patrician, city by city</li><li>Henley &amp; Partners, <a href="https://www.henleyglobal.com/publications/henley-private-wealth-migration-report-2025" rel="noopener" target="_blank">Private Wealth Migration Report 2025</a> (net millionaire flows) and <a href="https://www.henleyglobal.com/publications/henley-private-wealth-migration-report-2026" rel="noopener" target="_blank">2026</a> (Global Wealth Mobility Framework scores)</li><li>Globe relief from NASA Blue Marble, public domain, coastlines from Natural Earth</li><li>Footage and stills via <a href="https://www.pexels.com/license/" rel="noopener" target="_blank">Pexels</a> and <a href="https://unsplash.com/license" rel="noopener" target="_blank">Unsplash</a></li></ul></div>
@@ -473,7 +473,7 @@ footer{padding:64px clamp(20px,6vw,96px) 32px;border-top:1px solid var(--line);b
 </div>
 <div class="cookie" id="cookie" role="dialog" aria-label="Cookie notice"><p>This site sets no advertising trackers. Accept lets Google Analytics count visits, Essentials only keeps it off. One preference is stored on your device to remember this choice, and media loads from Pexels and fonts from Google, who see your IP address. <a href="legal.html#cookies">Details</a>.</p><div class="acts"><button id="ckEss">Essentials only</button><button class="ok" id="ckOk">Accept</button></div></div>
 <script src="land.js?v=1"></script>
-<script src="patrician.js?v=30"></script>
+<script src="patrician.js?v=31"></script>
 <script>
 const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)];
 
