@@ -19,7 +19,6 @@
   <url><loc>https://patrician.ch/cities/can/</loc><lastmod>2026-09-10</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
   <url><loc>https://patrician.ch/cities/stp/</loc><lastmod>2026-09-10</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
   <url><loc>https://patrician.ch/cities/nce/</loc><lastmod>2026-09-10</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
-  <url><loc>https://patrician.ch/cities/atb/</loc><lastmod>2026-09-10</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
   <url><loc>https://patrician.ch/cities/par/</loc><lastmod>2026-09-10</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
   <url><loc>https://patrician.ch/cities/prv/</loc><lastmod>2026-09-10</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
   <url><loc>https://patrician.ch/cities/cou/</loc><lastmod>2026-09-10</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
@@ -33,6 +32,7 @@
   <url><loc>https://patrician.ch/cities/cpr/</loc><lastmod>2026-09-10</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
   <url><loc>https://patrician.ch/cities/cor/</loc><lastmod>2026-09-10</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
   <url><loc>https://patrician.ch/cities/pos/</loc><lastmod>2026-09-10</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://patrician.ch/cities/hvr/</loc><lastmod>2026-09-10</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
   <url><loc>https://patrician.ch/cities/muc/</loc><lastmod>2026-09-10</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
   <url><loc>https://patrician.ch/cities/vie/</loc><lastmod>2026-09-10</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
   <url><loc>https://patrician.ch/cities/prg/</loc><lastmod>2026-09-10</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
@@ -53,7 +53,6 @@
   <url><loc>https://patrician.ch/cities/myk/</loc><lastmod>2026-09-10</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
   <url><loc>https://patrician.ch/cities/lim/</loc><lastmod>2026-09-10</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
   <url><loc>https://patrician.ch/cities/mla/</loc><lastmod>2026-09-10</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
-  <url><loc>https://patrician.ch/cities/osl/</loc><lastmod>2026-09-10</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
   <url><loc>https://patrician.ch/cities/dxb/</loc><lastmod>2026-09-10</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
   <url><loc>https://patrician.ch/cities/auh/</loc><lastmod>2026-09-10</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
   <url><loc>https://patrician.ch/cities/tlv/</loc><lastmod>2026-09-10</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
@@ -61,8 +60,6 @@
   <url><loc>https://patrician.ch/cities/hkg/</loc><lastmod>2026-09-10</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
   <url><loc>https://patrician.ch/cities/tyo/</loc><lastmod>2026-09-10</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
   <url><loc>https://patrician.ch/cities/nsk/</loc><lastmod>2026-09-10</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
-  <url><loc>https://patrician.ch/cities/sel/</loc><lastmod>2026-09-10</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
-  <url><loc>https://patrician.ch/cities/tpe/</loc><lastmod>2026-09-10</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
   <url><loc>https://patrician.ch/cities/phk/</loc><lastmod>2026-09-10</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
   <url><loc>https://patrician.ch/cities/bkk/</loc><lastmod>2026-09-10</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
   <url><loc>https://patrician.ch/cities/bal/</loc><lastmod>2026-09-10</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
@@ -79,10 +76,12 @@
   <url><loc>https://patrician.ch/cities/ftl/</loc><lastmod>2026-09-10</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
   <url><loc>https://patrician.ch/cities/aus/</loc><lastmod>2026-09-10</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
   <url><loc>https://patrician.ch/cities/dal/</loc><lastmod>2026-09-10</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://patrician.ch/cities/bna/</loc><lastmod>2026-09-10</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
   <url><loc>https://patrician.ch/cities/lax/</loc><lastmod>2026-09-10</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
   <url><loc>https://patrician.ch/cities/sfo/</loc><lastmod>2026-09-10</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
   <url><loc>https://patrician.ch/cities/npb/</loc><lastmod>2026-09-10</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
   <url><loc>https://patrician.ch/cities/lvs/</loc><lastmod>2026-09-10</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://patrician.ch/cities/scd/</loc><lastmod>2026-09-10</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
   <url><loc>https://patrician.ch/cities/asp/</loc><lastmod>2026-09-10</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
   <url><loc>https://patrician.ch/cities/jac/</loc><lastmod>2026-09-10</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
   <url><loc>https://patrician.ch/cities/sdg/</loc><lastmod>2026-09-10</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
@@ -99,6 +98,7 @@
   <url><loc>https://patrician.ch/cities/gcm/</loc><lastmod>2026-09-10</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
   <url><loc>https://patrician.ch/cities/bda/</loc><lastmod>2026-09-10</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
   <url><loc>https://patrician.ch/cities/nas/</loc><lastmod>2026-09-10</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://patrician.ch/cities/cdc/</loc><lastmod>2026-09-10</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
   <url><loc>https://patrician.ch/cities/sbh/</loc><lastmod>2026-09-10</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
   <url><loc>https://patrician.ch/cities/brb/</loc><lastmod>2026-09-10</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
   <url><loc>https://patrician.ch/cities/tci/</loc><lastmod>2026-09-10</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
@@ -170,7 +170,7 @@
   <url><loc>https://patrician.ch/compare/bcn-vs-pmi/</loc><lastmod>2026-09-10</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
   <url><loc>https://patrician.ch/compare/bcn-vs-ibz/</loc><lastmod>2026-09-10</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
   <url><loc>https://patrician.ch/compare/ath-vs-myk/</loc><lastmod>2026-09-10</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
-  <url><loc>https://patrician.ch/compare/ath-vs-pos/</loc><lastmod>2026-09-10</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://patrician.ch/compare/ath-vs-hvr/</loc><lastmod>2026-09-10</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
   <url><loc>https://patrician.ch/compare/nas-vs-tci/</loc><lastmod>2026-09-10</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
   <url><loc>https://patrician.ch/compare/mco-vs-nas/</loc><lastmod>2026-09-10</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
   <url><loc>https://patrician.ch/compare/gcm-vs-tci/</loc><lastmod>2026-09-10</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
@@ -179,7 +179,7 @@
   <url><loc>https://patrician.ch/compare/myk-vs-tlv/</loc><lastmod>2026-09-10</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
   <url><loc>https://patrician.ch/compare/cpf-vs-tlv/</loc><lastmod>2026-09-10</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
   <url><loc>https://patrician.ch/compare/aus-vs-dal/</loc><lastmod>2026-09-10</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
-  <url><loc>https://patrician.ch/compare/asp-vs-aus/</loc><lastmod>2026-09-10</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://patrician.ch/compare/aus-vs-bna/</loc><lastmod>2026-09-10</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
   <url><loc>https://patrician.ch/compare/aus-vs-pbi/</loc><lastmod>2026-09-10</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
   <url><loc>https://patrician.ch/compare/muc-vs-prg/</loc><lastmod>2026-09-10</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
   <url><loc>https://patrician.ch/compare/prg-vs-sin/</loc><lastmod>2026-09-10</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
@@ -188,7 +188,7 @@
   <url><loc>https://patrician.ch/compare/and-vs-bda/</loc><lastmod>2026-09-10</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
   <url><loc>https://patrician.ch/compare/qtn-vs-syd/</loc><lastmod>2026-09-10</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
   <url><loc>https://patrician.ch/compare/bob-vs-qtn/</loc><lastmod>2026-09-10</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
-  <url><loc>https://patrician.ch/compare/qtn-vs-tpe/</loc><lastmod>2026-09-10</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://patrician.ch/compare/asp-vs-qtn/</loc><lastmod>2026-09-10</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
   <url><loc>https://patrician.ch/compare/bal-vs-syd/</loc><lastmod>2026-09-10</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
   <url><loc>https://patrician.ch/compare/mil-vs-syd/</loc><lastmod>2026-09-10</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
   <url><loc>https://patrician.ch/compare/ibz-vs-pmi/</loc><lastmod>2026-09-10</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
