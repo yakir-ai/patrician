@@ -262,7 +262,7 @@ footer{padding:64px clamp(20px,6vw,96px) 32px;border-top:1px solid var(--line);b
   <button class="snd" id="snd" type="button" aria-pressed="false" aria-label="Sound off" title="Sound"><span class="snd-bars"><i></i><i></i><i></i><i></i></span><span class="snd-t">Sound</span></button>
   <a href="#report" class="nav-cta">Private Dossier</a>
 </nav>
-<audio id="score" preload="none" loop playsinline><source src="/audio/intermezzo.m4a" type="audio/mp4"><source src="/audio/intermezzo.mp3" type="audio/mpeg"></audio>
+<audio id="score" preload="none" playsinline><source src="/audio/intermezzo.m4a" type="audio/mp4"><source src="/audio/intermezzo.mp3" type="audio/mpeg"></audio>
 <section class="hero" id="top">
   <div class="hero-media">
     <img src="https://images.pexels.com/videos/15493905/mountain-rigi-rigi-kulm-swiss-15493905.jpeg?auto=compress&cs=tinysrgb&w=2000" alt="">
@@ -571,11 +571,12 @@ function renderPaper(rows){const top=rows.slice(0,3);if(!top.length)return;const
   $('#ppRows').innerHTML=`<div class="hd"><i></i><span>Candidate</span><small>Effective</small><small>Kept over 10 years</small></div>`+top.map((r,i)=>`<div><i>${['I','II','III'][i]}</i><b>${r.j.city}</b><small>${Math.round(r.eff*100)}%</small><small>${fmt(r.kept10)}</small></div>`).join('')}
 $('#lead input[name=name]').addEventListener('input',()=>renderPaper(last));
 
-(()=>{const a=$('#score'),b=$('#snd');if(!a||!b)return;const KEY='pat_sound';const VOL=.22;let on=false,fade=null;
-  function ramp(to,ms,done){clearInterval(fade);const from=a.volume,t0=performance.now();fade=setInterval(()=>{const k=Math.min(1,(performance.now()-t0)/ms);a.volume=from+(to-from)*k;if(k>=1){clearInterval(fade);done&&done()}},40)}
-  function start(){a.volume=0;const p=a.play();if(p&&p.catch)p.catch(()=>{});on=true;b.setAttribute('aria-pressed','true');b.setAttribute('aria-label','Sound on');ramp(VOL,3000);try{localStorage.setItem(KEY,'1')}catch(e){}track('sound_on',{})}
-  function stop(){on=false;b.setAttribute('aria-pressed','false');b.setAttribute('aria-label','Sound off');ramp(0,900,()=>a.pause());try{localStorage.setItem(KEY,'0')}catch(e){}track('sound_off',{})}
+(()=>{const a=$('#score'),b=$('#snd');if(!a||!b)return;const KEY='pat_sound';const VOL=.22;let on=false;
+  a.loop=false;a.volume=VOL;
+  function start(){a.volume=VOL;const p=a.play();if(p&&p.catch)p.catch(()=>{});on=true;b.setAttribute('aria-pressed','true');b.setAttribute('aria-label','Sound on');try{localStorage.setItem(KEY,'1')}catch(e){}track('sound_on',{})}
+  function stop(){on=false;a.pause();b.setAttribute('aria-pressed','false');b.setAttribute('aria-label','Sound off');try{localStorage.setItem(KEY,'0')}catch(e){}track('sound_off',{})}
   b.addEventListener('click',()=>on?stop():start());
+  a.addEventListener('ended',()=>{on=false;a.pause();a.currentTime=0;b.setAttribute('aria-pressed','false');b.setAttribute('aria-label','Sound off');try{localStorage.setItem(KEY,'0')}catch(e){}track('sound_end',{})});
   let want=false;try{want=localStorage.getItem(KEY)==='1'}catch(e){}
   if(want){const once=()=>{if(!on)start();['pointerdown','keydown','touchstart'].forEach(ev=>document.removeEventListener(ev,once))};['pointerdown','keydown','touchstart'].forEach(ev=>document.addEventListener(ev,once,{passive:true}))}
   document.addEventListener('visibilitychange',()=>{if(!on)return;if(document.hidden)a.pause();else{const p=a.play();if(p&&p.catch)p.catch(()=>{})}});
