@@ -5,10 +5,10 @@ import { join } from 'node:path';
 
 const ROOT = new URL('..', import.meta.url).pathname;
 const src = readFileSync(join(ROOT, 'patrician.js'), 'utf8');
-const E = new Function(src + ';return {J,HOMES,computeRows,fmt,STR,DOORS,FLOW,FLOWNOTE,signed,MOB,ARCH,taxUSD,cgUSD,hav,flyH,CLIMATE,CLIM,STREET}')();
-const { J, HOMES, STR, DOORS, FLOW, FLOWNOTE, signed, MOB, taxUSD, cgUSD, hav, flyH, CLIMATE, CLIM, STREET } = E;
+const E = new Function(src + ';return {J,HOMES,computeRows,fmt,STR,DOORS,FLOW,FLOWNOTE,signed,MOB,ARCH,taxUSD,cgUSD,hav,flyH,CLIMATE,CLIM,STREET,EXIT,WT,PASS:PASSALL}')();
+const { J, HOMES, STR, DOORS, FLOW, FLOWNOTE, signed, MOB, taxUSD, cgUSD, hav, flyH, CLIMATE, CLIM, STREET, EXIT, WT, PASS } = E;
 const SITE = 'https://patrician.ch';
-const NOW = '2026-09-10';
+const NOW = '2026-09-12';
 
 const MOVED = { pt: ['May 2026', 'citizenship moved from 5 to 10 years of residence'], se: ['June 2026', 'citizenship moved from 5 to 8 years, with language and civics tests'], de: ['2025', 'the 3 year fast track to citizenship was abolished'], es: ['April 2025', 'the golden visa closed'], mt: ['April 2025', 'investor citizenship was struck down by the EU Court of Justice'], gb: ['April 2025', 'the non-dom regime was replaced by a 4 year window'], it: ['2024', 'the flat tax on foreign income doubled to €200K a year'], nl: ['2024', 'the investor visa closed'], au: ['2024', 'the Significant Investor visa closed'], ie: ['2023', 'the investor programme closed'], gr: ['2024', 'the golden visa floor rose to €800K in the areas people actually want'], vu: ['2024', 'EU visa-free access was revoked'] };
 const BASES = [['New York', 40.71, -74], ['London', 51.51, -.13], ['Zurich', 47.37, 8.54], ['Dubai', 25.2, 55.27], ['Singapore', 1.35, 103.82], ['Tel Aviv', 32.08, 34.78]];
@@ -71,7 +71,7 @@ ${ld ? `<script type="application/ld+json">${JSON.stringify(ld)}</script>` : ''}
 </head><body>
 <nav><div class="wrap"><a class="brand" href="/">PATRICIAN <small>.CH</small></a><a class="btn" href="/#report">Private Dossier</a></div></nav>`;
 
-const foot = () => `<footer><div class="wrap"><span>© 2026 Patrician · <a href="/legal.html">Terms, privacy, disclaimer</a></span><span><a href="/cities/">All 100 addresses</a> · <a href="/compare/">Head to head</a> · <a href="/">The engine</a></span></div></footer>
+const foot = () => `<footer><div class="wrap"><span>© 2026 Patrician · <a href="/legal.html">Terms, privacy, disclaimer</a></span><span><a href="/cities/">All 100 addresses</a> · <a href="/compare/">Head to head</a> · <a href="/guides/">Guides</a> · <a href="/passports/">Passports</a> · <a href="/">The engine</a></span></div></footer>
 <p class="fine wrap" style="padding-bottom:40px">Tax figures use a simplified marginal model with indicative 2026 brackets for a non-US single filer, ignore social contributions, most deductions, wealth taxes, and treaties, and are not advice. Residence rules change often. Verify before acting.</p>
 </body></html>`;
 
@@ -177,12 +177,99 @@ const add = (a, b) => { if (!a || !b || a === b) return; const k = [a.id, b.id].
 [['zrh', 'dxb'], ['zrh', 'sin'], ['zug', 'zrh'], ['zug', 'gva'], ['mco', 'dxb'], ['mco', 'sin'], ['dxb', 'sin'], ['dxb', 'auh'], ['lis', 'mil'], ['lis', 'mad'], ['lis', 'bcn'], ['mil', 'zrh'], ['lon', 'dxb'], ['lon', 'zrh'], ['lon', 'lis'], ['mia', 'dxb'], ['mia', 'nas'], ['hkg', 'sin'], ['lux', 'zrh'], ['vie', 'zrh'], ['vie', 'prg'], ['ath', 'lis'], ['nas', 'gcm'], ['tlv', 'dxb'], ['tlv', 'lis'], ['and', 'mco'], ['syd', 'sin'], ['tor', 'mia'], ['pmi', 'lis'], ['aus', 'mia'], ['sdg', 'sfo'], ['sdg', 'mia']].forEach(([a, b]) => add(J.find(j => j.id === a), J.find(j => j.id === b)));
 picks.forEach(p => { nearest(p, 2).forEach(q => add(p, q)); const e = taxLine(p, 1000000).eff; J.filter(q => q.id !== p.id).map(q => ({ q, d: Math.abs(taxLine(q, 1000000).eff - e) })).sort((a, b) => a.d - b.d).slice(0, 1).forEach(o => add(p, o.q)); });
 
+
+/* ---------- guides: exit tax, wealth tax, passports (all figures computed from the data on the board) ---------- */
+const crumbs = items => ({ '@context': 'https://schema.org', '@type': 'BreadcrumbList', itemListElement: items.map(([name, url], i) => ({ '@type': 'ListItem', position: i + 1, name, item: SITE + url })) });
+const faq = qa => ({ '@context': 'https://schema.org', '@type': 'FAQPage', mainEntity: qa.map(([q, a]) => ({ '@type': 'Question', name: q, acceptedAnswer: { '@type': 'Answer', text: a } })) });
+const slug = t => t.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+const noCg = J.filter(j => !j.cg).sort((a, b) => a.city.localeCompare(b.city));
+const homeIdx = name => HOMES.findIndex(h => h[0] === name);
+const facts = pairs => `<div class="grid">${pairs.map(([l, v, n]) => `<div class="fact"><small>${esc(l)}</small><b>${v}</b>${n ? `<span>${esc(n)}</span>` : ''}</div>`).join('')}</div>`;
+
+function exitPage(name) {
+  const e = EXIT[name]; const path = `/exit-tax/${slug(name)}/`;
+  const gains = [1e6, 5e6, 2e7];
+  const title = e.rate ? `Leaving ${name}: the exit tax on your gains, and how to defer it` : `Leaving ${name}: no exit tax, and what still applies`;
+  const desc = e.t.slice(0, 155).replace(/\s\S*$/, '');
+  const qa = [[`Is there an exit tax when you leave ${name}?`, e.t], [`Can the ${name} exit charge be deferred?`, e.defer], ['Where does a gain after the move go untaxed?', `${noCg.length} of the 100 addresses on the board levy no personal capital gains tax on listed securities, among them ${noCg.slice(0, 6).map(j => j.city).join(', ')}.`]];
+  const html = head({ title, desc, path, image: SITE + '/globe-tex.jpg', ld: [crumbs([['Guides', '/guides/'], ['Exit tax', '/guides/#exit'], [name, path]]), faq(qa)] }) + `
+<header class="hero" style="min-height:44vh"><div class="wrap"><div class="eyebrow">Exit tax · ${esc(name)}</div><h1>Leaving <em>${esc(name)}</em>.</h1><p class="lede">${esc(e.t)}</p></div></header>
+<section><div class="wrap">${facts([['Rate on unrealized gains', e.rate ? pct(e.rate) : 'None', e.rate ? 'on the gain accrued to the day you leave' : 'no deemed disposal on departure'], ['Deferral', e.defer.length > 40 ? 'See below' : esc(e.defer)], ['Addresses with no capital gains tax', String(noCg.length), 'of the 100 on the board'], ['Trigger', 'Loss of tax residence', 'the date is tested, keep the evidence']])}
+<h2 style="margin-top:44px">What the charge looks like on <em>your</em> number.</h2>
+${e.rate ? `<table><tr><th>Gain accrued at departure</th><th>Exit charge at ${pct(e.rate)}</th><th>Kept</th></tr>${gains.map(g => `<tr><td>${money(g)}</td><td><b>${money(g * e.rate)}</b></td><td>${money(g * (1 - e.rate))}</td></tr>`).join('')}</table><p style="margin-top:14px;font-size:13px;color:var(--mute)">Flat application of the headline rate to the gain. Exemptions, thresholds, and the timing of the sale change the figure, which is what the Dossier models on your profile.</p>` : `<p>${esc(name)} charges nothing on departure. The question is where the sale lands afterward: a move to one of the ${noCg.length} no capital gains addresses on the board makes a later sale untaxed, a move to a high tax address taxes it in full.</p>`}
+<h2 style="margin-top:44px">Deferral.</h2><p>${esc(e.defer)}</p>
+<h2 style="margin-top:44px">Where a later sale goes untaxed.</h2><div class="cards">${noCg.map(j => `<a class="card" href="/cities/${j.id}/"><b>${j.flag} ${esc(j.city)}</b><span>${esc(j.country)} · effective tax ${pct(taxLine(j, 1000000).eff)} on $1M</span></a>`).join('')}</div>
+<p style="margin-top:36px"><a class="btn solid" href="/?home=${homeIdx(name)}#engine">Run the engine from ${esc(name)} →</a></p>
+</div></section>` + foot();
+  return { path, html, title };
+}
+
+function wealthPage(j) {
+  const w = WT[j.id]; const path = `/wealth-tax/${j.id}/`; const bases = [5e6, 2e7, 5e7];
+  const title = `${j.city} wealth tax 2026: the rate, the base, and the 10 year cost`;
+  const desc = `${w[1].slice(0, 120)}. Annual and 10 year figures on a $5M, $20M, and $50M balance sheet.`;
+  const html = head({ title, desc, path, image: j.vid?.poster || SITE + '/globe-tex.jpg', ld: [crumbs([['Guides', '/guides/'], ['Wealth tax', '/guides/#wealth'], [j.city, path]]), faq([[`Does ${j.city} have a wealth tax?`, w[1]], [`What does the ${j.city} wealth tax cost over 10 years?`, `At the top rate of ${(w[0] * 100).toFixed(2)}%, a $20M balance sheet pays about ${money(2e7 * w[0])} a year and ${money(2e7 * w[0] * 10)} over 10 years, before the exemptions and caps that apply.`]])] }) + `
+<header class="hero" style="min-height:44vh"><img src="${j.vid?.poster || ''}" alt=""><div class="wrap"><div class="eyebrow">Wealth tax · ${esc(j.country)}</div><h1>${esc(j.city)} <em>wealth tax</em>.</h1><p class="lede">${esc(w[1])}.</p></div></header>
+<section><div class="wrap">${facts([['Top rate', (w[0] * 100).toFixed(2) + '%', 'of net assets, per year'], ['On $20M, per year', money(2e7 * w[0])], ['On $20M, 10 years', money(2e7 * w[0] * 10)], ['Effective income tax', pct(taxLine(j, 1000000).eff), 'on $1M of income']])}
+<h2 style="margin-top:44px">The 10 year cost on <em>your</em> balance sheet.</h2>
+<table><tr><th>Net assets</th><th>Per year</th><th>10 years</th></tr>${bases.map(b => `<tr><td>${money(b)}</td><td><b>${money(b * w[0])}</b></td><td>${money(b * w[0] * 10)}</td></tr>`).join('')}</table>
+<p style="margin-top:14px;font-size:13px;color:var(--mute)">Headline rate applied flat. Allowances, the treatment of the main residence, and any cap against income tax lower the real figure. The Dossier applies them to your profile.</p>
+<h2 style="margin-top:44px">${esc(j.city)} on the board.</h2><p>${esc(j.lede)}</p>
+<p style="margin-top:28px"><a class="btn" href="/cities/${j.id}/">The full ${esc(j.city)} page →</a> &nbsp; <a class="btn solid" href="/?pick=${j.id}#engine">Run the engine →</a></p>
+</div></section>` + foot();
+  return { path, html, title };
+}
+
+const PASSR = [...PASS].filter(p => p.mob).sort((a, b) => b.mob - a.mob);
+const passRank = p => PASSR.findIndex(x => x.k === p.k) + 1;
+function passportPage(p) {
+  const path = `/passports/${p.k}/`; const rank = passRank(p);
+  const title = `${p.n} passport 2026: mobility score, years to citizenship, dual nationality, investment route`;
+  const desc = `${p.n} ranks ${rank} of ${PASSR.length} on mobility with ${p.mob} destinations. ${p.yrs}. Dual nationality: ${p.dual}.`;
+  const cities = J.filter(j => j.cc === p.k);
+  const html = head({ title, desc, path, image: SITE + '/globe-tex.jpg', ld: [crumbs([['Passports', '/passports/'], [p.n, path]]), faq([[`How long does it take to get ${p.n} citizenship?`, p.yrs], [`Does ${p.n} allow dual nationality?`, p.dual], [`Is there a ${p.n} citizenship or residence by investment route?`, p.inv]])] }) + `
+<header class="hero" style="min-height:44vh"><div class="wrap"><div class="eyebrow">Passport · rank ${rank} of ${PASSR.length}</div><h1>${p.f || ''} <em>${esc(p.n)}</em>.</h1><p class="lede">${esc(p.note || p.yrs)}</p></div></header>
+<section><div class="wrap">${facts([['Mobility score', String(p.mob), 'destinations without a prior visa'], ['Rank on the board', `${rank} / ${PASSR.length}`], ['Dual nationality', esc(p.dual)], ['Taxes citizens abroad', esc(p.ctax)]])}
+<h2 style="margin-top:44px">Years to <em>citizenship</em>.</h2><p>${esc(p.yrs)}</p>
+<h2 style="margin-top:44px">Investment route.</h2><p>${esc(p.inv)}</p>
+${cities.length ? `<h2 style="margin-top:44px">Addresses on the board in ${esc(p.n)}.</h2><div class="cards">${cities.map(j => `<a class="card" href="/cities/${j.id}/"><b>${j.flag} ${esc(j.city)}</b><span>effective tax ${pct(taxLine(j, 1000000).eff)} on $1M · cost ${j.cost}</span></a>`).join('')}</div>` : ''}
+<h2 style="margin-top:44px">Around it in the ranking.</h2><table><tr><th>Rank</th><th>Passport</th><th>Mobility</th><th>Dual</th></tr>${PASSR.slice(Math.max(0, rank - 4), rank + 3).map(q => `<tr><td>${passRank(q)}</td><td><a href="/passports/${q.k}/">${q.f || ''} ${esc(q.n)}</a></td><td><b>${q.mob}</b></td><td>${esc(q.dual)}</td></tr>`).join('')}</table>
+<p style="margin-top:36px"><a class="btn" href="/passports/">The full ranking →</a> &nbsp; <a class="btn solid" href="/#engine">Run the engine on your passports →</a></p>
+</div></section>` + foot();
+  return { path, html, title };
+}
+
+function passportsHub() {
+  const path = '/passports/';
+  const title = `Passport ranking 2026, read for a relocation: ${PASSR.length} passports by mobility, years to citizenship, and dual nationality`;
+  const desc = 'Not a leaderboard. Each passport with what it costs to earn, whether you can keep your own, and which addresses on the board it opens.';
+  const html = head({ title, desc, path, image: SITE + '/globe-tex.jpg', ld: [crumbs([['Passports', path]]), { '@context': 'https://schema.org', '@type': 'ItemList', name: title, itemListElement: PASSR.map((p, i) => ({ '@type': 'ListItem', position: i + 1, name: p.n, url: SITE + `/passports/${p.k}/` })) }] }) + `
+<header class="hero" style="min-height:38vh"><div class="wrap"><div class="eyebrow">Passports</div><h1>The ranking, read for a <em>move</em>.</h1><p class="lede">${PASSR.length} passports. Mobility is the count of destinations without a prior visa. The columns that decide a relocation are the other 3: how many years it takes, whether you keep your own, and whether it follows you with tax.</p></div></header>
+<section><div class="wrap"><table><tr><th>Rank</th><th>Passport</th><th>Mobility</th><th>Dual</th><th>Taxes abroad</th></tr>${PASSR.map((p, i) => `<tr><td>${i + 1}</td><td><a href="/passports/${p.k}/">${p.f || ''} ${esc(p.n)}</a></td><td><b>${p.mob}</b></td><td>${esc(p.dual)}</td><td>${esc(p.ctax)}</td></tr>`).join('')}</table></div></section>` + foot();
+  return { path, html, title };
+}
+
+function guidesHub(exits, wealths) {
+  const path = '/guides/';
+  const title = 'Guides: exit taxes by home city, wealth taxes by address, and the passport ranking';
+  const desc = 'The rules that decide a relocation, one page each, computed from the same model as the engine.';
+  const html = head({ title, desc, path, image: SITE + '/globe-tex.jpg', ld: [crumbs([['Guides', path]])] }) + `
+<header class="hero" style="min-height:38vh"><div class="wrap"><div class="eyebrow">Guides</div><h1>The rules that decide the <em>move</em>.</h1><p class="lede">Three sets of pages. What you owe when you leave, what you owe every year once you arrive, and what your passport is worth on the way.</p></div></header>
+<section id="exit"><div class="wrap"><h2>Exit tax, by the city you <em>leave</em>.</h2><div class="cards">${exits.map(pg => `<a class="card" href="${pg.path}"><b>${esc(pg.name)}</b><span>${EXIT[pg.name].rate ? pct(EXIT[pg.name].rate) + ' on unrealized gains' : 'no exit tax'}</span></a>`).join('')}</div></div></section>
+<section id="wealth" class="alt"><div class="wrap"><h2>Wealth tax, by <em>address</em>.</h2><div class="cards">${wealths.map(pg => `<a class="card" href="${pg.path}"><b>${pg.j.flag} ${esc(pg.j.city)}</b><span>top rate ${(WT[pg.j.id][0] * 100).toFixed(2)}%</span></a>`).join('')}</div></div></section>
+<section><div class="wrap"><h2>Passports, ranked for a <em>relocation</em>.</h2><p class="lede">${PASSR.length} passports by mobility, years to citizenship, dual nationality, and whether the tax follows you.</p><p style="margin-top:22px"><a class="btn solid" href="/passports/">The full ranking →</a></p></div></section>` + foot();
+  return { path, html, title };
+}
+
 /* ---------- write ---------- */
 const out = [];
 const write = pg => { const dir = join(ROOT, pg.path); mkdirSync(dir, { recursive: true }); writeFileSync(join(dir, 'index.html'), pg.html); out.push(pg.path); };
 J.forEach(j => write(cityPage(j)));
 pairs.forEach(([a, b]) => write(comparePage(a, b)));
 write(citiesHub()); write(compareHub(pairs));
+const exits = Object.keys(EXIT).map(n => ({ ...exitPage(n), name: n })); exits.forEach(write);
+const wealths = J.filter(j => WT[j.id]).map(j => ({ ...wealthPage(j), j })); wealths.forEach(write);
+PASSR.forEach(p => write(passportPage(p))); write(passportsHub()); write(guidesHub(exits, wealths));
 const urls = ['/', '/dossier.html?sample=1', ...out];
 writeFileSync(join(ROOT, 'sitemap.xml'), `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${urls.map(u => `  <url><loc>${SITE}${u.replace('&', '&amp;')}</loc><lastmod>${NOW}</lastmod><changefreq>${u === '/' ? 'weekly' : 'monthly'}</changefreq><priority>${u === '/' ? '1.0' : u.startsWith('/cities/') && u.length > 9 ? '0.8' : '0.6'}</priority></url>`).join('\n')}\n</urlset>\n`);
-console.log(`wrote ${J.length} city pages, ${pairs.length} comparisons, 2 hubs, sitemap with ${urls.length} urls`);
+console.log(`wrote ${J.length} city pages, ${pairs.length} comparisons, ${exits.length} exit tax, ${wealths.length} wealth tax, ${PASSR.length} passports, 4 hubs, sitemap with ${urls.length} urls`);
