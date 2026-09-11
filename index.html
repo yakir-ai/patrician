@@ -687,7 +687,7 @@ $$('#pp button').forEach(b=>b.addEventListener('click',()=>{b.classList.toggle('
 $$('#hh button').forEach(b=>b.addEventListener('click',()=>{$$('#hh button').forEach(x=>x.classList.remove('on'));b.classList.add('on');S.hh=b.dataset.v;render()}));
 $('#home').addEventListener('change',e=>{S.home=+e.target.value;render()});
 $$('.w').forEach(r=>r.addEventListener('input',e=>{S.w[e.target.dataset.k]=+e.target.value;$('#w_'+e.target.dataset.k).textContent=e.target.value;render()}));
-const API='';/* Supabase functions base, https://<ref>.supabase.co/functions/v1. Empty falls back to email. */
+const API='https://sexxnfpnrkyuiartjpya.supabase.co/functions/v1';/* Supabase functions base, https://<ref>.supabase.co/functions/v1. Empty falls back to email. */
 const PAY_LINK='';/* a hosted checkout link for the $149 Dossier, shown after a request lands while API is empty */
 const FORM_FALLBACK='';/* Formspree form endpoint, https://formspree.io/f/xxxxxxxx. Used for every form until API is set. */
 const FORM_ENDPOINT=API?API+'/intake':FORM_FALLBACK,LETTER_ENDPOINT=API?API+'/letter':FORM_FALLBACK;if(!API){const ph=document.getElementById('payHow');if(ph)ph.textContent='The payment link comes by email, you pay, the clock starts.'}
