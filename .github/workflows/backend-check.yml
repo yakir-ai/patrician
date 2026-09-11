@@ -1,29 +1,16 @@
 name: backend-check
 on:
   workflow_dispatch:
-  push:
-    paths: ['.github/workflows/backend-check.yml']
-permissions:
-  contents: write
 jobs:
   probe:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
       - name: Probe the live desk functions
         run: |
           B=https://sexxnfpnrkyuiartjpya.supabase.co/functions/v1
-          {
-            echo "checked: $(date -u +%FT%TZ)"
-            echo "intake OPTIONS (expect 200, CORS for patrician.ch): $(curl -s -o /dev/null -w '%{http_code}' -X OPTIONS -H 'Origin: https://patrician.ch' $B/intake)"
-            echo "intake POST empty (expect 400 name/email/desk required): $(curl -s -X POST -H 'content-type: application/json' -d '{}' $B/intake)"
-            echo "letter GET bad token (expect 302 to site): $(curl -s -o /dev/null -w '%{http_code} -> %{redirect_url}' "$B/letter?t=00000000000000000000000000000000&a=confirm")"
-            echo "generate without key (expect 403): $(curl -s -o /dev/null -w '%{http_code}' -X POST -H 'content-type: application/json' -d '{"order_id":"x"}' $B/generate)"
-            echo "release without key (expect 403): $(curl -s -o /dev/null -w '%{http_code}' -X POST -H 'content-type: application/json' -d '{"order_id":"x"}' $B/release)"
-            echo "stripe-webhook no signature (expect 400 bad signature): $(curl -s -o /dev/null -w '%{http_code}' -X POST -d '{}' $B/stripe-webhook)"
-          } > tools/backend-check.txt
-          cat tools/backend-check.txt
-      - name: Commit the result
-        run: |
-          git config user.name backend-check && git config user.email bot@patrician.ch
-          git add tools/backend-check.txt && git commit -m "backend-check: live probe result" && git push
+          echo "intake OPTIONS (expect 200): $(curl -s -o /dev/null -w '%{http_code}' -X OPTIONS -H 'Origin: https://patrician.ch' $B/intake)"
+          echo "intake POST empty (expect 400): $(curl -s -X POST -H 'content-type: application/json' -d '{}' $B/intake)"
+          echo "letter GET bad token (expect 302): $(curl -s -o /dev/null -w '%{http_code}' "$B/letter?t=00000000000000000000000000000000&a=confirm")"
+          echo "generate without key (expect 403): $(curl -s -o /dev/null -w '%{http_code}' -X POST -H 'content-type: application/json' -d '{"order_id":"x"}' $B/generate)"
+          echo "release without key (expect 403): $(curl -s -o /dev/null -w '%{http_code}' -X POST -H 'content-type: application/json' -d '{"order_id":"x"}' $B/release)"
+          echo "stripe-webhook (expect 503 until keys exist, then 400): $(curl -s -o /dev/null -w '%{http_code}' -X POST -d '{}' $B/stripe-webhook)"
