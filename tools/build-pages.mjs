@@ -168,7 +168,9 @@ function compareHub(pairs) {
 }
 
 /* ---------- pairs worth a page ---------- */
-const want = ['zrh', 'zug', 'gva', 'dxb', 'auh', 'sin', 'mco', 'lis', 'mil', 'lon', 'mia', 'hkg', 'lux', 'ams', 'vie', 'mad', 'bcn', 'ath', 'nas', 'gcm', 'lcy', 'tlv', 'aus', 'val', 'prg', 'and', 'qtn', 'syd', 'tor', 'pmi', 'sdg'];
+const want = ['zrh', 'zug', 'gva', 'dxb', 'auh', 'sin', 'mco', 'lis', 'mil', 'lon', 'mia', 'hkg', 'lux', 'vie', 'mad', 'bcn', 'ath', 'nas', 'gcm', 'tlv', 'aus', 'prg', 'and', 'qtn', 'syd', 'pmi', 'sdg'];
+const stale = want.filter(id => !J.find(j => j.id === id));
+if (stale.length) console.warn('WARN: curated pair ids with no card, drop them from `want`: ' + stale.join(', '));
 const picks = want.map(id => J.find(j => j.id === id)).filter(Boolean);
 const pairs = [];
 const seen = new Set();
@@ -265,6 +267,8 @@ function guidesHub(exits, wealths) {
 const out = [];
 const write = pg => { const dir = join(ROOT, pg.path); mkdirSync(dir, { recursive: true }); writeFileSync(join(dir, 'index.html'), pg.html); out.push(pg.path); };
 J.forEach(j => write(cityPage(j)));
+// every pair a city page links to must exist, or those links 404
+J.forEach(j => nearest(j, 6).slice(0, 3).forEach(x => add(j, x)));
 pairs.forEach(([a, b]) => write(comparePage(a, b)));
 write(citiesHub()); write(compareHub(pairs));
 const exits = Object.keys(EXIT).map(n => ({ ...exitPage(n), name: n })); exits.forEach(write);
