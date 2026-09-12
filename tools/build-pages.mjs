@@ -113,7 +113,7 @@ ${regime ? `<p style="margin-top:18px"><b style="color:var(--ivory);font-weight:
 <section class="alt"><div class="wrap"><div class="eyebrow">Within reach</div><h2>Near ${esc(j.city)} on the <em>board</em>.</h2><div class="cards">${near.map(x => `<a class="card" href="/cities/${x.id}/"><b>${esc(x.city)}</b><span>${x.flag} ${esc(x.country)} · tax at $1M ${pct(taxLine(x, 1000000).eff)} · cost ${x.cost}</span></a>`).join('')}</div>
 <div class="cards" style="margin-top:12px">${near.slice(0, 3).map(x => `<a class="card" href="/compare/${[j.id, x.id].sort().join('-vs-')}/"><b>${esc(j.city)} vs ${esc(x.city)}</b><span>Head to head</span></a>`).join('')}</div></div></section>
 <section><div class="wrap"><div class="eyebrow">Questions</div>${faq.map(([q, a]) => `<details><summary>${esc(q)}</summary><p>${esc(a)}</p></details>`).join('')}
-<div class="cta" style="margin-top:40px"><div><b>The Dossier on ${esc(j.city)}, on your numbers.</b><span>Your top 3 modeled and compared on your income, exit, passports, and family. 10 chapters, about 40 pages, as a PDF within 24 hours. $149, refunded within 7 days if it does not change how you think.</span></div><a class="btn solid" href="/?pick=${j.id}#report">Get the Dossier</a></div></div></section>` + foot();
+<div class="cta" style="margin-top:40px"><div><b>The Dossier on ${esc(j.city)}, on your numbers.</b><span>Your top 3 modeled and compared on your income, exit, passports, and family. 10 chapters, about 40 pages, as a PDF within 24 hours. $249, refunded within 7 days if it does not change how you think.</span></div><a class="btn solid" href="/?pick=${j.id}#report">Get the Dossier</a></div></div></section>` + foot();
   return { path, html, title };
 }
 
@@ -141,7 +141,7 @@ function comparePage(a, b) {
 <p class="fine" style="margin-top:16px">Simplified marginal model, indicative 2026 brackets, non-US single filer, no social contributions, deductions, wealth taxes, or treaties.</p></div></section>
 <section class="alt"><div class="wrap"><div class="eyebrow">Verdicts</div><h2>Who should pick <em>which</em>.</h2>${verdicts.map(v => `<h3 style="font-family:var(--serif);font-weight:400;font-size:24px;color:var(--ivory);margin-top:22px">${v[0]}</h3><p>${v[1]}</p>`).join('')}
 <div class="cards" style="margin-top:28px"><a class="card" href="/cities/${x.id}/"><b>${esc(x.city)}</b><span>The full page</span></a><a class="card" href="/cities/${y.id}/"><b>${esc(y.city)}</b><span>The full page</span></a><a class="card" href="/?pick=${x.id}#engine"><b>Rank both on my numbers</b><span>The engine, 90 seconds</span></a></div></div></section>
-<section><div class="wrap"><div class="cta"><div><b>The Dossier: ${esc(x.city)}, ${esc(y.city)}, and the third you have not considered.</b><span>Your top 3 modeled on your income, exit, passports, and family. 10 chapters, about 40 pages, as a PDF within 24 hours. $149, refunded within 7 days if it does not change how you think.</span></div><a class="btn solid" href="/#report">Get the Dossier</a></div></div></section>` + foot();
+<section><div class="wrap"><div class="cta"><div><b>The Dossier: ${esc(x.city)}, ${esc(y.city)}, and the third you have not considered.</b><span>Your top 3 modeled on your income, exit, passports, and family. 10 chapters, about 40 pages, as a PDF within 24 hours. $249, refunded within 7 days if it does not change how you think.</span></div><a class="btn solid" href="/#report">Get the Dossier</a></div></div></section>` + foot();
   return { path, html, title };
 }
 
