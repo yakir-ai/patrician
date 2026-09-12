@@ -71,7 +71,7 @@ ${ld ? `<script type="application/ld+json">${JSON.stringify(ld)}</script>` : ''}
 </head><body>
 <nav><div class="wrap"><a class="brand" href="/">PATRICIAN <small>.CH</small></a><a class="btn" href="/#report">Private Dossier</a></div></nav>`;
 
-const foot = () => `<footer><div class="wrap"><span>© 2026 Patrician · <a href="/legal.html">Terms, privacy, disclaimer</a></span><span><a href="/cities/">All 100 addresses</a> · <a href="/compare/">Head to head</a> · <a href="/guides/">Guides</a> · <a href="/passports/">Passports</a> · <a href="/">The engine</a></span></div></footer>
+const foot = () => `<footer><div class="wrap"><span>© 2026 Patrician · <a href="/legal.html">Terms, privacy, disclaimer</a></span><span><a href="/cities/">All ${J.length} addresses</a> · <a href="/compare/">Head to head</a> · <a href="/guides/">Guides</a> · <a href="/passports/">Passports</a> · <a href="/">The engine</a></span></div></footer>
 <p class="fine wrap" style="padding-bottom:40px">Tax figures use a simplified marginal model with indicative 2026 brackets for a non-US single filer, ignore social contributions, most deductions, wealth taxes, and treaties, and are not advice. Residence rules change often. Verify before acting.</p>
 </body></html>`;
 
@@ -148,7 +148,7 @@ function comparePage(a, b) {
 /* ---------- hubs ---------- */
 function citiesHub(pages) {
   const path = '/cities/';
-  const title = 'All 100 addresses: every serious city for a high earner, on one model';
+  const title = 'All ${J.length} addresses: every serious city for a high earner, on one model';
   const desc = 'Tax, residence route, cost, safety, schools, sun, and an ordinary day, for 100 cities on 5 continents. Modeled by Patrician.';
   const byCountry = {};
   J.forEach(j => { (byCountry[j.country] = byCountry[j.country] || []).push(j); });
@@ -191,7 +191,7 @@ function exitPage(name) {
   const gains = [1e6, 5e6, 2e7];
   const title = e.rate ? `Leaving ${name}: the exit tax on your gains, and how to defer it` : `Leaving ${name}: no exit tax, and what still applies`;
   const desc = e.t.slice(0, 155).replace(/\s\S*$/, '');
-  const qa = [[`Is there an exit tax when you leave ${name}?`, e.t], [`Can the ${name} exit charge be deferred?`, e.defer], ['Where does a gain after the move go untaxed?', `${noCg.length} of the 100 addresses on the board levy no personal capital gains tax on listed securities, among them ${noCg.slice(0, 6).map(j => j.city).join(', ')}.`]];
+  const qa = [[`Is there an exit tax when you leave ${name}?`, e.t], [`Can the ${name} exit charge be deferred?`, e.defer], ['Where does a gain after the move go untaxed?', `${noCg.length} of the ${J.length} addresses on the board levy no personal capital gains tax on listed securities, among them ${noCg.slice(0, 6).map(j => j.city).join(', ')}.`]];
   const html = head({ title, desc, path, image: SITE + '/globe-tex.jpg', ld: [crumbs([['Guides', '/guides/'], ['Exit tax', '/guides/#exit'], [name, path]]), faq(qa)] }) + `
 <header class="hero" style="min-height:44vh"><div class="wrap"><div class="eyebrow">Exit tax · ${esc(name)}</div><h1>Leaving <em>${esc(name)}</em>.</h1><p class="lede">${esc(e.t)}</p></div></header>
 <section><div class="wrap">${facts([['Rate on unrealized gains', e.rate ? pct(e.rate) : 'None', e.rate ? 'on the gain accrued to the day you leave' : 'no deemed disposal on departure'], ['Deferral', e.defer.length > 40 ? 'See below' : esc(e.defer)], ['Addresses with no capital gains tax', String(noCg.length), 'of the 100 on the board'], ['Trigger', 'Loss of tax residence', 'the date is tested, keep the evidence']])}
